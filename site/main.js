@@ -3,6 +3,18 @@
   const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
 
+  /* ---------- Mobile menu ---------- */
+  const menuBtn = $('.menu-btn');
+  const menu = $('#nav-menu');
+  function setMenu(open) {
+    menu.hidden = !open;
+    menuBtn.setAttribute('aria-expanded', String(open));
+    menuBtn.textContent = open ? 'Close' : 'Menu';
+  }
+  menuBtn.addEventListener('click', () => setMenu(menu.hidden));
+  $$('a', menu).forEach(a => a.addEventListener('click', () => setMenu(false)));
+  matchMedia('(min-width: 760px)').addEventListener('change', e => { if (e.matches) setMenu(false); });
+
   /* ---------- Contact form modal ---------- */
   // Every page gets the same modal; the case study overrides the heading via data attributes.
   const title = document.body.dataset.formTitle || 'Let’s talk';
@@ -45,7 +57,9 @@
   let lastFocus = null;
 
   function openForm() {
-    lastFocus = document.activeElement;
+    // The menu's own button disappears when the menu closes, so return focus to the menu toggle.
+    lastFocus = menu.contains(document.activeElement) ? menuBtn : document.activeElement;
+    setMenu(false);
     stepForm.hidden = false;
     stepSent.hidden = true;
     errorMsg.hidden = true;
@@ -107,6 +121,7 @@
 
   addEventListener('keydown', e => {
     if (e.key !== 'Escape') return;
+    if (!menu.hidden) setMenu(false);
     if (!formOverlay.hidden) closeForm();
     if (lightbox && !lightbox.hidden) { lightbox.hidden = true; if (lastFocus) lastFocus.focus(); }
   });

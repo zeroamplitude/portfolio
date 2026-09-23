@@ -71,6 +71,24 @@ button { font-family: inherit; }
 .nav-links { display: flex; flex-wrap: wrap; gap: clamp(14px, 2.4vw, 28px); font-size: 14px; }
 .nav-links a { color: var(--muted); }
 .nav-links a:hover, .nav-links a[aria-current="page"] { color: var(--fg); }
+.menu-btn {
+  display: none; font-family: inherit; font-size: 14px; font-weight: 500;
+  height: 44px; padding: 0 18px; border-radius: 999px;
+  border: 1px solid var(--edge); background: transparent; color: var(--fg); cursor: pointer;
+}
+.nav-menu {
+  display: none; padding: 8px 20px 24px; flex-direction: column;
+  border-top: 1px solid var(--line);
+}
+.nav-menu a {
+  font-size: 22px; letter-spacing: -0.02em; padding: 14px 0; border-bottom: 1px solid var(--line);
+}
+.nav-menu .btn { margin-top: 20px; height: 48px; font-size: 16px; justify-content: center; }
+@media (max-width: 759px) {
+  .nav-links, .nav-inner > [data-open-form] { display: none; }
+  .menu-btn { display: block; }
+  .nav-menu:not([hidden]) { display: flex; }
+}
 
 /* ---------- Buttons ---------- */
 .btn {
@@ -130,18 +148,18 @@ button { font-family: inherit; }
 }
 .location span { width: 6px; height: 6px; border-radius: 50%; background: var(--lime); }
 .hero h1 {
-  font-size: clamp(52px, 7.6vw, 104px); line-height: 0.98; letter-spacing: -0.045em; margin-top: 28px;
+  font-size: clamp(48px, 7.6vw, 104px); line-height: 0.98; letter-spacing: -0.045em; margin-top: 28px;
 }
 .hero h1 span { color: var(--dim); }
 .hero-titles {
-  font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); margin-top: 32px;
+  font-size: 13px; letter-spacing: 0.06em; line-height: 1.7; text-transform: uppercase; color: var(--muted); margin-top: 32px;
 }
 .hero-lede {
   font-size: clamp(20px, 2vw, 24px); line-height: 1.45; letter-spacing: -0.01em;
   max-width: 32ch; margin-top: 18px; color: var(--soft);
 }
 .hero .btn-row { margin-top: 36px; }
-.portrait { justify-self: end; width: 100%; max-width: 460px; position: relative; }
+.portrait { justify-self: center; width: 100%; max-width: 460px; position: relative; }
 .portrait::before {
   content: ""; position: absolute; inset: -1px; border-radius: 28px;
   background: linear-gradient(160deg, rgba(255, 255, 255, .18), rgba(255, 255, 255, 0) 40%);
@@ -155,16 +173,17 @@ button { font-family: inherit; }
 /* ---------- Stat grid ---------- */
 .stats {
   display: grid; gap: 1px;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(50% - 1px, 300px), 1fr));
   background: var(--line); border: 1px solid var(--line); border-radius: 20px; overflow: hidden;
 }
 .stats-3 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); }
-.stat { background: var(--bg); padding: 28px 28px 26px; }
+.stat { background: var(--bg); padding: clamp(18px, 4vw, 28px) clamp(16px, 4vw, 28px) clamp(18px, 4vw, 26px); min-width: 0; }
 .stats-hover .stat:hover { background: var(--panel-hover); }
 .stat-num {
-  font-weight: 500; font-size: clamp(40px, 4.4vw, 56px); line-height: 1; letter-spacing: -0.04em;
+  font-weight: 500; font-size: clamp(32px, 4.4vw, 56px); line-height: 1; letter-spacing: -0.04em;
   font-feature-settings: 'tnum' 1;
 }
+.stats-3 .stat-num { font-size: clamp(40px, 4.4vw, 56px); }
 .stat p { font-size: 14px; line-height: 1.5; color: var(--muted); margin-top: 14px; max-width: 30ch; }
 .stats-3 .stat { padding: 28px; }
 .stats-3 .stat p { font-size: 15px; max-width: none; }
@@ -174,11 +193,11 @@ button { font-family: inherit; }
   background: var(--panel); border: 1px solid var(--line); border-radius: 28px;
   padding: clamp(24px, 3.4vw, 44px);
   display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr));
-  gap: 40px clamp(28px, 4vw, 64px); align-items: center;
+  gap: clamp(28px, 5vw, 40px) clamp(28px, 4vw, 64px); align-items: center;
 }
 .card + .card { margin-top: 24px; }
 .card h3 { font-size: clamp(40px, 4.6vw, 60px); line-height: 1; letter-spacing: -0.04em; margin-top: 24px; }
-.card-lede { font-size: 20px; line-height: 1.45; margin-top: 16px; max-width: 30ch; color: var(--soft); }
+.card-lede { font-size: clamp(18px, 2vw, 20px); line-height: 1.45; margin-top: 16px; max-width: 30ch; color: var(--soft); }
 .card-body { font-size: 16px; line-height: 1.65; margin-top: 16px; max-width: 50ch; color: var(--muted); }
 .card .btn-row { margin-top: 28px; }
 
@@ -203,6 +222,7 @@ button { font-family: inherit; }
 .carousel-dots button[aria-current="true"] { width: 22px; background: var(--fg); }
 .carousel-caption { font-size: 13px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .carousel-nav { display: flex; gap: 6px; flex: none; }
+.carousel-nav .icon-btn { width: 44px; height: 44px; }
 
 /* ---------- Past work ---------- */
 .past-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 24px; }
@@ -227,6 +247,7 @@ button { font-family: inherit; }
   gap: 48px clamp(32px, 5vw, 80px); align-items: start;
 }
 .resume-aside { position: sticky; top: 96px; }
+@media (max-width: 759px) { .resume-aside { position: static; } }
 .resume-aside h3 { font-size: clamp(30px, 3.4vw, 44px); line-height: 1.08; letter-spacing: -0.035em; max-width: 14ch; }
 .resume-aside > p { font-size: 16px; line-height: 1.65; margin-top: 18px; max-width: 40ch; color: var(--muted); }
 .resume-aside .btn { margin-top: 28px; }
@@ -234,10 +255,11 @@ button { font-family: inherit; }
 .education div { font-size: 15px; line-height: 1.6; margin-top: 10px; color: var(--soft); }
 .education div span { color: var(--muted); }
 .role {
-  display: grid; grid-template-columns: minmax(0, 120px) minmax(0, 1fr);
+  display: flex; flex-wrap: wrap;
   gap: 4px 28px; padding: 28px 0; border-bottom: 1px solid var(--line);
 }
-.role > .mono { line-height: 28px; color: var(--dim); }
+.role > .mono { flex: 0 0 120px; line-height: 28px; color: var(--dim); }
+.role > div { flex: 1 1 280px; min-width: 0; }
 .role-title { font-weight: 500; font-size: 20px; line-height: 28px; letter-spacing: -0.02em; }
 .role-org { font-size: 15px; line-height: 24px; color: var(--lime); }
 .role p { font-size: 15px; line-height: 1.65; margin-top: 10px; max-width: 56ch; color: var(--muted); }
@@ -248,10 +270,11 @@ button { font-family: inherit; }
 .contact {
   scroll-margin-top: 80px; margin-bottom: 24px; border-radius: 32px; border: 1px solid var(--line-2);
   background: radial-gradient(120% 140% at 0% 0%, oklch(0.87 0.17 128 / .12), transparent 55%), var(--panel);
-  padding: clamp(40px, 7vw, 96px) clamp(24px, 5vw, 72px);
+  padding: clamp(36px, 7vw, 96px) clamp(22px, 5vw, 72px);
 }
 .contact h2 { font-size: clamp(40px, 6.4vw, 88px); line-height: 1; letter-spacing: -0.045em; max-width: 13ch; }
 .contact .btn-row { margin-top: 40px; }
+.contact .btn-outline { overflow-wrap: anywhere; }
 
 /* ---------- Footer ---------- */
 .footer {
