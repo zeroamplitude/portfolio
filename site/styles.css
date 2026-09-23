@@ -322,15 +322,27 @@ button { font-family: inherit; }
 .hp { display: none; }
 
 .lightbox {
-  background: rgba(6, 6, 7, .92); align-content: center;
+  background: rgba(6, 6, 7, .92); align-content: center; overflow: hidden;
   padding: clamp(16px, 4vw, 56px); cursor: zoom-out;
 }
+.lightbox-stage { width: 100%; min-width: 0; display: flex; justify-content: center; }
 .lightbox img {
   max-width: 100%; max-height: calc(100vh - 120px); object-fit: contain;
   border-radius: 12px; border: 1px solid rgba(255, 255, 255, .1);
   box-shadow: 0 40px 80px -20px rgba(0, 0, 0, .8);
 }
-.lightbox span { font-size: 14px; margin-top: 16px; color: var(--soft); }
+.lightbox span { font-size: 14px; margin-top: 16px; padding: 0 16px; text-align: center; color: var(--soft); }
+.lightbox-close {
+  position: absolute; top: max(16px, env(safe-area-inset-top)); right: 16px; z-index: 1;
+  width: 44px; height: 44px; background: rgba(18, 18, 20, .8);
+}
+/* Phones: wide screenshots are shown taller and scroll sideways inside the stage. */
+.lightbox.pan { padding: 76px 0 24px; }
+.lightbox.pan .lightbox-stage { justify-content: flex-start; overflow-x: auto; padding: 0 16px; -webkit-overflow-scrolling: touch; }
+.lightbox.pan img { flex: none; max-width: none; max-height: none; width: auto; height: min(62vh, 560px); }
+.lightbox.pan span::after { content: " · swipe to pan"; color: var(--dim); }
+.zoomable { cursor: zoom-in; }
+.zoomable:focus-visible { outline: 2px solid var(--lime); outline-offset: -2px; }
 
 /* ---------- Sub-page header ---------- */
 .page-head { padding: clamp(56px, 9vw, 112px) 0 clamp(56px, 7vw, 80px); }

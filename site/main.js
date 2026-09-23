@@ -96,34 +96,58 @@
       .finally(() => { submitBtn.disabled = false; submitBtn.textContent = 'Send message'; });
   });
 
-  /* ---------- Lightbox (gallery) ---------- */
-  let lightbox = null;
-  const thumbs = $$('[data-lightbox]');
-  if (thumbs.length) {
-    lightbox = document.createElement('div');
-    lightbox.className = 'overlay lightbox';
-    lightbox.hidden = true;
-    lightbox.setAttribute('role', 'dialog');
-    lightbox.setAttribute('aria-label', 'Screenshot');
-    lightbox.innerHTML = '<img alt=""><span></span>';
-    document.body.appendChild(lightbox);
-    const img = $('img', lightbox), cap = $('span', lightbox);
-    thumbs.forEach(t => t.addEventListener('click', () => {
-      const src = $('img', t);
-      lastFocus = t;
-      img.src = src.src;
-      img.alt = src.alt;
-      cap.textContent = src.alt;
-      lightbox.hidden = false;
-    }));
-    lightbox.addEventListener('click', () => { lightbox.hidden = true; if (lastFocus) lastFocus.focus(); });
+  /* ---------- Lightbox: click any screenshot to see it full size ---------- */
+  const lightbox = document.createElement('div');
+  lightbox.className = 'overlay lightbox';
+  lightbox.hidden = true;
+  lightbox.setAttribute('role', 'dialog');
+  lightbox.setAttribute('aria-modal', 'true');
+  lightbox.setAttribute('aria-label', 'Screenshot');
+  lightbox.innerHTML = '<button type="button" class="icon-btn lightbox-close" aria-label="Close">✕</button><div class="lightbox-stage"><img alt=""></div><span></span>';
+  document.body.appendChild(lightbox);
+  const lbImg = $('img', lightbox), lbCap = $('span', lightbox);
+
+  function openLightbox(src, trigger) {
+    lastFocus = trigger;
+    lbImg.src = src.currentSrc || src.src;
+    lbImg.alt = src.alt;
+    lbCap.textContent = src.alt;
+    // On narrow screens a wide screenshot fitted to the width is too small to read,
+    // so show it taller and let the visitor swipe sideways across it.
+    const wide = src.naturalWidth > src.naturalHeight * 1.2;
+    lightbox.classList.toggle('pan', wide && matchMedia('(max-width: 759px)').matches);
+    lightbox.hidden = false;
+    $('.lightbox-stage', lightbox).scrollLeft = 0;
+    document.documentElement.style.overflow = 'hidden';
+    $('.lightbox-close', lightbox).focus();
   }
+  function closeLightbox() {
+    lightbox.hidden = true;
+    document.documentElement.style.overflow = '';
+    if (lastFocus) lastFocus.focus();
+  }
+  lightbox.addEventListener('click', closeLightbox);
+
+  // Gallery thumbnails are already buttons.
+  $$('[data-lightbox]').forEach(t => t.addEventListener('click', () => openLightbox($('img', t), t)));
+  // Screenshots elsewhere (carousels, case study) become keyboard-reachable zoom targets.
+  $$('.shot img, .cs-hero-frame img, .phone-frame img').forEach(im => {
+    if (im.closest('[data-lightbox]')) return;
+    im.classList.add('zoomable');
+    im.tabIndex = 0;
+    im.setAttribute('role', 'button');
+    im.setAttribute('aria-label', 'Enlarge: ' + im.alt);
+    im.addEventListener('click', () => openLightbox(im, im));
+    im.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox(im, im); }
+    });
+  });
 
   addEventListener('keydown', e => {
     if (e.key !== 'Escape') return;
     if (!menu.hidden) setMenu(false);
     if (!formOverlay.hidden) closeForm();
-    if (lightbox && !lightbox.hidden) { lightbox.hidden = true; if (lastFocus) lastFocus.focus(); }
+    if (!lightbox.hidden) closeLightbox();
   });
 
   /* ---------- Carousels (home) ---------- */
@@ -150,7 +174,10 @@
       track.style.transform = 'translateX(-' + i * 100 + '%)';
       caption.textContent = slides[i].alt;
       dots.forEach((d, j) => d.setAttribute('aria-current', j === i ? 'true' : 'false'));
-      slides.forEach((s, j) => s.setAttribute('aria-hidden', j === i ? 'false' : 'true'));
+      slides.forEach((s, j) => {
+        s.setAttribute('aria-hidden', j === i ? 'false' : 'true');
+        s.tabIndex = j === i ? 0 : -1;
+      });
     }
 
     $('[data-prev]', root).addEventListener('click', () => go(i - 1));
