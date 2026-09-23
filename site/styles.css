@@ -196,6 +196,10 @@ button { font-family: inherit; }
   gap: clamp(28px, 5vw, 40px) clamp(28px, 4vw, 64px); align-items: center;
 }
 .card + .card { margin-top: 24px; }
+/* Image on the left when side by side, but text first when the card stacks on phones:
+   right-to-left column order only affects the two-column layout. */
+.card-flip { direction: rtl; }
+.card-flip > * { direction: ltr; }
 .card h3 { font-size: clamp(40px, 4.6vw, 60px); line-height: 1; letter-spacing: -0.04em; margin-top: 24px; }
 .card-lede { font-size: clamp(18px, 2vw, 20px); line-height: 1.45; margin-top: 16px; max-width: 30ch; color: var(--soft); }
 .card-body { font-size: 16px; line-height: 1.65; margin-top: 16px; max-width: 50ch; color: var(--muted); }
@@ -353,7 +357,8 @@ button { font-family: inherit; }
 .step + .step { margin-top: 0; }
 .step h3 { font-size: clamp(28px, 3.2vw, 40px); line-height: 1.1; letter-spacing: -0.035em; margin-top: 20px; max-width: 18ch; }
 .step p { font-size: 17px; line-height: 1.65; margin-top: 16px; max-width: 48ch; color: #c8c8cc; }
-.step:nth-child(even) figure { order: -1; }
+.step:nth-child(even) { direction: rtl; }
+.step:nth-child(even) > * { direction: ltr; }
 .step figure { min-width: 0; }
 .phones { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 160px), 1fr)); gap: 28px 16px; }
 .phone-frame {
