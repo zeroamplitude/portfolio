@@ -48,7 +48,10 @@ without auth headers and never print or log credential values:
 
 - Cloudflare (Bearer) → `api.cloudflare.com`, DNS edit for the nicholasdesouza.com zone only
 - Google Search Console (GCP service-account token) → `searchconsole.googleapis.com`
-- Bing Webmaster (`apikey` parameter) → `ssl.bing.com` (`/webmaster/api.svc/json/...`)
+
+There is no Bing Webmaster API access: Bing's API needs the key in the URL query string, which the
+environment's credential types can't inject. Bing gets URLs via IndexNow (deploy workflow); use the
+Bing Webmaster Tools dashboard for reports.
 
 Always show proposed DNS changes and get approval before creating, changing or deleting records.
 
