@@ -272,7 +272,12 @@ button { font-family: inherit; }
 .role-title { font-weight: 500; font-size: 20px; line-height: 28px; letter-spacing: -0.02em; }
 .role-org { font-size: 15px; line-height: 24px; color: var(--lime); }
 .role p { font-size: 15px; line-height: 1.65; margin-top: 10px; max-width: 56ch; color: var(--muted); }
-.skills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 32px; }
+.skills { display: flex; flex-wrap: wrap; gap: 8px; }
+.expertise { margin-top: 40px; }
+.expertise h4 { font-weight: 400; margin: 0 0 4px; }
+.expertise-group { padding: 18px 0; border-bottom: 1px solid var(--line); }
+.expertise-group:last-child { border-bottom: 0; }
+.expertise-label { font-size: 15px; font-weight: 500; letter-spacing: -0.01em; margin-bottom: 12px; }
 .skills span { font-size: 13px; padding: 6px 12px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, .1); color: var(--soft); }
 
 /* ---------- Contact band ---------- */
