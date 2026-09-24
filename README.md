@@ -18,7 +18,7 @@ No build step. To preview locally: `cd site && python3 -m http.server` and open 
 
 All "Get in touch" / "Start a conversation" / "Start a project" buttons open one form that posts to Formspree (`https://formspree.io/f/xgavyroa`, set in `site/main.js`). Messages go to the email on that Formspree account; the address never appears on the site.
 
-After the site is live, in Formspree → the form's **Settings**, add your domain under allowed/restricted domains so the endpoint can't be used from other sites.
+Spam protection is a hidden honeypot field plus Formspree's built-in filtering. Leave Formspree's reCAPTCHA off: it breaks the in-page (AJAX) submit. Domain restriction is a paid Formspree feature.
 
 ## Hosting (free): GitHub Pages
 
