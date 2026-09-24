@@ -103,14 +103,16 @@
   lightbox.setAttribute('role', 'dialog');
   lightbox.setAttribute('aria-modal', 'true');
   lightbox.setAttribute('aria-label', 'Screenshot');
-  lightbox.innerHTML = '<button type="button" class="icon-btn lightbox-close" aria-label="Close">✕</button><div class="lightbox-stage"><img alt=""></div><span></span>';
+  lightbox.innerHTML = '<button type="button" class="icon-btn lightbox-close" aria-label="Close">✕</button><div class="lightbox-stage"></div><span></span>';
   document.body.appendChild(lightbox);
-  const lbImg = $('img', lightbox), lbCap = $('span', lightbox);
+  // The <img> is added on first open, so crawlers never see an image without alt text.
+  const lbImg = document.createElement('img'), lbCap = $('span', lightbox);
 
   function openLightbox(src, trigger) {
     lastFocus = trigger;
     lbImg.src = src.currentSrc || src.src;
     lbImg.alt = src.alt;
+    if (!lbImg.isConnected) $('.lightbox-stage', lightbox).appendChild(lbImg);
     lbCap.textContent = src.alt;
     // On narrow screens a wide screenshot fitted to the width is too small to read,
     // so show it taller and let the visitor swipe sideways across it.
