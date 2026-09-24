@@ -14,12 +14,6 @@ site/
 
 No build step. To preview locally: `cd site && python3 -m http.server` and open http://localhost:8000.
 
-## Contact form
-
-All "Get in touch" / "Start a conversation" / "Start a project" buttons open one form that posts to Formspree (`https://formspree.io/f/xgavyroa`, set in `site/main.js`). Messages go to the email on that Formspree account; the address never appears on the site.
-
-Spam protection is a hidden honeypot field plus Formspree's built-in filtering. Leave Formspree's reCAPTCHA off: it breaks the in-page (AJAX) submit. Domain restriction is a paid Formspree feature.
-
 ## Hosting (free): GitHub Pages
 
 `.github/workflows/pages.yml` publishes `site/` on every push to `main`.
@@ -48,3 +42,9 @@ Spam protection is a hidden honeypot field plus Formspree's built-in filtering. 
    Remove any existing A/AAAA/CNAME records for `@` and `www` that point to your old host first.
 3. Wait for DNS to propagate (minutes to a few hours), then tick **Enforce HTTPS** on the Pages settings screen.
 4. Optional but recommended: verify the domain under your GitHub account's **Settings → Pages** to prevent takeover.
+
+## Contact form
+
+All "Get in touch" / "Start a conversation" / "Start a project" buttons open one form that posts to Formspree (`https://formspree.io/f/xgavyroa`, set in `site/main.js`). Messages go to the email on that Formspree account; the address never appears on the site.
+
+Spam protection is a hidden honeypot field plus Formspree's built-in filtering. Leave Formspree's reCAPTCHA off: it breaks the in-page (AJAX) submit. Domain restriction is a paid Formspree feature.
