@@ -420,33 +420,3 @@ button { font-family: inherit; }
   html { scroll-behavior: auto; }
   .carousel-track, .carousel-dots button { transition: none; }
 }
-
-/* ---------- Phones: centre the content ---------- */
-@media (max-width: 759px) {
-  .hero > div,
-  .stat,
-  .card > div,
-  .past-text,
-  .resume-aside,
-  .contact,
-  .page-head,
-  .phones figcaption { text-align: center; }
-
-  .hero-lede, .card-lede, .card-body, .past p,
-  .resume-aside h3, .resume-aside > p, .stat p,
-  .contact h2, .cs-title, .cs-intro p, .gallery-intro, .step p, .step h3 { margin-left: auto; margin-right: auto; }
-
-  .btn-row, .eyebrow, .cs-tags { justify-content: center; }
-  .card-logo { margin-left: auto; margin-right: auto; }
-  .resume-aside .btn { margin-left: auto; margin-right: auto; }
-  .footer { flex-direction: column; align-items: center; gap: 4px; }
-
-  .sec-head { flex-direction: column; align-items: center; gap: 6px; text-align: center; }
-  .g-head-title, .g-head-meta { justify-content: center; }
-  .role { justify-content: center; text-align: center; }
-  .role > .mono { flex-basis: 100%; }
-  .role p { margin-left: auto; margin-right: auto; }
-  .skills { justify-content: center; }
-  .cs-hero-shot figcaption, .g-label, .thumb-cap { text-align: center; }
-  .cs-hero-shot figcaption { margin-left: auto; margin-right: auto; }
-}
