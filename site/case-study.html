@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Digistax case study — Nicholas De Souza</title>
 <meta name="description" content="An agency run by agents, with a person at every gate. How Digistax ships production software with an AI agent team.">
 <meta name="theme-color" content="#0b0b0c">
@@ -62,9 +64,9 @@
     </div>
   </header>
 
-  <section aria-label="Outcome" style="padding:0 0 clamp(64px,8vw,96px)">
+  <section aria-label="Outcome" class="cs-outcome">
     <div class="stats stats-3">
-      <div class="stat"><div class="stat-num" style="color:var(--lime)">1 week</div><p>to deliver a three-release client project</p></div>
+      <div class="stat"><div class="stat-num stat-num-lime">1 week</div><p>to deliver a three-release client project</p></div>
       <div class="stat"><div class="stat-num">2 months</div><p>the original estimate for the same work</p></div>
       <div class="stat"><div class="stat-num">7 agents</div><p>on Claude Code, Codex and Grok</p></div>
     </div>

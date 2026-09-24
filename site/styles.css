@@ -425,3 +425,9 @@ button { font-family: inherit; }
   html { scroll-behavior: auto; }
   .carousel-track, .carousel-dots button { transition: none; }
 }
+
+/* Formerly inline styles (moved here so the Content Security Policy can forbid inline styles). */
+.btn-row-spaced { margin-top: 36px; }
+.cs-outcome { padding: 0 0 clamp(64px, 8vw, 96px); }
+.stat-num-lime { color: var(--lime); }
+.g-num { color: var(--dim); }
