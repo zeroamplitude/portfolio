@@ -201,9 +201,11 @@ button { font-family: inherit; }
 .card-flip { direction: rtl; }
 .card-flip > * { direction: ltr; }
 .card h3 { font-size: clamp(40px, 4.6vw, 60px); line-height: 1; letter-spacing: -0.04em; margin-top: 24px; }
-.card-logo { width: auto; margin-bottom: 28px; }
-.card-logo-vowbird { height: clamp(92px, 10vw, 120px); }
-.card-logo-digistax { height: clamp(30px, 3.2vw, 38px); }
+/* Logos stand in for the project name headings; sized by width so they scale down on phones. */
+.card .card-logo-heading { line-height: 0; }
+.card-logo { display: block; max-width: 100%; height: auto; }
+.card-logo-vowbird { width: clamp(150px, 16vw, 190px); }
+.card-logo-digistax { width: clamp(230px, 26vw, 320px); }
 .card-lede { font-size: clamp(18px, 2vw, 20px); line-height: 1.45; margin-top: 16px; max-width: 30ch; color: var(--soft); }
 .card-body { font-size: 16px; line-height: 1.65; margin-top: 16px; max-width: 50ch; color: var(--muted); }
 .card .btn-row { margin-top: 28px; }
