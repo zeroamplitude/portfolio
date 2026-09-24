@@ -1,0 +1,5 @@
+User-agent: *
+# Keep the resume (which carries contact details) out of search results.
+Disallow: /assets/Nicholas-De-Souza-Resume.pdf
+
+Sitemap: https://nicholasdesouza.com/sitemap.xml
