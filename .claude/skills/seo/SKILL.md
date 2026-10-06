@@ -91,7 +91,9 @@ character counts. Update `og:title`/`og:description` (and the Person
    canonical, the OG/Twitter set, favicon links, `?v=dev` assets.
 2. Make a 1200×630 link-preview JPEG in `site/assets/og/`. The case study's
    was rendered from an SVG in Chromium; give it a new filename, not a reused one.
-3. Add structured data if a type fits (`references/schema.md`).
+3. Add structured data if a type fits (`references/schema.md`). If the page is
+   mostly text, add the "Copy page" menu (`<div class="copy-page" data-copy-page>`)
+   and `'self'` to that page's CSP `connect-src`; the deploy builds its `.md` copy.
 4. Link to it from the nav (desktop and mobile menus) and any related page.
 5. Commit. The hook adds the page to `sitemap.xml`. Then re-run `llms_txt.py`
    and review the diff.

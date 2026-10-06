@@ -34,6 +34,14 @@ optional help for assistants and agents that fetch it. Regenerate with
 `llms_txt.py`, then edit by hand: factual, short, no contact details, no
 resume link. The hook checks its links.
 
+## Markdown copies
+
+The deploy writes `<page>.md` for every indexable page and `llms-full.txt`
+(llms.txt plus all pages) with `tools/page_markdown.py`. The "Copy page" menu
+on the home page and case study copies, opens or hands these to Claude and
+ChatGPT. They aren't in the sitemap; Google rarely indexes `text/markdown`,
+and GitHub Pages can't send a noindex header for them.
+
 ## Writing for AI answers
 
 The same things that help people help assistants quote the site correctly:

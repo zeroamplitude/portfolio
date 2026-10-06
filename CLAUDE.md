@@ -23,13 +23,15 @@ Preview locally: `cd site && python3 -m http.server`.
 ## Deploying
 
 - Pushing to `main` deploys via `.github/workflows/pages.yml` (GitHub Pages, custom domain, DNS on Cloudflare).
+- The workflow runs `tools/page_markdown.py`, which writes a Markdown copy of each indexable page (`site/<page>.md`, home is `index.md`) and `site/llms-full.txt`. They're gitignored; the SEO hook also generates them locally so converter failures show up before deploy.
 - The workflow rewrites `?v=dev` on `styles.css`/`main.js` URLs to the commit SHA (cache busting). Keep `?v=dev` in the HTML.
 - After deploying, the workflow notifies IndexNow (Bing, Yandex, …) with every URL in `sitemap.xml`. **When adding a page, add it to `sitemap.xml`.**
 - Actions are pinned to commit SHAs; update by resolving the new tag's SHA.
 
 ## Conventions and constraints
 
-- **Content Security Policy** (meta tag in every page's `<head>`): only self, Google Fonts, and Formspree. No inline scripts, no inline `style=""` attributes — put styles in `styles.css`. JSON-LD (`application/ld+json`) is fine.
+- **Content Security Policy** (meta tag in every page's `<head>`): only self, Google Fonts, and Formspree. No inline scripts, no inline `style=""` attributes — put styles in `styles.css`. JSON-LD (`application/ld+json`) is fine. Pages with the "Copy page" menu also allow `connect-src 'self'` (it fetches the page's `.md`).
+- **"Copy page" menu** (home and case study; built by `main.js` from `<div class="copy-page" data-copy-page>`, add `copy-page-end` to right-align its menu): copy the page as Markdown, view the `.md`, open `llms-full.txt`, or open the page in Claude or ChatGPT. Add it to new text-heavy pages, not the gallery.
 - Match the existing design: dark theme, Geist / Geist Mono, lime accent `oklch(0.87 0.17 128)`. Mobile breakpoint is 760px; mobile content is **left-aligned** (centring was tried and reverted).
 - Home page has Person structured data, canonical URLs and Open Graph tags on each page — keep them in sync if titles/pages change.
 - Contact form posts to Formspree `https://formspree.io/f/xgavyroa` (in `main.js`). Don't enable Formspree reCAPTCHA (breaks the AJAX submit). The owner's email must never appear on the site.
