@@ -289,6 +289,10 @@ button { font-family: inherit; }
 .contact h2 { font-size: clamp(40px, 6.4vw, 88px); line-height: 1; letter-spacing: -0.045em; max-width: 13ch; }
 .contact .btn-row { margin-top: 40px; }
 .contact .btn-outline { overflow-wrap: anywhere; }
+/* Circular icon buttons for profile links (.btn is fully rounded), the same height as .btn-lg. */
+.btn-row .btn-row { margin-top: 0; }
+.btn-icon { width: 56px; height: 56px; padding: 0; justify-content: center; }
+.btn-icon svg { width: 22px; height: 22px; fill: currentColor; }
 
 /* ---------- Footer ---------- */
 .footer {
@@ -355,12 +359,13 @@ button { font-family: inherit; }
 .zoomable:focus-visible { outline: 2px solid var(--lime); outline-offset: -2px; }
 
 /* ---------- Sub-page header ---------- */
-.page-head { padding: clamp(56px, 9vw, 112px) 0 clamp(56px, 7vw, 80px); }
+/* Same top spacing as the home hero, so sub-pages start right under the nav. */
+.page-head { padding: clamp(32px, 4vw, 48px) 0 clamp(56px, 7vw, 80px); }
 .back { letter-spacing: 0.04em; color: var(--muted); }
 .back:hover { color: var(--fg); }
 
 /* ---------- Case study ---------- */
-.cs-tags { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 40px; }
+.cs-tags { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 24px; }
 .cs-title { font-size: clamp(44px, 7vw, 96px); line-height: 1; letter-spacing: -0.045em; margin-top: 28px; max-width: 15ch; }
 .cs-title span { color: #a8a8ae; }
 .cs-intro {
