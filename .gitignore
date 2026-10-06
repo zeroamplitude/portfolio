@@ -1,2 +1,4 @@
 project/
 chats/
+.seo-reports/
+__pycache__/
