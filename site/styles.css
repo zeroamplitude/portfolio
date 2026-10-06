@@ -547,3 +547,50 @@ button { font-family: inherit; }
 .cs-outcome { padding: 0 0 clamp(64px, 8vw, 96px); }
 .stat-num-lime { color: var(--lime); }
 .g-num { color: var(--dim); }
+
+/* ---------- Copy page (Markdown for LLMs; built by main.js) ---------- */
+.hero-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.copy-page { position: relative; display: inline-flex; font-family: 'Geist', system-ui, sans-serif; }
+.copy-page:empty { display: none; }
+.cs-tags .copy-page { margin-left: auto; }
+.copy-page > button {
+  display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 14px;
+  font: inherit; font-size: 13px; font-weight: 500; letter-spacing: 0; text-transform: none;
+  color: var(--soft); background: transparent; border: 1px solid var(--edge); cursor: pointer;
+}
+.copy-page > button:hover { background: rgba(255, 255, 255, .06); color: var(--fg); }
+.cp-main { border-radius: 999px 0 0 999px; }
+.cp-toggle { border-radius: 0 999px 999px 0; border-left: 0 !important; padding: 0 10px !important; }
+.cp-toggle[aria-expanded="true"] svg { transform: rotate(180deg); }
+.cp-done { color: var(--lime) !important; }
+.copy-page svg {
+  width: 16px; height: 16px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.7;
+  stroke-linecap: round; stroke-linejoin: round; transition: transform 200ms;
+}
+.cp-menu {
+  position: absolute; top: calc(100% + 8px); left: 0; z-index: 30;
+  width: min(340px, calc(100vw - 2 * var(--pad-x))); padding: 6px;
+  background: var(--panel); border: 1px solid rgba(255, 255, 255, .1); border-radius: 16px;
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, .8);
+}
+.copy-page-end .cp-menu { left: auto; right: 0; }
+.cp-menu[hidden] { display: none; }
+.cp-menu > * {
+  all: unset; box-sizing: border-box; display: flex; align-items: flex-start; gap: 12px; width: 100%;
+  padding: 10px 12px; border-radius: 10px; cursor: pointer; color: var(--fg);
+}
+.cp-menu > *:hover, .cp-menu > *:focus-visible { background: rgba(255, 255, 255, .06); color: var(--fg); }
+.cp-menu > *:focus-visible { outline: 2px solid var(--lime); outline-offset: -2px; }
+.cp-menu svg { width: 18px; height: 18px; margin-top: 2px; color: var(--soft); }
+.cp-text { display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0; }
+.cp-title { font-size: 14px; font-weight: 500; line-height: 1.4; }
+.cp-sub { font-size: 13px; line-height: 1.4; color: var(--muted); }
+.cp-out svg { width: 15px; height: 15px; color: var(--dim); }
+@media (max-width: 759px) {
+  /* Phones: the button sits on its own line, left-aligned like the rest of the content. */
+  .cs-tags .copy-page { margin-left: 0; flex-basis: 100%; }
+  /* Anchor the menu to the whole row so it never runs off the right edge. */
+  .hero-meta, .cs-tags { position: relative; }
+  .copy-page { position: static; }
+  .cp-menu, .copy-page-end .cp-menu { left: 0; right: auto; }
+}
