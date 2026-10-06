@@ -18,6 +18,9 @@ from pathlib import Path
 from urllib.parse import urljoin
 
 BASE = "https://nicholasdesouza.com/"
+# GitHub Pages may send .md/.txt without a charset; a byte-order mark makes browsers
+# decode them as UTF-8 regardless (fetch().text() strips it again).
+ENCODING = "utf-8-sig"
 SITE = Path(__file__).resolve().parent.parent / "site"
 SKIP_TAGS = {"nav", "footer", "button", "svg", "script", "style", "form", "template", "noscript"}
 SKIP_CLASSES = {"carousel-bar", "sprite", "copy-page", "back", "mono g-num"}
@@ -180,12 +183,12 @@ def main():
             continue
         md = page_markdown(path)
         out = path.with_suffix(".md")
-        out.write_text(md, encoding="utf-8")
+        out.write_text(md, encoding=ENCODING)
         written.append((path, md))
     llms = (SITE / "llms.txt").read_text(encoding="utf-8") if (SITE / "llms.txt").exists() else ""
     order = sorted(written, key=lambda w: (w[0].name != "index.html", w[0].name))
     full = llms.rstrip() + "\n\n" + "\n\n".join(md for _, md in order)
-    (SITE / "llms-full.txt").write_text(full, encoding="utf-8")
+    (SITE / "llms-full.txt").write_text(full, encoding=ENCODING)
     print(f"wrote {', '.join(p.with_suffix('.md').name for p, _ in written)} and llms-full.txt", file=sys.stderr)
 
 
