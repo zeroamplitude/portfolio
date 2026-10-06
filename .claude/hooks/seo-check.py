@@ -10,6 +10,10 @@ Updates (then stages) automatically:
   - og:image:width / og:image:height: corrected to the image's real size.
   - JSON-LD "dateModified": set to today on pages changed since HEAD.
 
+Redirect stubs (pages with <meta http-equiv="refresh">, for old URLs that
+GitHub Pages can't redirect) are kept out of the sitemap and only checked for
+an instant refresh whose target matches the canonical and exists.
+
 Blocks the commit (exit 2, reasons on stderr) when a page is missing a title,
 description, canonical URL or Open Graph tags, has a canonical/og:url mismatch,
 not exactly one <h1>, an <img> without alt, broken JSON-LD, or a local link,
@@ -45,6 +49,7 @@ class Page(HTMLParser):
     def __init__(self):
         super().__init__(convert_charrefs=True)
         self.title, self._in_title = "", False
+        self.refresh = None
         self.meta, self.canonical = {}, None
         self.h1 = 0
         self.imgs, self.links, self.ids = [], [], set()
@@ -57,6 +62,8 @@ class Page(HTMLParser):
         if tag == "title":
             self._in_title = True
         elif tag == "meta":
+            if (a.get("http-equiv") or "").lower() == "refresh":
+                self.refresh = a.get("content", "")
             key = a.get("property") or a.get("name")
             if key:
                 self.meta[key] = a.get("content", "")
@@ -193,10 +200,23 @@ def main():
     changed = set(git("diff", "HEAD", "--name-only", "--", "site", cwd=root).split())
     changed |= set(git("ls-files", "--others", "--exclude-standard", "--", "site", cwd=root).split())
 
+    # Redirect stubs: an instant meta refresh plus a canonical to the same live page.
+    redirects = {n for n in pages if parsed[n].refresh is not None}
+    unlisted = NOINDEX_PAGES | redirects
+
     for name in pages:
         p, path = parsed[name], site / name
         where = f"site/{name}"
         indexable = name not in NOINDEX_PAGES
+        if name in redirects:
+            m = re.match(r"\s*0\s*;\s*url=(\S+)\s*$", p.refresh, re.I)
+            if not m:
+                errors.append(f"{where}: meta refresh must be instant: content=\"0; url=<absolute URL>\"")
+            elif p.canonical != m.group(1):
+                errors.append(f"{where}: canonical {p.canonical!r} must match the refresh target {m.group(1)!r}")
+            elif not m.group(1).startswith(BASE) or not resolve(site, name, m.group(1))[0].exists():
+                errors.append(f"{where}: redirects to {m.group(1)}, which isn't a page on this site")
+            continue
 
         if not p.title.strip():
             errors.append(f"{where}: missing <title>")
@@ -281,7 +301,7 @@ def main():
     sm_path = site / "sitemap.xml"
     sm = sm_path.read_text(encoding="utf-8")
     entries = dict(re.findall(r"<loc>([^<]+)</loc><lastmod>([^<]+)</lastmod>", sm))
-    want_urls = {page_url(n): n for n in pages if n not in NOINDEX_PAGES}
+    want_urls = {page_url(n): n for n in pages if n not in unlisted}
     new_entries = {}
     for url, name in sorted(want_urls.items(), key=lambda kv: (kv[0] != BASE, kv[0])):
         lastmod = entries.get(url)
@@ -305,7 +325,7 @@ def main():
     for label, get in (("title", lambda p: p.title.strip()), ("meta description", lambda p: p.meta.get("description", ""))):
         seen = {}
         for name in pages:
-            if name in NOINDEX_PAGES or not get(parsed[name]):
+            if name in unlisted or not get(parsed[name]):
                 continue
             seen.setdefault(get(parsed[name]), []).append(name)
         for names in seen.values():
