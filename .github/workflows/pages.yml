@@ -25,6 +25,10 @@ jobs:
         with:
           persist-credentials: false
       - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
+      # Markdown copies of each page plus llms-full.txt, for the "Copy page" menu
+      # and for LLMs. Generated here so they always match the deployed HTML.
+      - name: Generate Markdown for LLMs
+        run: python3 tools/page_markdown.py
       # Give styles.css and main.js a new URL on every deploy so browsers never pair
       # fresh HTML with a cached, older stylesheet or script.
       - name: Version CSS and JS URLs
