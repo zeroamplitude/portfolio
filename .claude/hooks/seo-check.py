@@ -8,6 +8,7 @@ Updates (then stages) automatically:
   - sitemap.xml: adds any indexable page that's missing, drops entries whose
     page is gone, and sets <lastmod> to today for pages changed since HEAD.
   - og:image:width / og:image:height: corrected to the image's real size.
+  - JSON-LD "dateModified": set to today on pages changed since HEAD.
 
 Blocks the commit (exit 2, reasons on stderr) when a page is missing a title,
 description, canonical URL or Open Graph tags, has a canonical/og:url mismatch,
@@ -189,6 +190,9 @@ def main():
         p.feed((site / name).read_text(encoding="utf-8"))
         parsed[name] = p
 
+    changed = set(git("diff", "HEAD", "--name-only", "--", "site", cwd=root).split())
+    changed |= set(git("ls-files", "--others", "--exclude-standard", "--", "site", cwd=root).split())
+
     for name in pages:
         p, path = parsed[name], site / name
         where = f"site/{name}"
@@ -263,12 +267,20 @@ def main():
                         path.write_text(new, encoding="utf-8")
                         fixed.append((where, f"og:image size set to {size[0]}×{size[1]}"))
 
+    # JSON-LD dateModified follows the page: today, whenever the page changed since HEAD.
+    for name in pages:
+        if f"site/{name}" in changed:
+            path = site / name
+            html = path.read_text(encoding="utf-8")
+            new = re.sub(r'("dateModified":\s*")\d{4}-\d{2}-\d{2}(")', rf"\g<1>{today}\2", html)
+            if new != html:
+                path.write_text(new, encoding="utf-8")
+                fixed.append((f"site/{name}", f"JSON-LD dateModified set to {today}"))
+
     # Sitemap: every indexable page listed, nothing stale, lastmod today for changed pages.
     sm_path = site / "sitemap.xml"
     sm = sm_path.read_text(encoding="utf-8")
     entries = dict(re.findall(r"<loc>([^<]+)</loc><lastmod>([^<]+)</lastmod>", sm))
-    changed = set(git("diff", "HEAD", "--name-only", "--", "site", cwd=root).split())
-    changed |= set(git("ls-files", "--others", "--exclude-standard", "--", "site", cwd=root).split())
     want_urls = {page_url(n): n for n in pages if n not in NOINDEX_PAGES}
     new_entries = {}
     for url, name in sorted(want_urls.items(), key=lambda kv: (kv[0] != BASE, kv[0])):
