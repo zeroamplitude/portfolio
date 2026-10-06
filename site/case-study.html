@@ -28,6 +28,24 @@
 <script src="main.js?v=dev" defer></script>
 </head>
 <body class="page-case" data-form-title="Start a project" data-form-intro="Tell us what you need.">
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <symbol id="i-person" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></symbol>
+  <symbol id="i-relay" viewBox="0 0 24 24"><path d="M4 8h15l-4-4M20 16H5l4 4"/></symbol>
+  <symbol id="i-hub" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><circle cx="4.5" cy="5" r="2"/><circle cx="19.5" cy="5" r="2"/><circle cx="4.5" cy="19" r="2"/><circle cx="19.5" cy="19" r="2"/><path d="M6 6.5l3.8 3.4M18 6.5l-3.8 3.4M6 17.5l3.8-3.4M18 17.5l-3.8-3.4"/></symbol>
+  <symbol id="i-code" viewBox="0 0 24 24"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></symbol>
+  <symbol id="i-flask" viewBox="0 0 24 24"><path d="M9 3h6M10 3v6l-5.5 9.5A2 2 0 0 0 6.2 21h11.6a2 2 0 0 0 1.7-2.5L14 9V3M7 15h10"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4.4-4.4"/></symbol>
+  <symbol id="i-merge" viewBox="0 0 24 24"><circle cx="6" cy="5" r="2"/><circle cx="6" cy="19" r="2"/><circle cx="18" cy="12" r="2"/><path d="M6 7v10M6 8c0 3 3 4 10 4"/></symbol>
+  <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V4M7 9l5-5 5 5M4 20h16"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2 20c0-3.5 3-5.5 7-5.5s7 2 7 5.5M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14.6c2.4.6 4 2.3 4 5.4"/></symbol>
+  <symbol id="i-history" viewBox="0 0 24 24"><path d="M3.5 12a8.5 8.5 0 1 0 2.6-6.1M3 4v5h5M12 8v4l3 2"/></symbol>
+  <symbol id="i-badge" viewBox="0 0 24 24"><circle cx="12" cy="9" r="6"/><path d="M8.5 14L7 21l5-3 5 3-1.5-7"/></symbol>
+  <symbol id="i-tag" viewBox="0 0 24 24"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="7.5" r="1.5"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6zM14 3v5h5M9 13h7M9 17h5"/></symbol>
+</svg>
 <nav class="nav">
   <div class="nav-inner">
     <a class="brand" href="./"><span class="brand-dot"></span>Nicholas De Souza</a>
@@ -113,7 +131,7 @@
     </div>
     <div class="pipeline">
       <div class="pl-group">
-        <h3 class="mono caps">Understand</h3>
+        <h3 class="mono caps"><svg aria-hidden="true"><use href="#i-search"/></svg>Understand</h3>
         <ol>
           <li><strong>Intake</strong><span>Account Manager logs every email and meeting on the cards it concerns. When unsure, it flags a duplicate rather than merging.</span></li>
           <li><strong>Origin check</strong><span>Support Engineer. I accept or reject the verdict.</span></li>
@@ -121,7 +139,7 @@
         </ol>
       </div>
       <div class="pl-group">
-        <h3 class="mono caps">Build</h3>
+        <h3 class="mono caps"><svg aria-hidden="true"><use href="#i-code"/></svg>Build</h3>
         <ol>
           <li><strong>Plan</strong><span>Technical Lead. The plan file must exist on the card.</span></li>
           <li><strong>Implement</strong><span>Technical Lead and role agents. Zero suite failures.</span></li>
@@ -129,14 +147,14 @@
         </ol>
       </div>
       <div class="pl-group">
-        <h3 class="mono caps">Validate</h3>
+        <h3 class="mono caps"><svg aria-hidden="true"><use href="#i-shield"/></svg>Validate</h3>
         <ol>
           <li><strong>Acceptance</strong><span>QA Analyst, from the ask alone. Pass on every card.</span></li>
           <li><strong>Verification</strong><span>QA Analyst, by a different method. Pass on every card.</span></li>
         </ol>
       </div>
       <div class="pl-group">
-        <h3 class="mono caps">Ship</h3>
+        <h3 class="mono caps"><svg aria-hidden="true"><use href="#i-upload"/></svg>Ship</h3>
         <ol>
           <li><strong>Publish beta</strong><span>Release Manager. I press the button.</span></li>
           <li><strong>Soak</strong><span>Me. Only I can mark it complete.</span></li>
@@ -229,16 +247,19 @@
     <figure class="agraph">
       <ol class="ag-flow">
         <li class="ag-node ag-human">
+          <span class="ag-icon" aria-hidden="true"><svg><use href="#i-person"/></svg></span>
           <span class="ag-kind mono">Human</span>
           <strong>I press Implement on a card</strong>
           <span>The job is queued with the card’s approved plan.</span>
         </li>
         <li class="ag-node">
+          <span class="ag-icon" aria-hidden="true"><svg><use href="#i-relay"/></svg></span>
           <span class="ag-kind mono">Relay</span>
           <strong>Launches a headless worker</strong>
           <span>A fresh context for every job. It moves work between the board and workers and never analyses anything.</span>
         </li>
         <li class="ag-node ag-orch">
+          <span class="ag-icon" aria-hidden="true"><svg><use href="#i-hub"/></svg></span>
           <span class="ag-kind mono">Orchestrator · defined by the job brief</span>
           <strong>Technical Lead</strong>
           <span>Directs the engineer, the tester and the validator, and decides when the full suite runs.</span>
@@ -246,24 +267,28 @@
         <li class="ag-fan">
           <ul class="ag-fan-4">
             <li class="ag-node">
+              <span class="ag-icon" aria-hidden="true"><svg><use href="#i-code"/></svg></span>
               <span class="ag-kind mono">Role agent · Sonnet</span>
               <strong>Software Engineer</strong>
               <span>Builds the plan step by step on its own branch, with the tests that cover each step.</span>
               <span class="ag-never">Never merges, publishes or adds a production write.</span>
             </li>
             <li class="ag-node">
+              <span class="ag-icon" aria-hidden="true"><svg><use href="#i-flask"/></svg></span>
               <span class="ag-kind mono">Role agent · Haiku</span>
               <strong>Test Engineer</strong>
               <span>Builds, confirms the binary really contains the change, runs the UI suite and reports the numbers.</span>
               <span class="ag-never">Never edits, or judges whether a failure matters.</span>
             </li>
             <li class="ag-node">
+              <span class="ag-icon" aria-hidden="true"><svg><use href="#i-eye"/></svg></span>
               <span class="ag-kind mono">Role agent · Sonnet</span>
               <strong>QA Analyst</strong>
               <span>Checks the screen captures against the client’s own words, measuring in pixels.</span>
               <span class="ag-never">Never reads the implementer’s reasoning.</span>
             </li>
             <li class="ag-node">
+              <span class="ag-icon" aria-hidden="true"><svg><use href="#i-clock"/></svg></span>
               <span class="ag-kind mono">Role agent · Haiku</span>
               <strong>VM Suite Watcher</strong>
               <span>Runs the 20 to 40 minute full suite once, at the end, and polls a progress file every 30 seconds.</span>
@@ -272,6 +297,7 @@
           </ul>
         </li>
         <li class="ag-node ag-gate">
+          <span class="ag-icon" aria-hidden="true"><svg><use href="#i-shield"/></svg></span>
           <span class="ag-kind mono">Gate</span>
           <strong>Zero failures, checked by the relay</strong>
           <span>The relay checks the branch and the results itself rather than trusting the report. Any failure sets the card to blocked, with the reason, and it comes back to me instead of retrying silently.</span>
@@ -292,6 +318,7 @@
     <figure class="agraph">
       <ol class="ag-flow">
         <li class="ag-node ag-orch">
+          <span class="ag-icon" aria-hidden="true"><svg><use href="#i-merge"/></svg></span>
           <span class="ag-kind mono">Orchestrator</span>
           <strong>Technical Lead assembles the release</strong>
           <span>Merges every ready card into a release branch one at a time, bumps the version, builds and runs the full suite. It never merges to main.</span>
@@ -299,11 +326,13 @@
         <li class="ag-fan">
           <ul class="ag-fan-2">
             <li class="ag-node">
+              <span class="ag-icon" aria-hidden="true"><svg><use href="#i-users"/></svg></span>
               <span class="ag-kind mono">Validator A · Sonnet</span>
               <strong>Acceptance</strong>
               <span>Works only from the client’s original words: reproduces each reported problem the way the client would, and records it. Stitches a walkthrough video for the release email.</span>
             </li>
             <li class="ag-node">
+              <span class="ag-icon" aria-hidden="true"><svg><use href="#i-search"/></svg></span>
               <span class="ag-kind mono">Validator B · Sonnet</span>
               <strong>Verification</strong>
               <span>Confirms each change survived the merge, compares it with the ask and the plan, runs its tests alone and tries an edge case the implementer missed.</span>
@@ -311,16 +340,19 @@
           </ul>
         </li>
         <li class="ag-node ag-gate">
+          <span class="ag-icon" aria-hidden="true"><svg><use href="#i-shield"/></svg></span>
           <span class="ag-kind mono">Gate</span>
           <strong>Both pass on every card</strong>
           <span>Then I press Publish.</span>
         </li>
         <li class="ag-node ag-orch">
+          <span class="ag-icon" aria-hidden="true"><svg><use href="#i-upload"/></svg></span>
           <span class="ag-kind mono">Orchestrator</span>
           <strong>Release Manager publishes to beta</strong>
           <span>Merges to main, tags, and publishes to the beta update channel.</span>
         </li>
         <li class="ag-node ag-human">
+          <span class="ag-icon" aria-hidden="true"><svg><use href="#i-person"/></svg></span>
           <span class="ag-kind mono">Human</span>
           <strong>Beta users run it; I mark it complete</strong>
           <span>A hook stops any agent from marking a release complete. Only then does the Release Manager promote it to every user.</span>
@@ -340,11 +372,13 @@
     <figure class="agraph">
       <ol class="ag-flow">
         <li class="ag-node ag-orch">
+          <span class="ag-icon" aria-hidden="true"><svg><use href="#i-history"/></svg></span>
           <span class="ag-kind mono">Orchestrator</span>
           <strong>Technical Support Engineer</strong>
           <span>Traces the failing procedure through git history and against a snapshot of the original source, condition by condition.</span>
         </li>
         <li class="ag-node ag-gate">
+          <span class="ag-icon" aria-hidden="true"><svg><use href="#i-person"/></svg></span>
           <span class="ag-kind mono">Gate</span>
           <strong>I accept or reject the verdict</strong>
           <span>“Inconclusive” is an accepted answer.</span>
@@ -352,11 +386,13 @@
         <li class="ag-fan">
           <ul class="ag-fan-2">
             <li class="ag-node">
+              <span class="ag-icon" aria-hidden="true"><svg><use href="#i-badge"/></svg></span>
               <span class="ag-kind mono">Our change</span>
               <strong>Warranty</strong>
               <span>Fixed at no charge, and goes straight to Plan.</span>
             </li>
             <li class="ag-node">
+              <span class="ag-icon" aria-hidden="true"><svg><use href="#i-tag"/></svg></span>
               <span class="ag-kind mono">Older bug or new feature</span>
               <strong>Solutions Architect estimates</strong>
               <span>Checks for related cards, writes a self-contained plan and prices it against the nearest past fixed-price task. The client approves the price.</span>
@@ -364,6 +400,7 @@
           </ul>
         </li>
         <li class="ag-node ag-orch">
+          <span class="ag-icon" aria-hidden="true"><svg><use href="#i-doc"/></svg></span>
           <span class="ag-kind mono">Orchestrator</span>
           <strong>Technical Lead plans</strong>
           <span>Writes the design, the steps, the tests that prove each step and the screen states to capture, then hands off to Graph 01.</span>
