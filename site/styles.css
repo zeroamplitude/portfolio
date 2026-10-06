@@ -47,6 +47,9 @@ button { font-family: inherit; }
 .mono { font-family: 'Geist Mono', monospace; font-size: 12px; }
 .wrap { max-width: 1200px; margin: 0 auto; padding: 0 var(--pad-x); }
 .section { padding: 0 0 var(--section-gap); scroll-margin-top: 80px; }
+/* The brand link jumps to <main id="top">, which starts below the sticky nav; the
+   margin makes that jump scroll to the very top so the nav doesn't cover the hero. */
+#top { scroll-margin-top: 200px; }
 
 /* ---------- Nav ---------- */
 .nav {
