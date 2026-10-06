@@ -14,7 +14,7 @@ HTML/CSS/JS in `site/` (no build step, no framework). Built from a Claude Design
 - `site/styles.css`, `site/main.js` — all styles and behaviour (mobile menu, contact form modal, carousels, click-to-enlarge lightbox)
 - `site/assets/` — images (screenshots are WebP; logos PNG; `og/` link-preview JPEGs), resume PDF
 - `site/robots.txt` (blocks only the resume PDF; all search and AI crawlers are allowed by choice), `site/sitemap.xml`, `site/404.html`
-- `site/home.html` — redirect stub for `/home`, an old URL Google still shows; instant meta refresh + canonical to `/` (GitHub Pages can't 301). Keep it out of the sitemap
+- `site/home.html` — fallback redirect stub for `/home` (Cloudflare 301s it while proxied); instant meta refresh + canonical to `/`. Keep it out of the sitemap
 - `site/llms.txt` — Markdown summary for AI assistants; regenerate with the SEO skill's `llms_txt.py`, then hand-edit
 - `site/0f1689ce29c9b84210c0f147231fdff8.txt` — IndexNow key file (public by design; keep it)
 
@@ -44,7 +44,7 @@ Preview locally: `cd site && python3 -m http.server`.
 ## Infrastructure (no secrets)
 
 - **DNS (Cloudflare):** GitHub Pages A `185.199.108–111.153`, AAAA `2606:50c0:8000–8003::153`, CNAME `www → zeroamplitude.github.io`. These 9 records are **Proxied** (orange cloud, since 2026-10-06) so Cloudflare can add headers and redirects; everything else is DNS only.
-- **Cloudflare proxy settings:** SSL/TLS mode **Full** (not strict: GitHub may fail to renew its origin certificate behind the proxy, and strict would then take the site down), Always Use HTTPS on. A response-header Transform Rule sends `X-Robots-Tag: noindex` for `*.md`, `/llms.txt` and `/llms-full.txt`. GitHub's Pages settings may warn about DNS while proxied; that's expected. To undo, set the 9 records back to DNS only. Two Google verification TXT records on `@` (`google-site-verification=PtAcwamV…` and `…=RmSxY-b-…`) — must stay. **No email on this domain:** SPF `v=spf1 -all`, DMARC `p=reject`, null MX. Don't restore old Google Workspace MX or `googlehosted.com` CNAMEs.
+- **Cloudflare proxy settings:** SSL/TLS mode **Full** (not strict: GitHub may fail to renew its origin certificate behind the proxy, and strict would then take the site down), Always Use HTTPS on, HSTS `max-age=15552000` with nosniff (no includeSubDomains, no preload). Transform Rule "noindex Markdown copies and llms files" sends `X-Robots-Tag: noindex` for `*.md`, `/llms.txt` and `/llms-full.txt`. Single Redirect "Old /home URL to the home page" 301s `/home` and `/home/` to `/` (`site/home.html` stays as the fallback if the proxy is turned off). Bot Fight Mode and AI-bot blocking are off on purpose. DNSSEC is active. GitHub's Pages settings may warn about DNS while proxied; that's expected. To undo, set the 9 records back to DNS only. Two Google verification TXT records on `@` (`google-site-verification=PtAcwamV…` and `…=RmSxY-b-…`) — must stay. **No email on this domain:** SPF `v=spf1 -all`, DMARC `p=reject`, null MX. Don't restore old Google Workspace MX or `googlehosted.com` CNAMEs.
 - **Search Console:** Domain property `sc-domain:nicholasdesouza.com`, verified via DNS; sitemap submitted.
 - **Bing Webmaster Tools:** site imported from Search Console; IndexNow enabled via the deploy workflow.
 
@@ -53,7 +53,7 @@ Preview locally: `cd site && python3 -m http.server`.
 Sessions in the **Profile** environment have API credentials injected by the agent proxy — call the APIs
 without auth headers and never print or log credential values:
 
-- Cloudflare (Bearer) → `api.cloudflare.com`, nicholasdesouza.com zone only: DNS edit, Zone Settings edit, Single Redirect edit (Transform Rules may also be granted)
+- Cloudflare (Bearer) → `api.cloudflare.com`, nicholasdesouza.com zone only: Zone read, DNS edit, Zone Settings edit, SSL and Certificates read, Transform Rules edit, Single Redirect edit, Cache Rules edit, Cache Purge, Analytics read, Bot Management read
 - Google Search Console (GCP service-account token) → `searchconsole.googleapis.com`
 
 There is no Bing Webmaster API access: Bing's API needs the key in the URL query string, which the
@@ -64,6 +64,5 @@ Always show proposed DNS changes and get approval before creating, changing or d
 
 ## Open items (owner to do)
 
-- GitHub: tick Enforce HTTPS; verify the domain in account Settings → Pages; ensure 2FA is on.
-- Cloudflare: enable DNSSEC.
+- GitHub: verify the domain in account Settings → Pages; ensure 2FA is on.
 - Check Bing's IndexNow page shows received URLs; check Search Console Performance in 2–4 weeks.
