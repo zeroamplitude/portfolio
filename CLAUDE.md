@@ -43,7 +43,8 @@ Preview locally: `cd site && python3 -m http.server`.
 
 ## Infrastructure (no secrets)
 
-- **DNS (Cloudflare, all DNS only / grey cloud):** GitHub Pages A `185.199.108–111.153`, AAAA `2606:50c0:8000–8003::153`, CNAME `www → zeroamplitude.github.io`. Two Google verification TXT records on `@` (`google-site-verification=PtAcwamV…` and `…=RmSxY-b-…`) — must stay. **No email on this domain:** SPF `v=spf1 -all`, DMARC `p=reject`, null MX. Don't restore old Google Workspace MX or `googlehosted.com` CNAMEs.
+- **DNS (Cloudflare):** GitHub Pages A `185.199.108–111.153`, AAAA `2606:50c0:8000–8003::153`, CNAME `www → zeroamplitude.github.io`. These 9 records are **Proxied** (orange cloud, since 2026-10-06) so Cloudflare can add headers and redirects; everything else is DNS only.
+- **Cloudflare proxy settings:** SSL/TLS mode **Full** (not strict: GitHub may fail to renew its origin certificate behind the proxy, and strict would then take the site down), Always Use HTTPS on. A response-header Transform Rule sends `X-Robots-Tag: noindex` for `*.md`, `/llms.txt` and `/llms-full.txt`. GitHub's Pages settings may warn about DNS while proxied; that's expected. To undo, set the 9 records back to DNS only. Two Google verification TXT records on `@` (`google-site-verification=PtAcwamV…` and `…=RmSxY-b-…`) — must stay. **No email on this domain:** SPF `v=spf1 -all`, DMARC `p=reject`, null MX. Don't restore old Google Workspace MX or `googlehosted.com` CNAMEs.
 - **Search Console:** Domain property `sc-domain:nicholasdesouza.com`, verified via DNS; sitemap submitted.
 - **Bing Webmaster Tools:** site imported from Search Console; IndexNow enabled via the deploy workflow.
 
@@ -52,7 +53,7 @@ Preview locally: `cd site && python3 -m http.server`.
 Sessions in the **Profile** environment have API credentials injected by the agent proxy — call the APIs
 without auth headers and never print or log credential values:
 
-- Cloudflare (Bearer) → `api.cloudflare.com`, DNS edit for the nicholasdesouza.com zone only
+- Cloudflare (Bearer) → `api.cloudflare.com`, nicholasdesouza.com zone only: DNS edit, Zone Settings edit, Single Redirect edit (Transform Rules may also be granted)
 - Google Search Console (GCP service-account token) → `searchconsole.googleapis.com`
 
 There is no Bing Webmaster API access: Bing's API needs the key in the URL query string, which the
