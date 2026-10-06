@@ -101,32 +101,11 @@
 
   <section class="section">
     <div class="sec-head">
-      <h2>The nine role agents</h2>
-      <span class="mono">Haiku · Sonnet</span>
-    </div>
-    <div class="cs-text">
-      <p>It’s built around a real delivery problem: two legacy systems, a desktop CRM and a pair of web apps, sharing one production database with no staging copy. So the design question was never “what can an agent do?” but “what is each agent allowed to touch?”</p>
-      <p>Role agents exist where a subtask needs its own tools or its own guardrails. Each is defined by one file that says what it must never do, and hooks enforce most of it. Each repository keeps its own copies, so the CRM’s engineer knows its legacy file encoding and the web engineer knows the deploy scripts.</p>
-    </div>
-    <div class="roster">
-      <article class="role-agent"><div><h3>Business Analyst</h3><span class="pill">Haiku</span></div><p>Reads a transcript, email or screenshot and lists every ask, decision, bug, commitment and open question, with exact words.</p><p class="ag-never">Never touches the network, guesses a speaker’s name or merges look-alike items.</p></article>
-      <article class="role-agent"><div><h3>Project Coordinator</h3><span class="pill">Haiku</span></div><p>Tidies a job’s media: pulls video frames, drops duplicates, names files by card and takes an inventory.</p><p class="ag-never">Never works outside its job folder or decides what an image means.</p></article>
-      <article class="role-agent"><div><h3>Senior Software Engineer</h3><span class="pill">Sonnet</span></div><p>Investigates without changing anything that ships: reads code, queries production through a read-only account, benchmarks on a local copy.</p><p class="ag-never">Never edits source, builds or writes to production.</p></article>
-      <article class="role-agent"><div><h3>Software Engineer</h3><span class="pill">Sonnet</span></div><p>Implements a plan on its assigned branch, builds, runs the tests that cover the change and commits.</p><p class="ag-never">Never runs the full suite, merges or publishes.</p></article>
-      <article class="role-agent"><div><h3>QA Analyst</h3><span class="pill">Sonnet</span></div><p>Reviews the finished diff blind, against the client’s words and the plan, and tries one edge case the tests miss.</p><p class="ag-never">Never reads the implementer’s reasoning or fixes what it finds.</p></article>
-      <article class="role-agent"><div><h3>Test Engineer</h3><span class="pill">Haiku</span></div><p>Builds, confirms the binary contains the change, runs the UI suite in the foreground and reports the numbers.</p><p class="ag-never">Never edits anything or judges a failure.</p></article>
-      <article class="role-agent"><div><h3>Database Administrator</h3><span class="pill">Sonnet</span></div><p>The only agent that changes production, through one tool that rehearses first and records everything.</p><p class="ag-never">Can’t drop the main database: its account has no DROP privilege.</p></article>
-      <article class="role-agent"><div><h3>VM Probe</h3><span class="pill">Haiku</span></div><p>Answers read-only questions about the Windows build VM: stuck tasks, disk space, build directories.</p><p class="ag-never">Never ends a task, kills a process or deletes anything.</p></article>
-      <article class="role-agent"><div><h3>VM Suite Watcher</h3><span class="pill">Haiku</span></div><p>Runs a long test suite and polls it cheaply until it finishes.</p><p class="ag-never">Never uses a streaming monitor, starts a second suite or builds.</p></article>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="sec-head">
       <h2>The whole pipeline</h2>
       <span class="mono">11 stages</span>
     </div>
     <div class="cs-text">
+      <p>It’s built around a real delivery problem: two legacy systems, a desktop CRM and a pair of web apps, sharing one production database with no staging copy. So the design question was never “what can an agent do?” but “what is each agent allowed to touch?”</p>
       <p>A card moves through eleven stages. Each one is a separate job with a fresh context, and each has a gate before the next.</p>
     </div>
     <div class="pipeline">
@@ -161,6 +140,27 @@
           <li><strong>Promote stable</strong><span>Release Manager. The final stage.</span></li>
         </ol>
       </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="sec-head">
+      <h2>The nine role agents</h2>
+      <span class="mono">Haiku · Sonnet</span>
+    </div>
+    <div class="cs-text">
+      <p>Role agents exist where a subtask needs its own tools or its own guardrails. Each is defined by one file that says what it must never do, and hooks enforce most of it. Each repository keeps its own copies, so the CRM’s engineer knows its legacy file encoding and the web engineer knows the deploy scripts.</p>
+    </div>
+    <div class="roster">
+      <article class="role-agent"><div><h3>Business Analyst</h3><span class="pill">Haiku</span></div><p>Reads a transcript, email or screenshot and lists every ask, decision, bug, commitment and open question, with exact words.</p><p class="ag-never">Never touches the network, guesses a speaker’s name or merges look-alike items.</p></article>
+      <article class="role-agent"><div><h3>Project Coordinator</h3><span class="pill">Haiku</span></div><p>Tidies a job’s media: pulls video frames, drops duplicates, names files by card and takes an inventory.</p><p class="ag-never">Never works outside its job folder or decides what an image means.</p></article>
+      <article class="role-agent"><div><h3>Senior Software Engineer</h3><span class="pill">Sonnet</span></div><p>Investigates without changing anything that ships: reads code, queries production through a read-only account, benchmarks on a local copy.</p><p class="ag-never">Never edits source, builds or writes to production.</p></article>
+      <article class="role-agent"><div><h3>Software Engineer</h3><span class="pill">Sonnet</span></div><p>Implements a plan on its assigned branch, builds, runs the tests that cover the change and commits.</p><p class="ag-never">Never runs the full suite, merges or publishes.</p></article>
+      <article class="role-agent"><div><h3>QA Analyst</h3><span class="pill">Sonnet</span></div><p>Reviews the finished diff blind, against the client’s words and the plan, and tries one edge case the tests miss.</p><p class="ag-never">Never reads the implementer’s reasoning or fixes what it finds.</p></article>
+      <article class="role-agent"><div><h3>Test Engineer</h3><span class="pill">Haiku</span></div><p>Builds, confirms the binary contains the change, runs the UI suite in the foreground and reports the numbers.</p><p class="ag-never">Never edits anything or judges a failure.</p></article>
+      <article class="role-agent"><div><h3>Database Administrator</h3><span class="pill">Sonnet</span></div><p>The only agent that changes production, through one tool that rehearses first and records everything.</p><p class="ag-never">Can’t drop the main database: its account has no DROP privilege.</p></article>
+      <article class="role-agent"><div><h3>VM Probe</h3><span class="pill">Haiku</span></div><p>Answers read-only questions about the Windows build VM: stuck tasks, disk space, build directories.</p><p class="ag-never">Never ends a task, kills a process or deletes anything.</p></article>
+      <article class="role-agent"><div><h3>VM Suite Watcher</h3><span class="pill">Haiku</span></div><p>Runs a long test suite and polls it cheaply until it finishes.</p><p class="ag-never">Never uses a streaming monitor, starts a second suite or builds.</p></article>
     </div>
   </section>
 
