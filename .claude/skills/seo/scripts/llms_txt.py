@@ -36,18 +36,20 @@ def build():
     name = me.get("name", "Nicholas De Souza")
     home = pages["index.html"]
     lines = [f"# {name}", "", f"> {home.meta.get('description', '')}", ""]
-    if me.get("jobTitle"):
+    if me.get("jobTitle") and me["jobTitle"] not in home.meta.get("description", ""):
         org = (me.get("worksFor") or {}).get("name")
         lines.append(f"{me['jobTitle']}{f' at {org}' if org else ''}. "
                      + ("Founder of " + " and ".join(f["name"] for f in me.get("founder", [])) + "." if me.get("founder") else ""))
         lines.append("")
     lines += ["## Pages", ""]
-    for fname, p in pages.items():
+    order = ["index.html"] + [f for f in pages if f != "index.html"]
+    for fname in order:
+        p = pages[fname]
         if fname in SKIP:
             continue
         title = p.title.split(" — ")[0] if fname != "index.html" else "Home"
         lines.append(f"- [{title}]({page_url(fname)}): {p.meta.get('description', '')}")
-        h2 = [h for k, h in p.headings if k == "h2"]
+        h2 = [h.rstrip(".") for k, h in p.headings if k == "h2" and not h.endswith("?")]
         if h2 and fname != "index.html":
             lines.append(f"  Sections: {'; '.join(h2)}")
     if me.get("sameAs"):
