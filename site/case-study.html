@@ -6,11 +6,11 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Digistax case study — Nicholas De Souza</title>
-<meta name="description" content="An agency run by agents, with a person at every gate. How Digistax ships production software with an AI agent team.">
+<meta name="description" content="Every task is a graph of agents, with a person at every gate. A prototype agency where orchestrators delegate to role agents whose limits are set by permissions.">
 <meta name="theme-color" content="#0b0b0c">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Digistax case study — Nicholas De Souza">
-<meta property="og:description" content="An agency run by agents, with a person at every gate.">
+<meta property="og:description" content="Every task is a graph of agents, with a person at every gate.">
 <link rel="canonical" href="https://nicholasdesouza.com/case-study.html">
 <meta property="og:url" content="https://nicholasdesouza.com/case-study.html">
 <meta property="og:site_name" content="Nicholas De Souza">
@@ -57,99 +57,254 @@
     <div class="cs-tags mono">
       <span class="pill pill-lime">Case study</span>
       <span class="pill">Digistax</span>
-      <span class="pill">Since 2018</span>
+      <span class="pill">Prototype</span>
     </div>
-    <h1 class="cs-title">An agency run by agents, <span>with a person at every gate.</span></h1>
+    <h1 class="cs-title">Every task is a graph of agents, <span>with a person at every gate.</span></h1>
     <div class="cs-intro">
-      <p>We ship production software with our AI agent team.</p>
-      <p>Digistax is an agent-run consultancy on Paperclip: seven agents on Claude Code, Codex and Grok, with human approval gates. Below is the desk the agents work from, following one client request from the first email to the invoice.</p>
+      <p>A prototype software agency where every role but mine is held by an AI agent.</p>
+      <p>Pressing a button on a card launches a graph: an orchestrator leads the job and hands each subtask to a role agent with its own tools and guardrails. Permissions, not instructions, set what each agent can touch. I approve every price, every merge to main, every production deploy and every email; the agents do everything in between.</p>
     </div>
   </header>
 
-  <section aria-label="Outcome" class="cs-outcome">
+  <section aria-label="At a glance" class="cs-outcome">
     <div class="stats stats-3">
-      <div class="stat"><div class="stat-num stat-num-lime">1 week</div><p>to deliver a three-release client project</p></div>
-      <div class="stat"><div class="stat-num">2 months</div><p>the original estimate for the same work</p></div>
-      <div class="stat"><div class="stat-num">7 agents</div><p>on Claude Code, Codex and Grok</p></div>
+      <div class="stat"><div class="stat-num stat-num-lime">5</div><p>orchestrators, each leading one kind of job</p></div>
+      <div class="stat"><div class="stat-num">9</div><p>role agents: five on Haiku, four on Sonnet</p></div>
+      <div class="stat"><div class="stat-num">2</div><p>blind validators that must both pass every release</p></div>
     </div>
   </section>
-
-  <figure class="cs-hero-shot">
-    <div class="cs-hero-frame">
-      <div><img src="assets/digistax/floor.webp" alt="Agents floor"></div>
-    </div>
-    <figcaption>The agents floor. Agents waiting on a human sit in the yellow box at top left; everyone else is at work or in the lounge. Screens show demo client data.</figcaption>
-  </figure>
 
   <section class="section">
     <div class="sec-head">
-      <h2>One request, start to finish</h2>
-      <span class="mono">01 — 06</span>
+      <h2>Anatomy of a job</h2>
+      <span class="mono">Graph 01</span>
     </div>
-    <div class="steps">
-      <article class="card step">
-        <div>
-          <div class="eyebrow mono"><span>01</span><span class="pill">Intake</span></div>
-          <h3>Client email becomes a request.</h3>
-          <p>Messages land in a shared inbox. Intake agents file each one by type, link it to a request, name an owning role and hand it off. Anything they can’t place stays marked unfiled until someone looks at it.</p>
-        </div>
-        <figure><div class="shot"><img src="assets/digistax/inbox.webp" alt="Inbox" loading="lazy"></div></figure>
-      </article>
-      <article class="card step">
-        <div>
-          <div class="eyebrow mono"><span>02</span><span class="pill">Audit</span></div>
-          <h3>A person checks every triage call.</h3>
-          <p>Each request shows the client’s own words, why it was filed where it was, and the sources behind that decision. The reviewer marks it correct, wrong or unsure from the keyboard and moves on.</p>
-        </div>
-        <figure><div class="shot"><img src="assets/digistax/audit.webp" alt="Audit" loading="lazy"></div></figure>
-      </article>
-      <article class="card step">
-        <div>
-          <div class="eyebrow mono"><span>03</span><span class="pill">Build</span></div>
-          <h3>Requests break into tasks.</h3>
-          <p>Tasks move from new to scheduled, in progress, in review and released. Each card carries its type, whether it’s estimated, and the release it shipped in.</p>
-        </div>
-        <figure><div class="shot"><img src="assets/digistax/tasks.webp" alt="Tasks board" loading="lazy"></div></figure>
-      </article>
-      <article class="card step">
-        <div>
-          <div class="eyebrow mono"><span>04</span><span class="pill">Track</span></div>
-          <h3>One view of every request.</h3>
-          <p>Work lists each request with its status, price, tasks, hours and messages. Group it by release to see what went out in each version, save the view, or export it.</p>
-        </div>
-        <figure><div class="shot"><img src="assets/digistax/work-release.webp" alt="Work grouped by release" loading="lazy"></div></figure>
-      </article>
-      <article class="card step">
-        <div>
-          <div class="eyebrow mono"><span>05</span><span class="pill">Control</span></div>
-          <h3>One switch turns it all off.</h3>
-          <p>Every agent has a charter, a settings file, a run history with cost, and a mailbox. Any agent can be paused. Power off refuses every agent call and kills any run in flight, and nothing turns itself back on.</p>
-        </div>
-        <figure><div class="shot"><img src="assets/digistax/agents.webp" alt="Agents" loading="lazy"></div></figure>
-      </article>
-      <article class="card step">
-        <div>
-          <div class="eyebrow mono"><span>06</span><span class="pill">Bill</span></div>
-          <h3>Invoices line up with releases.</h3>
-          <p>Each invoice line names the release and change it pays for, with hours and amount. The list shows the effective hourly rate per invoice and flags the ones that fall below target.</p>
-        </div>
-        <figure><div class="shot"><img src="assets/digistax/invoice.webp" alt="Invoice detail" loading="lazy"></div></figure>
-      </article>
+    <div class="cs-text">
+      <p>It’s built around a real delivery problem: two legacy systems, a desktop CRM and a pair of PHP web apps, sharing one production database with no staging copy. So the design question was never “what can an agent do?” but “what is each agent allowed to touch?”</p>
+      <p>Work starts as a card on a release board. Each button on the card (Triage, Estimate, Plan, Implement, Publish) queues a job, and each job is its own graph with a fresh context. This is the graph behind Implement.</p>
+    </div>
+    <figure class="agraph">
+      <ol class="ag-flow">
+        <li class="ag-node ag-human">
+          <span class="ag-kind mono">Human</span>
+          <strong>I press Implement on a card</strong>
+          <span>The job is queued with the card’s approved plan.</span>
+        </li>
+        <li class="ag-node">
+          <span class="ag-kind mono">Relay</span>
+          <strong>Launches a headless worker</strong>
+          <span>A fresh context for every job. It moves work between the board and workers and never analyses anything.</span>
+        </li>
+        <li class="ag-node ag-orch">
+          <span class="ag-kind mono">Orchestrator · defined by the job brief</span>
+          <strong>Technical Lead</strong>
+          <span>Directs the engineer, the tester and the validator, and decides when the full suite runs.</span>
+        </li>
+        <li class="ag-fan">
+          <ul class="ag-fan-4">
+            <li class="ag-node">
+              <span class="ag-kind mono">Role agent · Sonnet</span>
+              <strong>Software Engineer</strong>
+              <span>Builds the plan step by step on its own branch, with the tests that cover each step.</span>
+              <span class="ag-never">Never merges, publishes or adds a production write.</span>
+            </li>
+            <li class="ag-node">
+              <span class="ag-kind mono">Role agent · Haiku</span>
+              <strong>Test Engineer</strong>
+              <span>Builds, confirms the binary really contains the change, runs the UI suite and reports the numbers.</span>
+              <span class="ag-never">Never edits, or judges whether a failure matters.</span>
+            </li>
+            <li class="ag-node">
+              <span class="ag-kind mono">Role agent · Sonnet</span>
+              <strong>QA Analyst</strong>
+              <span>Checks the screen captures against the client’s own words, measuring in pixels.</span>
+              <span class="ag-never">Never reads the implementer’s reasoning.</span>
+            </li>
+            <li class="ag-node">
+              <span class="ag-kind mono">Role agent · Haiku</span>
+              <strong>VM Suite Watcher</strong>
+              <span>Runs the 20 to 40 minute full suite once, at the end, and polls a progress file every 30 seconds.</span>
+              <span class="ag-never">Never starts a second suite.</span>
+            </li>
+          </ul>
+        </li>
+        <li class="ag-node ag-gate">
+          <span class="ag-kind mono">Gate</span>
+          <strong>Zero failures, checked by the relay</strong>
+          <span>The relay checks the branch and the results itself rather than trusting the report. Any failure sets the card to blocked, with the reason, and it comes back to me instead of retrying silently.</span>
+        </li>
+      </ol>
+      <figcaption>One Implement job. Each node is a separate session, and each one is a row in a cost ledger with its role, model, tokens and share of the cost.</figcaption>
+    </figure>
+  </section>
+
+  <section class="section">
+    <div class="sec-head">
+      <h2>Two validators who never meet</h2>
+      <span class="mono">Graph 02</span>
+    </div>
+    <div class="cs-text">
+      <p>Nothing reaches users until two validators have passed it. They use different methods and never see each other’s work, so one can’t talk the other into a pass.</p>
+    </div>
+    <figure class="agraph">
+      <ol class="ag-flow">
+        <li class="ag-node ag-orch">
+          <span class="ag-kind mono">Orchestrator</span>
+          <strong>Technical Lead assembles the release</strong>
+          <span>Merges every ready card into a release branch one at a time, bumps the version, builds and runs the full suite. It never merges to main.</span>
+        </li>
+        <li class="ag-fan">
+          <ul class="ag-fan-2">
+            <li class="ag-node">
+              <span class="ag-kind mono">Validator A · Sonnet</span>
+              <strong>Acceptance</strong>
+              <span>Works only from the client’s original words: reproduces each reported problem the way the client would, and records it. Stitches a walkthrough video for the release email.</span>
+            </li>
+            <li class="ag-node">
+              <span class="ag-kind mono">Validator B · Sonnet</span>
+              <strong>Verification</strong>
+              <span>Confirms each change survived the merge, compares it with the ask and the plan, runs its tests alone and tries an edge case the implementer missed.</span>
+            </li>
+          </ul>
+        </li>
+        <li class="ag-node ag-gate">
+          <span class="ag-kind mono">Gate</span>
+          <strong>Both pass on every card</strong>
+          <span>Then I press Publish.</span>
+        </li>
+        <li class="ag-node ag-orch">
+          <span class="ag-kind mono">Orchestrator</span>
+          <strong>Release Manager publishes to beta</strong>
+          <span>Merges to main, tags, and publishes to the beta update channel.</span>
+        </li>
+        <li class="ag-node ag-human">
+          <span class="ag-kind mono">Human</span>
+          <strong>Beta users run it; I mark it complete</strong>
+          <span>A hook stops any agent from marking a release complete. Only then does the Release Manager promote it to every user.</span>
+        </li>
+      </ol>
+    </figure>
+  </section>
+
+  <section class="section">
+    <div class="sec-head">
+      <h2>The graph decides who pays</h2>
+      <span class="mono">Graph 03</span>
+    </div>
+    <div class="cs-text">
+      <p>Graphs branch. When a bug comes in, an origin check decides whether our own change introduced it. That answer routes the card down one of two paths.</p>
+    </div>
+    <figure class="agraph">
+      <ol class="ag-flow">
+        <li class="ag-node ag-orch">
+          <span class="ag-kind mono">Orchestrator</span>
+          <strong>Technical Support Engineer</strong>
+          <span>Traces the failing procedure through git history and against a snapshot of the original source, condition by condition.</span>
+        </li>
+        <li class="ag-node ag-gate">
+          <span class="ag-kind mono">Gate</span>
+          <strong>I accept or reject the verdict</strong>
+          <span>“Inconclusive” is an accepted answer.</span>
+        </li>
+        <li class="ag-fan">
+          <ul class="ag-fan-2">
+            <li class="ag-node">
+              <span class="ag-kind mono">Our change</span>
+              <strong>Warranty</strong>
+              <span>Fixed at no charge, and goes straight to Plan.</span>
+            </li>
+            <li class="ag-node">
+              <span class="ag-kind mono">Older bug or new feature</span>
+              <strong>Solutions Architect estimates</strong>
+              <span>Checks for related cards, writes a self-contained plan and prices it against the nearest past fixed-price task. The client approves the price.</span>
+            </li>
+          </ul>
+        </li>
+        <li class="ag-node ag-orch">
+          <span class="ag-kind mono">Orchestrator</span>
+          <strong>Technical Lead plans</strong>
+          <span>Writes the design, the steps, the tests that prove each step and the screen states to capture, then hands off to Graph 01.</span>
+        </li>
+      </ol>
+    </figure>
+  </section>
+
+  <section class="section">
+    <div class="sec-head">
+      <h2>The whole pipeline</h2>
+      <span class="mono">11 stages</span>
+    </div>
+    <div class="cs-text">
+      <p>A card moves through eleven stages. Each one is a separate job with a fresh context, and each has a gate before the next.</p>
+    </div>
+    <div class="pipeline">
+      <div class="pl-group">
+        <h3 class="mono caps">Understand</h3>
+        <ol>
+          <li><strong>Intake</strong><span>Account Manager logs every email and meeting on the cards it concerns. When unsure, it flags a duplicate rather than merging.</span></li>
+          <li><strong>Origin check</strong><span>Support Engineer. I accept or reject the verdict.</span></li>
+          <li><strong>Estimate</strong><span>Solutions Architect. The client approves the price.</span></li>
+        </ol>
+      </div>
+      <div class="pl-group">
+        <h3 class="mono caps">Build</h3>
+        <ol>
+          <li><strong>Plan</strong><span>Technical Lead. The plan file must exist on the card.</span></li>
+          <li><strong>Implement</strong><span>Technical Lead and role agents. Zero suite failures.</span></li>
+          <li><strong>Assemble release</strong><span>Technical Lead. Never merges to main.</span></li>
+        </ol>
+      </div>
+      <div class="pl-group">
+        <h3 class="mono caps">Validate</h3>
+        <ol>
+          <li><strong>Acceptance</strong><span>QA Analyst, from the ask alone. Pass on every card.</span></li>
+          <li><strong>Verification</strong><span>QA Analyst, by a different method. Pass on every card.</span></li>
+        </ol>
+      </div>
+      <div class="pl-group">
+        <h3 class="mono caps">Ship</h3>
+        <ol>
+          <li><strong>Publish beta</strong><span>Release Manager. I press the button.</span></li>
+          <li><strong>Soak</strong><span>Me. Only I can mark it complete.</span></li>
+          <li><strong>Promote stable</strong><span>Release Manager. The final stage.</span></li>
+        </ol>
+      </div>
     </div>
   </section>
 
   <section class="section">
-    <div class="sec-head sec-head-tight">
-      <h2>The same desk, on a phone.</h2>
-      <span class="mono">Mobile</span>
+    <div class="sec-head">
+      <h2>The nine role agents</h2>
+      <span class="mono">Haiku · Sonnet</span>
     </div>
-    <div class="phones">
-      <figure><div class="phone-frame"><img src="assets/digistax/m-floor.webp" alt="Floor on phone" loading="lazy"></div><figcaption>Floor</figcaption></figure>
-      <figure><div class="phone-frame"><img src="assets/digistax/m-inbox.webp" alt="Inbox on phone" loading="lazy"></div><figcaption>Inbox</figcaption></figure>
-      <figure><div class="phone-frame"><img src="assets/digistax/m-audit.webp" alt="Audit on phone" loading="lazy"></div><figcaption>Audit</figcaption></figure>
-      <figure><div class="phone-frame"><img src="assets/digistax/m-work.webp" alt="Work on phone" loading="lazy"></div><figcaption>Work</figcaption></figure>
-      <figure><div class="phone-frame"><img src="assets/digistax/m-agents.webp" alt="Agents on phone" loading="lazy"></div><figcaption>Agents</figcaption></figure>
-      <figure><div class="phone-frame"><img src="assets/digistax/m-invoices.webp" alt="Invoices on phone" loading="lazy"></div><figcaption>Invoices</figcaption></figure>
+    <div class="cs-text">
+      <p>Role agents exist where a subtask needs its own tools or its own guardrails. Each is defined by one file that says what it must never do, and hooks enforce most of it. Each repository keeps its own copies, so the CRM’s engineer knows its legacy file encoding and the web engineer knows the deploy scripts.</p>
+    </div>
+    <div class="roster">
+      <article class="role-agent"><div><h3>Business Analyst</h3><span class="pill">Haiku</span></div><p>Reads a transcript, email or screenshot and lists every ask, decision, bug, commitment and open question, with exact words.</p><p class="ag-never">Never touches the network, guesses a speaker’s name or merges look-alike items.</p></article>
+      <article class="role-agent"><div><h3>Project Coordinator</h3><span class="pill">Haiku</span></div><p>Tidies a job’s media: pulls video frames, drops duplicates, names files by card and takes an inventory.</p><p class="ag-never">Never works outside its job folder or decides what an image means.</p></article>
+      <article class="role-agent"><div><h3>Senior Software Engineer</h3><span class="pill">Sonnet</span></div><p>Investigates without changing anything that ships: reads code, queries production through a read-only account, benchmarks on a local copy.</p><p class="ag-never">Never edits source, builds or writes to production.</p></article>
+      <article class="role-agent"><div><h3>Software Engineer</h3><span class="pill">Sonnet</span></div><p>Implements a plan on its assigned branch, builds, runs the tests that cover the change and commits.</p><p class="ag-never">Never runs the full suite, merges or publishes.</p></article>
+      <article class="role-agent"><div><h3>QA Analyst</h3><span class="pill">Sonnet</span></div><p>Reviews the finished diff blind, against the client’s words and the plan, and tries one edge case the tests miss.</p><p class="ag-never">Never reads the implementer’s reasoning or fixes what it finds.</p></article>
+      <article class="role-agent"><div><h3>Test Engineer</h3><span class="pill">Haiku</span></div><p>Builds, confirms the binary contains the change, runs the UI suite in the foreground and reports the numbers.</p><p class="ag-never">Never edits anything or judges a failure.</p></article>
+      <article class="role-agent"><div><h3>Database Administrator</h3><span class="pill">Sonnet</span></div><p>The only agent that changes production, through one tool that rehearses first and records everything.</p><p class="ag-never">Can’t drop the main database: its account has no DROP privilege.</p></article>
+      <article class="role-agent"><div><h3>VM Probe</h3><span class="pill">Haiku</span></div><p>Answers read-only questions about the Windows build VM: stuck tasks, disk space, build directories.</p><p class="ag-never">Never ends a task, kills a process or deletes anything.</p></article>
+      <article class="role-agent"><div><h3>VM Suite Watcher</h3><span class="pill">Haiku</span></div><p>Runs a long test suite and polls it cheaply until it finishes.</p><p class="ag-never">Never uses a streaming monitor, starts a second suite or builds.</p></article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="sec-head">
+      <h2>Design principles</h2>
+      <span class="mono">Made impossible, not discouraged</span>
+    </div>
+    <div class="principles">
+      <article><h3>Guardrails come from permissions.</h3><p>The Database Administrator connects with an account that lacks DROP, so the database refuses a mistaken drop whatever the model decides. Investigators get a read-only account. A hook stops every agent reading credentials: the tools use them, the models never see them.</p></article>
+      <article><h3>Validation is blind.</h3><p>The QA Analyst ignores the implementer’s report and commit reasoning, even when a brief includes them. Its only anchor is what the client asked for.</p></article>
+      <article><h3>Cheap models do mechanical work.</h3><p>Haiku extracts, tidies, runs suites and polls. Sonnet plans, implements and reviews. Opus is allowed only when an orchestrator writes a one-line justification, such as a data-loss risk.</p></article>
+      <article><h3>Every agent does one job.</h3><p>Engineers report a second bug rather than fixing it. Suite runners never edit. The relay never analyses, so all real work lands in the right role and in the ledger.</p></article>
+      <article><h3>Every run is costed.</h3><p>Each session is a ledger row with its role, model, tokens and cost. A card’s timeline gets one entry per agent run, so what people said and what agents did read side by side.</p></article>
+      <article><h3>One lesson cost real money.</h3><p>Watching a suite with an event-streaming monitor woke the agent on every progress line and made it re-read its transcript, about 60k tokens per event. Three suites watched that way used around 13 million tokens. A hook now blocks the pattern, and a Haiku watcher polls instead.</p></article>
     </div>
   </section>
 
