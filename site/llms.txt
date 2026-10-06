@@ -1,0 +1,26 @@
+# Nicholas De Souza
+
+> Nicholas De Souza: Toronto solution engineer at Salesforce who builds AI agents and takes them to production. Founder of Digistax and Vowbird.ai.
+
+## Pages
+
+- [Home](https://nicholasdesouza.com/): Career highlights, current projects (Vowbird.ai, Digistax), past work and a ten-year career summary.
+- [Digistax case study](https://nicholasdesouza.com/case-study.html): How Digistax, a prototype software agency, runs every task as a graph of AI agents: orchestrators, nine role agents and a person approving every gate.
+  Sections: The whole pipeline; The nine role agents; One request, start to finish; The same desk, on a phone; Anatomy of a job; Two validators who never meet; The graph decides who pays; Design principles
+- [Product screenshot gallery](https://nicholasdesouza.com/gallery.html): Product screenshots from Vowbird.ai, the Digistax agent workspace, Review Loop and the TMLP Statistics Platform, on desktop and phone.
+  Sections: Vowbird.ai; Digistax; Review Loop; TMLP Statistics Platform
+
+## Projects
+
+- [Vowbird.ai](https://vowbird.ai): A wedding planner that does the tedious parts for you: one shared guest list, RSVPs that chase themselves, and invitations where an assistant answers guest questions. Free in early access.
+- Digistax: Founded in 2018 as a service automation firm; now a prototype software agency where every task runs as a graph of AI agents, with a person approving every price, merge, deploy and email. See the case study above.
+
+## Elsewhere
+
+- https://www.linkedin.com/in/ncdesouza
+- https://github.com/zeroamplitude
+
+## Optional
+
+- [Full site as Markdown](https://nicholasdesouza.com/llms-full.txt): every page's text in one file
+- Each page also has a Markdown copy: replace .html with .md (the home page is /index.md)

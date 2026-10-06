@@ -3,10 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Nicholas De Souza — Solution Engineer</title>
-<meta name="description" content="Nicholas De Souza is a Toronto-based solution engineer, software engineer and founder who builds AI agents and takes them to production. Lead Enterprise Solution Engineer at Salesforce; founder of Digistax and Vowbird.ai.">
+<meta name="description" content="Nicholas De Souza: Toronto solution engineer at Salesforce who builds AI agents and takes them to production. Founder of Digistax and Vowbird.ai.">
 <meta name="theme-color" content="#0b0b0c">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Nicholas De Souza">
@@ -22,11 +22,12 @@
 {
   "@context": "https://schema.org",
   "@type": "Person",
+  "@id": "https://nicholasdesouza.com/#person",
   "name": "Nicholas De Souza",
   "url": "https://nicholasdesouza.com/",
   "image": "https://nicholasdesouza.com/assets/portrait.jpeg",
   "jobTitle": "Lead Enterprise Solution Engineer",
-  "description": "Solution engineer, software engineer and founder. I build agents and take them to production.",
+  "description": "Toronto solution engineer at Salesforce who builds AI agents and takes them to production. Founder of Digistax and Vowbird.ai.",
   "worksFor": {
     "@type": "Organization",
     "name": "Salesforce"
@@ -66,6 +67,16 @@
   ]
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://nicholasdesouza.com/#website",
+  "name": "Nicholas De Souza",
+  "url": "https://nicholasdesouza.com/",
+  "publisher": { "@id": "https://nicholasdesouza.com/#person" }
+}
+</script>
 <link rel="icon" href="favicon.ico" sizes="32x32">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -103,7 +114,10 @@
 
   <section class="hero">
     <div>
-      <div class="location mono"><span></span>Toronto, ON</div>
+      <div class="hero-meta">
+        <div class="location mono"><span></span>Toronto, ON</div>
+        <div class="copy-page" data-copy-page></div>
+      </div>
       <h1>Nicholas<br><span>De Souza.</span></h1>
       <p class="hero-titles mono">Solution Engineer · Software Engineer · Solution Architect</p>
       <p class="hero-lede">Solution engineer, software engineer and founder. I build agents and take them to production.</p>
@@ -172,8 +186,8 @@
       <div>
         <div class="eyebrow mono"><span>02</span><span class="pill">Since 2018</span></div>
         <h3 class="card-logo-heading"><img class="card-logo card-logo-digistax" src="assets/logos/digistax.png" alt="Digistax" width="746" height="148"></h3>
-        <p class="card-lede">We ship production software with our AI agent team.</p>
-        <p class="card-body">An agent-run consultancy on Paperclip: seven agents on Claude Code, Codex and Grok, with human approval gates. It delivered a three-release client project in one week against a two-month estimate.</p>
+        <p class="card-lede">Software delivery run by graphs of AI agents.</p>
+        <p class="card-body">A prototype agency where every task runs as a graph of agents. An orchestrator leads each job and delegates to nine role agents, each limited by permissions rather than instructions, and two blind validators must pass every release. A person approves every price, merge, deploy and email.</p>
         <div class="btn-row">
           <a class="btn btn-light" href="case-study.html">Read the case study →</a>
           <a class="btn btn-outline" href="#contact">Start a project</a>

@@ -1,2 +1,6 @@
 project/
 chats/
+.seo-reports/
+__pycache__/
+site/*.md
+site/llms-full.txt

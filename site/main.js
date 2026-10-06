@@ -152,6 +152,107 @@
     if (!lightbox.hidden) closeLightbox();
   });
 
+  /* ---------- Copy page: Markdown for LLMs ---------- */
+  // The deploy generates <page>.md for every page (tools/page_markdown.py).
+  const ICONS = {
+    copy: '<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/>',
+    check: '<path d="M5 12l5 5 9-10"/>',
+    md: '<rect x="2" y="5" width="20" height="14" rx="2"/><path d="M6 15V9l3 3 3-3v6M16 9v6m-2-2 2 2 2-2"/>',
+    file: '<path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h5"/>',
+    chat: '<path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/>',
+    out: '<path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/>',
+    chevron: '<path d="M6 9l6 6 6-6"/>',
+  };
+  const icon = name => '<svg viewBox="0 0 24 24" aria-hidden="true">' + ICONS[name] + '</svg>';
+
+  $$('[data-copy-page]').forEach(root => {
+    const canonical = ($('link[rel="canonical"]') || {}).href || location.href;
+    const mdPath = (new URL(canonical).pathname.replace(/\/$/, '/index.html')).replace(/\.html$/, '.md');
+    const mdAbs = new URL(mdPath, canonical).href;
+    const ask = 'Read ' + mdAbs + ' so I can ask you questions about it.';
+    const items = [
+      ['copy', 'Copy page', 'Copy this page as Markdown for LLMs'],
+      ['md', 'View as Markdown', 'View this page as plain text', mdPath],
+      ['file', 'LLMs full', 'The whole site as Markdown for LLMs', '/llms-full.txt'],
+      ['chat', 'Open in Claude', 'Ask questions about this page', 'https://claude.ai/new?q=' + encodeURIComponent(ask)],
+      ['chat', 'Open in ChatGPT', 'Ask questions about this page', 'https://chatgpt.com/?hints=search&q=' + encodeURIComponent(ask)],
+    ];
+    const id = 'copy-page-menu-' + Math.random().toString(36).slice(2, 8);
+    root.innerHTML =
+      '<button type="button" class="cp-main">' + icon('copy') + '<span>Copy page</span></button>' +
+      '<button type="button" class="cp-toggle" aria-label="More ways to use this page" aria-haspopup="menu" aria-expanded="false" aria-controls="' + id + '">' + icon('chevron') + '</button>' +
+      '<div class="cp-menu" role="menu" id="' + id + '" hidden>' +
+      items.map(([ic, title, sub, href]) => {
+        const body = icon(ic) + '<span class="cp-text"><span class="cp-title">' + title + '</span><span class="cp-sub">' + sub + '</span></span>';
+        return href
+          ? '<a role="menuitem" href="' + href + '" target="_blank" rel="noopener">' + body + '<span class="cp-out">' + icon('out') + '</span></a>'
+          : '<button type="button" role="menuitem" data-copy>' + body + '</button>';
+      }).join('') +
+      '</div>';
+
+    const main = $('.cp-main', root), toggle = $('.cp-toggle', root), list = $('.cp-menu', root);
+    const label = $('span', main);
+    const entries = $$('[role="menuitem"]', list);
+
+    // Fetch the Markdown up front so the copy happens inside the click (Safari drops
+    // clipboard access once a click handler has awaited a network request).
+    let markdown = null;
+    const load = () => markdown || (markdown = fetch(mdPath).then(r => {
+      if (!r.ok) throw new Error(r.status);
+      return r.text();
+    }));
+    load().catch(() => { markdown = null; });
+
+    function flash(text, ok) {
+      label.textContent = text;
+      main.innerHTML = icon(ok ? 'check' : 'copy');
+      main.appendChild(label);
+      main.classList.toggle('cp-done', ok);
+      clearTimeout(main._t);
+      main._t = setTimeout(() => {
+        label.textContent = 'Copy page';
+        main.innerHTML = icon('copy');
+        main.appendChild(label);
+        main.classList.remove('cp-done');
+      }, 2000);
+    }
+    function copy() {
+      const p = load();
+      const write = window.ClipboardItem && navigator.clipboard.write
+        ? navigator.clipboard.write([new ClipboardItem({ 'text/plain': p.then(t => new Blob([t], { type: 'text/plain' })) })])
+        : p.then(t => navigator.clipboard.writeText(t));
+      write.then(() => flash('Copied', true), () => { markdown = null; flash('Copy failed', false); });
+    }
+    function setOpen(open, focusFirst) {
+      list.hidden = !open;
+      toggle.setAttribute('aria-expanded', String(open));
+      if (open && focusFirst) entries[0].focus();
+    }
+
+    main.addEventListener('click', copy);
+    toggle.addEventListener('click', () => setOpen(list.hidden, false));
+    toggle.addEventListener('keydown', e => {
+      if (e.key === 'ArrowDown') { e.preventDefault(); setOpen(true, true); }
+      if (e.key === 'Escape' && !list.hidden) { e.stopPropagation(); setOpen(false); }
+    });
+    $('[data-copy]', list).addEventListener('click', () => { copy(); setOpen(false); toggle.focus(); });
+    $$('a', list).forEach(a => a.addEventListener('click', () => setOpen(false)));
+    list.addEventListener('keydown', e => {
+      const i = entries.indexOf(document.activeElement);
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        entries[(i + (e.key === 'ArrowDown' ? 1 : -1) + entries.length) % entries.length].focus();
+      } else if (e.key === 'Escape') {
+        e.stopPropagation();
+        setOpen(false);
+        toggle.focus();
+      } else if (e.key === 'Tab') {
+        setOpen(false);
+      }
+    });
+    document.addEventListener('click', e => { if (!root.contains(e.target)) setOpen(false); });
+  });
+
   /* ---------- Carousels (home) ---------- */
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
   $$('[data-carousel]').forEach(root => {
