@@ -8,11 +8,13 @@ Markup must describe what is visible on the page. The hook checks syntax,
 
 ## What the site has
 
-- `index.html`: `Person` (name, url, image, jobTitle, description, worksFor,
+- `index.html`: `WebSite` (`#website`) and `Person` (`#person`) (name, url, image, jobTitle, description, worksFor,
   founder, alumniOf, address locality, knowsAbout, sameAs). Keep it in step
   with the resume section and the home description.
 
-## Worth adding
+- `case-study.html`: `Article`, with the author linked to `#person`.
+
+## Patterns for new pages
 
 Give entities stable `@id`s so pages can refer to each other:
 `https://nicholasdesouza.com/#person` and `https://nicholasdesouza.com/#website`.
@@ -41,13 +43,19 @@ Give entities stable `@id`s so pages can refer to each other:
   "image": "https://nicholasdesouza.com/assets/og/<preview>.jpg",
   "datePublished": "<YYYY-MM-DD first published>",
   "dateModified": "<YYYY-MM-DD, same as the sitemap lastmod>",
-  "author": { "@id": "https://nicholasdesouza.com/#person" },
+  "author": {
+    "@type": "Person",
+    "@id": "https://nicholasdesouza.com/#person",
+    "name": "Nicholas De Souza",
+    "url": "https://nicholasdesouza.com/"
+  },
   "mainEntityOfPage": "https://nicholasdesouza.com/case-study.html"
 }
 ```
 
-Add `"@id": "https://nicholasdesouza.com/#person"` to the existing Person so
-these references resolve.
+The Person on the home page carries that `@id`. Spell out the author's name
+and url as well: Google doesn't reliably follow an `@id` to another page.
+The hook keeps `dateModified` current whenever the page changes.
 
 **Optional:** `ProfilePage` wrapping the Person on the home page
 (`"@type": "ProfilePage", "mainEntity": {"@id": ".../#person"}`). Google

@@ -93,6 +93,8 @@ class PageMeta(HTMLParser):
             self.links.append(a["href"])
         elif tag == "img":
             self.imgs.append(a)
+        if tag == "br" and self._stack:
+            self._stack[-1][1] += " "
         if tag in ("title", "h1", "h2", "h3"):
             self._stack.append([tag, ""])
         if tag in ("script", "style", "svg"):
