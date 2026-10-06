@@ -191,6 +191,14 @@ def main():
     today = datetime.date.today().isoformat()
     errors, warnings, fixed = [], [], []
 
+    # The deploy generates site/*.md and llms-full.txt; build them here too (gitignored)
+    # so a converter crash shows up now and llms.txt links to them resolve.
+    gen = root / "tools" / "page_markdown.py"
+    if gen.exists():
+        r = subprocess.run([sys.executable, str(gen)], cwd=root, capture_output=True, text=True)
+        if r.returncode:
+            errors.append(f"tools/page_markdown.py failed: {r.stderr.strip().splitlines()[-1] if r.stderr.strip() else r.returncode}")
+
     pages, parsed = sorted(p.name for p in site.glob("*.html")), {}
     for name in pages:
         p = Page()
