@@ -12,8 +12,10 @@ Updates (then stages) automatically:
 Blocks the commit (exit 2, reasons on stderr) when a page is missing a title,
 description, canonical URL or Open Graph tags, has a canonical/og:url mismatch,
 not exactly one <h1>, an <img> without alt, broken JSON-LD, or a local link,
-image or #fragment that doesn't resolve. Soft issues (title/description length)
-are reported without blocking.
+image or #fragment that doesn't resolve, JSON-LD without @context/@type or with
+placeholder text or a retired type (HowTo, FAQPage, ...), titles or descriptions
+duplicated across pages, or a broken link in llms.txt. Soft issues (title and
+description length, images over 300 KB) are reported without blocking.
 
 Run by hand: python3 .claude/hooks/seo-check.py --run
 """
@@ -28,6 +30,9 @@ from pathlib import Path
 
 BASE = "https://nicholasdesouza.com/"
 NOINDEX_PAGES = {"404.html"}
+IMAGE_WARN_BYTES = 300_000
+RETIRED_SCHEMA = {"HowTo", "SpecialAnnouncement", "FAQPage", "ClaimReview"}  # no rich results for this site
+PLACEHOLDER = re.compile(r"\[(?:your|insert|replace|todo|name|business name|city|phone|address)[^\]]*\]|lorem ipsum", re.I)
 REQUIRED_META = ["og:type", "og:title", "og:description", "og:url", "og:site_name", "og:image", "twitter:card"]
 
 
@@ -114,6 +119,32 @@ def image_size(path):
     return None
 
 
+def schema_problems(data, top=True):
+    """Problems in a parsed JSON-LD value: missing @context/@type, placeholders, retired types."""
+    out = []
+    if isinstance(data, list):
+        for item in data:
+            out += schema_problems(item, top)
+        return out
+    if isinstance(data, dict):
+        if top and "@graph" not in data and "@context" not in data:
+            out.append("missing @context")
+        if top and "@graph" not in data and "@type" not in data:
+            out.append("missing @type")
+        types = data.get("@type", [])
+        for t in [types] if isinstance(types, str) else types:
+            if t in RETIRED_SCHEMA:
+                out.append(f"uses @type {t}, which gets no rich results here; remove it")
+        for key, val in data.items():
+            if isinstance(val, str) and PLACEHOLDER.search(val):
+                out.append(f"{key} looks like placeholder text: {val!r}")
+            elif key == "@graph":
+                out += schema_problems(val, True)
+            elif isinstance(val, (dict, list)):
+                out += schema_problems(val, False)
+    return out
+
+
 def page_url(name):
     return BASE if name == "index.html" else BASE + name
 
@@ -165,13 +196,13 @@ def main():
 
         if not p.title.strip():
             errors.append(f"{where}: missing <title>")
-        elif len(p.title) > 70:
-            warnings.append(f"{where}: title is {len(p.title)} chars (search results cut off around 60–70)")
+        elif indexable and not 30 <= len(p.title) <= 60:
+            warnings.append(f"{where}: title is {len(p.title)} chars (aim for 30–60)")
         desc = p.meta.get("description", "")
         if not desc:
             errors.append(f"{where}: missing meta description")
-        elif not 50 <= len(desc) <= 160:
-            warnings.append(f"{where}: meta description is {len(desc)} chars (aim for 50–160)")
+        elif indexable and not 120 <= len(desc) <= 160:
+            warnings.append(f"{where}: meta description is {len(desc)} chars (aim for 120–160)")
         if p.h1 != 1:
             errors.append(f"{where}: has {p.h1} <h1> elements (expected exactly 1)")
         for img in p.imgs:
@@ -179,9 +210,11 @@ def main():
                 errors.append(f"{where}: <img src=\"{img.get('src')}\"> has no alt attribute")
         for i, block in enumerate(p.ld):
             try:
-                json.loads(block)
+                data = json.loads(block)
             except ValueError as e:
                 errors.append(f"{where}: JSON-LD block {i + 1} is invalid ({e})")
+                continue
+            errors += [f"{where}: JSON-LD block {i + 1}: {msg}" for msg in schema_problems(data)]
 
         for ref in p.links + [i.get("src", "") for i in p.imgs]:
             r = resolve(site, name, ref)
@@ -255,6 +288,29 @@ def main():
         sm_path.write_text('<?xml version="1.0" encoding="UTF-8"?>\n'
                            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
                            f"{body}</urlset>\n", encoding="utf-8")
+
+    # Titles and descriptions must be unique across indexable pages.
+    for label, get in (("title", lambda p: p.title.strip()), ("meta description", lambda p: p.meta.get("description", ""))):
+        seen = {}
+        for name in pages:
+            if name in NOINDEX_PAGES or not get(parsed[name]):
+                continue
+            seen.setdefault(get(parsed[name]), []).append(name)
+        for names in seen.values():
+            if len(names) > 1:
+                errors.append(f"{', '.join('site/' + n for n in names)}: share the same {label}")
+
+    for img in sorted(site.rglob("*")):
+        if img.suffix.lower() in {".png", ".jpg", ".jpeg", ".webp", ".gif", ".avif"} and img.stat().st_size > IMAGE_WARN_BYTES:
+            warnings.append(f"{img.relative_to(root)}: {img.stat().st_size // 1000} KB (over {IMAGE_WARN_BYTES // 1000} KB; compress or resize)")
+
+    llms = site / "llms.txt"
+    if llms.exists():
+        for url in re.findall(r"\]\((\S+?)\)", llms.read_text(encoding="utf-8")):
+            if url.startswith(BASE) or not re.match(r"^[a-z]+:", url):
+                r = resolve(site, "index.html", url)
+                if r and not r[0].exists():
+                    errors.append(f"site/llms.txt: link to {url} points to a missing file")
 
     robots_txt = (site / "robots.txt").read_text(encoding="utf-8") if (site / "robots.txt").exists() else ""
     if f"Sitemap: {BASE}sitemap.xml" not in robots_txt:
