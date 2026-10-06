@@ -14,6 +14,7 @@ HTML/CSS/JS in `site/` (no build step, no framework). Built from a Claude Design
 - `site/styles.css`, `site/main.js` — all styles and behaviour (mobile menu, contact form modal, carousels, click-to-enlarge lightbox)
 - `site/assets/` — images (screenshots are WebP; logos PNG; `og/` link-preview JPEGs), resume PDF
 - `site/robots.txt` (blocks only the resume PDF; all search and AI crawlers are allowed by choice), `site/sitemap.xml`, `site/404.html`
+- `site/home.html` — redirect stub for `/home`, an old URL Google still shows; instant meta refresh + canonical to `/` (GitHub Pages can't 301). Keep it out of the sitemap
 - `site/llms.txt` — Markdown summary for AI assistants; regenerate with the SEO skill's `llms_txt.py`, then hand-edit
 - `site/0f1689ce29c9b84210c0f147231fdff8.txt` — IndexNow key file (public by design; keep it)
 
