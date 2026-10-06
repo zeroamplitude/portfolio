@@ -1,13 +1,13 @@
 # Nicholas De Souza
 
-> Nicholas De Souza is a Toronto-based solution engineer, software engineer and founder who builds AI agents and takes them to production. Lead Enterprise Solution Engineer at Salesforce; founder of Digistax and Vowbird.ai.
+> Nicholas De Souza: Toronto solution engineer at Salesforce who builds AI agents and takes them to production. Founder of Digistax and Vowbird.ai.
 
 ## Pages
 
 - [Home](https://nicholasdesouza.com/): Career highlights, current projects (Vowbird.ai, Digistax), past work and a ten-year career summary.
-- [Digistax case study](https://nicholasdesouza.com/case-study.html): Every task is a graph of agents, with a person at every gate. A prototype agency where orchestrators delegate to role agents whose limits are set by permissions.
+- [Digistax case study](https://nicholasdesouza.com/case-study.html): How Digistax, a prototype software agency, runs every task as a graph of AI agents: orchestrators, nine role agents and a person approving every gate.
   Sections: The whole pipeline; The nine role agents; One request, start to finish; The same desk, on a phone; Anatomy of a job; Two validators who never meet; The graph decides who pays; Design principles
-- [Product screenshot gallery](https://nicholasdesouza.com/gallery.html): Screens from Vowbird.ai, Digistax, Review Loop and the TMLP Statistics Platform.
+- [Product screenshot gallery](https://nicholasdesouza.com/gallery.html): Product screenshots from Vowbird.ai, the Digistax agent workspace, Review Loop and the TMLP Statistics Platform, on desktop and phone.
   Sections: Vowbird.ai; Digistax; Review Loop; TMLP Statistics Platform
 
 ## Projects
