@@ -33,6 +33,7 @@ Preview locally: `cd site && python3 -m http.server`.
 - Contact form posts to Formspree `https://formspree.io/f/xgavyroa` (in `main.js`). Don't enable Formspree reCAPTCHA (breaks the AJAX submit). The owner's email must never appear on the site.
 - The resume PDF contains contact details; it's deliberately not indexed (robots.txt + `rel="nofollow"`). Don't put its contact details into page text.
 - Vowbird.ai and Digistax should stay presented as independent companies; no "built by" links on their sites.
+- An SEO hook (`.claude/hooks/seo-check.py`, wired in `.claude/settings.json`) runs before every `git commit` Claude makes. It updates and stages `sitemap.xml` (missing pages, `lastmod` for changed pages) and `og:image` sizes, and blocks the commit on missing titles, descriptions, canonical/Open Graph tags, `<h1>` count, image alt text, invalid JSON-LD or broken local links. Run it by hand with `python3 .claude/hooks/seo-check.py --run`.
 - Make each logical change its own commit (the owner likes being able to revert pieces). Verify in a headless browser (Chromium is at `/opt/pw-browsers/chromium`) at desktop and 390px widths before pushing.
 
 ## Infrastructure (no secrets)
