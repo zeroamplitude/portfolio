@@ -13,7 +13,8 @@ HTML/CSS/JS in `site/` (no build step, no framework). Built from a Claude Design
 - `site/gallery.html` — screenshot gallery
 - `site/styles.css`, `site/main.js` — all styles and behaviour (mobile menu, contact form modal, carousels, click-to-enlarge lightbox)
 - `site/assets/` — images (screenshots are WebP; logos PNG; `og/` link-preview JPEGs), resume PDF
-- `site/robots.txt` (blocks only the resume PDF), `site/sitemap.xml`, `site/404.html`
+- `site/robots.txt` (blocks only the resume PDF; all search and AI crawlers are allowed by choice), `site/sitemap.xml`, `site/404.html`
+- `site/llms.txt` — Markdown summary for AI assistants; regenerate with the SEO skill's `llms_txt.py`, then hand-edit
 - `site/0f1689ce29c9b84210c0f147231fdff8.txt` — IndexNow key file (public by design; keep it)
 
 Preview locally: `cd site && python3 -m http.server`.
@@ -34,6 +35,7 @@ Preview locally: `cd site && python3 -m http.server`.
 - The resume PDF contains contact details; it's deliberately not indexed (robots.txt + `rel="nofollow"`). Don't put its contact details into page text.
 - Vowbird.ai and Digistax should stay presented as independent companies; no "built by" links on their sites.
 - An SEO hook (`.claude/hooks/seo-check.py`, wired in `.claude/settings.json`) runs before every `git commit` Claude makes. It updates and stages `sitemap.xml` (missing pages, `lastmod` for changed pages) and `og:image` sizes, and blocks the commit on missing titles, descriptions, canonical/Open Graph tags, `<h1>` count, image alt text, invalid JSON-LD or broken local links. Run it by hand with `python3 .claude/hooks/seo-check.py --run`.
+- The **SEO skill** (`.claude/skills/seo/`) covers audits, Search Console (`scripts/gsc.py`), titles and descriptions, structured data, AI crawlers and adding pages. Audit reports go to the gitignored `.seo-reports/`. Never add a named `User-agent` group to robots.txt without repeating the resume `Disallow` (see `references/ai-search.md`).
 - Make each logical change its own commit (the owner likes being able to revert pieces). Verify in a headless browser (Chromium is at `/opt/pw-browsers/chromium`) at desktop and 390px widths before pushing.
 
 ## Infrastructure (no secrets)
