@@ -83,11 +83,147 @@
 
   <section class="section">
     <div class="sec-head">
+      <h2>The nine role agents</h2>
+      <span class="mono">Haiku · Sonnet</span>
+    </div>
+    <div class="cs-text">
+      <p>It’s built around a real delivery problem: two legacy systems, a desktop CRM and a pair of web apps, sharing one production database with no staging copy. So the design question was never “what can an agent do?” but “what is each agent allowed to touch?”</p>
+      <p>Role agents exist where a subtask needs its own tools or its own guardrails. Each is defined by one file that says what it must never do, and hooks enforce most of it. Each repository keeps its own copies, so the CRM’s engineer knows its legacy file encoding and the web engineer knows the deploy scripts.</p>
+    </div>
+    <div class="roster">
+      <article class="role-agent"><div><h3>Business Analyst</h3><span class="pill">Haiku</span></div><p>Reads a transcript, email or screenshot and lists every ask, decision, bug, commitment and open question, with exact words.</p><p class="ag-never">Never touches the network, guesses a speaker’s name or merges look-alike items.</p></article>
+      <article class="role-agent"><div><h3>Project Coordinator</h3><span class="pill">Haiku</span></div><p>Tidies a job’s media: pulls video frames, drops duplicates, names files by card and takes an inventory.</p><p class="ag-never">Never works outside its job folder or decides what an image means.</p></article>
+      <article class="role-agent"><div><h3>Senior Software Engineer</h3><span class="pill">Sonnet</span></div><p>Investigates without changing anything that ships: reads code, queries production through a read-only account, benchmarks on a local copy.</p><p class="ag-never">Never edits source, builds or writes to production.</p></article>
+      <article class="role-agent"><div><h3>Software Engineer</h3><span class="pill">Sonnet</span></div><p>Implements a plan on its assigned branch, builds, runs the tests that cover the change and commits.</p><p class="ag-never">Never runs the full suite, merges or publishes.</p></article>
+      <article class="role-agent"><div><h3>QA Analyst</h3><span class="pill">Sonnet</span></div><p>Reviews the finished diff blind, against the client’s words and the plan, and tries one edge case the tests miss.</p><p class="ag-never">Never reads the implementer’s reasoning or fixes what it finds.</p></article>
+      <article class="role-agent"><div><h3>Test Engineer</h3><span class="pill">Haiku</span></div><p>Builds, confirms the binary contains the change, runs the UI suite in the foreground and reports the numbers.</p><p class="ag-never">Never edits anything or judges a failure.</p></article>
+      <article class="role-agent"><div><h3>Database Administrator</h3><span class="pill">Sonnet</span></div><p>The only agent that changes production, through one tool that rehearses first and records everything.</p><p class="ag-never">Can’t drop the main database: its account has no DROP privilege.</p></article>
+      <article class="role-agent"><div><h3>VM Probe</h3><span class="pill">Haiku</span></div><p>Answers read-only questions about the Windows build VM: stuck tasks, disk space, build directories.</p><p class="ag-never">Never ends a task, kills a process or deletes anything.</p></article>
+      <article class="role-agent"><div><h3>VM Suite Watcher</h3><span class="pill">Haiku</span></div><p>Runs a long test suite and polls it cheaply until it finishes.</p><p class="ag-never">Never uses a streaming monitor, starts a second suite or builds.</p></article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="sec-head">
+      <h2>The whole pipeline</h2>
+      <span class="mono">11 stages</span>
+    </div>
+    <div class="cs-text">
+      <p>A card moves through eleven stages. Each one is a separate job with a fresh context, and each has a gate before the next.</p>
+    </div>
+    <div class="pipeline">
+      <div class="pl-group">
+        <h3 class="mono caps">Understand</h3>
+        <ol>
+          <li><strong>Intake</strong><span>Account Manager logs every email and meeting on the cards it concerns. When unsure, it flags a duplicate rather than merging.</span></li>
+          <li><strong>Origin check</strong><span>Support Engineer. I accept or reject the verdict.</span></li>
+          <li><strong>Estimate</strong><span>Solutions Architect. The client approves the price.</span></li>
+        </ol>
+      </div>
+      <div class="pl-group">
+        <h3 class="mono caps">Build</h3>
+        <ol>
+          <li><strong>Plan</strong><span>Technical Lead. The plan file must exist on the card.</span></li>
+          <li><strong>Implement</strong><span>Technical Lead and role agents. Zero suite failures.</span></li>
+          <li><strong>Assemble release</strong><span>Technical Lead. Never merges to main.</span></li>
+        </ol>
+      </div>
+      <div class="pl-group">
+        <h3 class="mono caps">Validate</h3>
+        <ol>
+          <li><strong>Acceptance</strong><span>QA Analyst, from the ask alone. Pass on every card.</span></li>
+          <li><strong>Verification</strong><span>QA Analyst, by a different method. Pass on every card.</span></li>
+        </ol>
+      </div>
+      <div class="pl-group">
+        <h3 class="mono caps">Ship</h3>
+        <ol>
+          <li><strong>Publish beta</strong><span>Release Manager. I press the button.</span></li>
+          <li><strong>Soak</strong><span>Me. Only I can mark it complete.</span></li>
+          <li><strong>Promote stable</strong><span>Release Manager. The final stage.</span></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="sec-head">
+      <h2>One request, start to finish</h2>
+      <span class="mono">01 — 06</span>
+    </div>
+    <div class="steps">
+      <article class="card step">
+        <div>
+          <div class="eyebrow mono"><span>01</span><span class="pill">Intake</span></div>
+          <h3>Client email becomes a request.</h3>
+          <p>Messages land in a shared inbox. Intake agents file each one by type, link it to a request, name an owning role and hand it off. Anything they can’t place stays marked unfiled until someone looks at it.</p>
+        </div>
+        <figure><div class="shot"><img src="assets/digistax/inbox.webp" alt="Inbox" loading="lazy"></div></figure>
+      </article>
+      <article class="card step">
+        <div>
+          <div class="eyebrow mono"><span>02</span><span class="pill">Audit</span></div>
+          <h3>A person checks every triage call.</h3>
+          <p>Each request shows the client’s own words, why it was filed where it was, and the sources behind that decision. The reviewer marks it correct, wrong or unsure from the keyboard and moves on.</p>
+        </div>
+        <figure><div class="shot"><img src="assets/digistax/audit.webp" alt="Audit" loading="lazy"></div></figure>
+      </article>
+      <article class="card step">
+        <div>
+          <div class="eyebrow mono"><span>03</span><span class="pill">Build</span></div>
+          <h3>Requests break into tasks.</h3>
+          <p>Tasks move from new to scheduled, in progress, in review and released. Each card carries its type, whether it’s estimated, and the release it shipped in.</p>
+        </div>
+        <figure><div class="shot"><img src="assets/digistax/tasks.webp" alt="Tasks board" loading="lazy"></div></figure>
+      </article>
+      <article class="card step">
+        <div>
+          <div class="eyebrow mono"><span>04</span><span class="pill">Track</span></div>
+          <h3>One view of every request.</h3>
+          <p>Work lists each request with its status, price, tasks, hours and messages. Group it by release to see what went out in each version, save the view, or export it.</p>
+        </div>
+        <figure><div class="shot"><img src="assets/digistax/work-release.webp" alt="Work grouped by release" loading="lazy"></div></figure>
+      </article>
+      <article class="card step">
+        <div>
+          <div class="eyebrow mono"><span>05</span><span class="pill">Control</span></div>
+          <h3>One switch turns it all off.</h3>
+          <p>Every agent has a charter, a settings file, a run history with cost, and a mailbox. Any agent can be paused. Power off refuses every agent call and kills any run in flight, and nothing turns itself back on.</p>
+        </div>
+        <figure><div class="shot"><img src="assets/digistax/agents.webp" alt="Agents" loading="lazy"></div></figure>
+      </article>
+      <article class="card step">
+        <div>
+          <div class="eyebrow mono"><span>06</span><span class="pill">Bill</span></div>
+          <h3>Invoices line up with releases.</h3>
+          <p>Each invoice line names the release and change it pays for, with hours and amount. The list shows the effective hourly rate per invoice and flags the ones that fall below target.</p>
+        </div>
+        <figure><div class="shot"><img src="assets/digistax/invoice.webp" alt="Invoice detail" loading="lazy"></div></figure>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="sec-head sec-head-tight">
+      <h2>The same desk, on a phone.</h2>
+      <span class="mono">Mobile</span>
+    </div>
+    <div class="phones">
+      <figure><div class="phone-frame"><img src="assets/digistax/m-floor.webp" alt="Floor on phone" loading="lazy"></div><figcaption>Floor</figcaption></figure>
+      <figure><div class="phone-frame"><img src="assets/digistax/m-inbox.webp" alt="Inbox on phone" loading="lazy"></div><figcaption>Inbox</figcaption></figure>
+      <figure><div class="phone-frame"><img src="assets/digistax/m-audit.webp" alt="Audit on phone" loading="lazy"></div><figcaption>Audit</figcaption></figure>
+      <figure><div class="phone-frame"><img src="assets/digistax/m-work.webp" alt="Work on phone" loading="lazy"></div><figcaption>Work</figcaption></figure>
+      <figure><div class="phone-frame"><img src="assets/digistax/m-agents.webp" alt="Agents on phone" loading="lazy"></div><figcaption>Agents</figcaption></figure>
+      <figure><div class="phone-frame"><img src="assets/digistax/m-invoices.webp" alt="Invoices on phone" loading="lazy"></div><figcaption>Invoices</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="sec-head">
       <h2>Anatomy of a job</h2>
       <span class="mono">Graph 01</span>
     </div>
     <div class="cs-text">
-      <p>It’s built around a real delivery problem: two legacy systems, a desktop CRM and a pair of web apps, sharing one production database with no staging copy. So the design question was never “what can an agent do?” but “what is each agent allowed to touch?”</p>
       <p>Work starts as a card on a release board. Each button on the card (Triage, Estimate, Plan, Implement, Publish) queues a job, and each job is its own graph with a fresh context. This is the graph behind Implement.</p>
     </div>
     <figure class="agraph">
@@ -234,142 +370,6 @@
         </li>
       </ol>
     </figure>
-  </section>
-
-  <section class="section">
-    <div class="sec-head">
-      <h2>One request, start to finish</h2>
-      <span class="mono">01 — 06</span>
-    </div>
-    <div class="steps">
-      <article class="card step">
-        <div>
-          <div class="eyebrow mono"><span>01</span><span class="pill">Intake</span></div>
-          <h3>Client email becomes a request.</h3>
-          <p>Messages land in a shared inbox. Intake agents file each one by type, link it to a request, name an owning role and hand it off. Anything they can’t place stays marked unfiled until someone looks at it.</p>
-        </div>
-        <figure><div class="shot"><img src="assets/digistax/inbox.webp" alt="Inbox" loading="lazy"></div></figure>
-      </article>
-      <article class="card step">
-        <div>
-          <div class="eyebrow mono"><span>02</span><span class="pill">Audit</span></div>
-          <h3>A person checks every triage call.</h3>
-          <p>Each request shows the client’s own words, why it was filed where it was, and the sources behind that decision. The reviewer marks it correct, wrong or unsure from the keyboard and moves on.</p>
-        </div>
-        <figure><div class="shot"><img src="assets/digistax/audit.webp" alt="Audit" loading="lazy"></div></figure>
-      </article>
-      <article class="card step">
-        <div>
-          <div class="eyebrow mono"><span>03</span><span class="pill">Build</span></div>
-          <h3>Requests break into tasks.</h3>
-          <p>Tasks move from new to scheduled, in progress, in review and released. Each card carries its type, whether it’s estimated, and the release it shipped in.</p>
-        </div>
-        <figure><div class="shot"><img src="assets/digistax/tasks.webp" alt="Tasks board" loading="lazy"></div></figure>
-      </article>
-      <article class="card step">
-        <div>
-          <div class="eyebrow mono"><span>04</span><span class="pill">Track</span></div>
-          <h3>One view of every request.</h3>
-          <p>Work lists each request with its status, price, tasks, hours and messages. Group it by release to see what went out in each version, save the view, or export it.</p>
-        </div>
-        <figure><div class="shot"><img src="assets/digistax/work-release.webp" alt="Work grouped by release" loading="lazy"></div></figure>
-      </article>
-      <article class="card step">
-        <div>
-          <div class="eyebrow mono"><span>05</span><span class="pill">Control</span></div>
-          <h3>One switch turns it all off.</h3>
-          <p>Every agent has a charter, a settings file, a run history with cost, and a mailbox. Any agent can be paused. Power off refuses every agent call and kills any run in flight, and nothing turns itself back on.</p>
-        </div>
-        <figure><div class="shot"><img src="assets/digistax/agents.webp" alt="Agents" loading="lazy"></div></figure>
-      </article>
-      <article class="card step">
-        <div>
-          <div class="eyebrow mono"><span>06</span><span class="pill">Bill</span></div>
-          <h3>Invoices line up with releases.</h3>
-          <p>Each invoice line names the release and change it pays for, with hours and amount. The list shows the effective hourly rate per invoice and flags the ones that fall below target.</p>
-        </div>
-        <figure><div class="shot"><img src="assets/digistax/invoice.webp" alt="Invoice detail" loading="lazy"></div></figure>
-      </article>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="sec-head sec-head-tight">
-      <h2>The same desk, on a phone.</h2>
-      <span class="mono">Mobile</span>
-    </div>
-    <div class="phones">
-      <figure><div class="phone-frame"><img src="assets/digistax/m-floor.webp" alt="Floor on phone" loading="lazy"></div><figcaption>Floor</figcaption></figure>
-      <figure><div class="phone-frame"><img src="assets/digistax/m-inbox.webp" alt="Inbox on phone" loading="lazy"></div><figcaption>Inbox</figcaption></figure>
-      <figure><div class="phone-frame"><img src="assets/digistax/m-audit.webp" alt="Audit on phone" loading="lazy"></div><figcaption>Audit</figcaption></figure>
-      <figure><div class="phone-frame"><img src="assets/digistax/m-work.webp" alt="Work on phone" loading="lazy"></div><figcaption>Work</figcaption></figure>
-      <figure><div class="phone-frame"><img src="assets/digistax/m-agents.webp" alt="Agents on phone" loading="lazy"></div><figcaption>Agents</figcaption></figure>
-      <figure><div class="phone-frame"><img src="assets/digistax/m-invoices.webp" alt="Invoices on phone" loading="lazy"></div><figcaption>Invoices</figcaption></figure>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="sec-head">
-      <h2>The whole pipeline</h2>
-      <span class="mono">11 stages</span>
-    </div>
-    <div class="cs-text">
-      <p>A card moves through eleven stages. Each one is a separate job with a fresh context, and each has a gate before the next.</p>
-    </div>
-    <div class="pipeline">
-      <div class="pl-group">
-        <h3 class="mono caps">Understand</h3>
-        <ol>
-          <li><strong>Intake</strong><span>Account Manager logs every email and meeting on the cards it concerns. When unsure, it flags a duplicate rather than merging.</span></li>
-          <li><strong>Origin check</strong><span>Support Engineer. I accept or reject the verdict.</span></li>
-          <li><strong>Estimate</strong><span>Solutions Architect. The client approves the price.</span></li>
-        </ol>
-      </div>
-      <div class="pl-group">
-        <h3 class="mono caps">Build</h3>
-        <ol>
-          <li><strong>Plan</strong><span>Technical Lead. The plan file must exist on the card.</span></li>
-          <li><strong>Implement</strong><span>Technical Lead and role agents. Zero suite failures.</span></li>
-          <li><strong>Assemble release</strong><span>Technical Lead. Never merges to main.</span></li>
-        </ol>
-      </div>
-      <div class="pl-group">
-        <h3 class="mono caps">Validate</h3>
-        <ol>
-          <li><strong>Acceptance</strong><span>QA Analyst, from the ask alone. Pass on every card.</span></li>
-          <li><strong>Verification</strong><span>QA Analyst, by a different method. Pass on every card.</span></li>
-        </ol>
-      </div>
-      <div class="pl-group">
-        <h3 class="mono caps">Ship</h3>
-        <ol>
-          <li><strong>Publish beta</strong><span>Release Manager. I press the button.</span></li>
-          <li><strong>Soak</strong><span>Me. Only I can mark it complete.</span></li>
-          <li><strong>Promote stable</strong><span>Release Manager. The final stage.</span></li>
-        </ol>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="sec-head">
-      <h2>The nine role agents</h2>
-      <span class="mono">Haiku · Sonnet</span>
-    </div>
-    <div class="cs-text">
-      <p>Role agents exist where a subtask needs its own tools or its own guardrails. Each is defined by one file that says what it must never do, and hooks enforce most of it. Each repository keeps its own copies, so the CRM’s engineer knows its legacy file encoding and the web engineer knows the deploy scripts.</p>
-    </div>
-    <div class="roster">
-      <article class="role-agent"><div><h3>Business Analyst</h3><span class="pill">Haiku</span></div><p>Reads a transcript, email or screenshot and lists every ask, decision, bug, commitment and open question, with exact words.</p><p class="ag-never">Never touches the network, guesses a speaker’s name or merges look-alike items.</p></article>
-      <article class="role-agent"><div><h3>Project Coordinator</h3><span class="pill">Haiku</span></div><p>Tidies a job’s media: pulls video frames, drops duplicates, names files by card and takes an inventory.</p><p class="ag-never">Never works outside its job folder or decides what an image means.</p></article>
-      <article class="role-agent"><div><h3>Senior Software Engineer</h3><span class="pill">Sonnet</span></div><p>Investigates without changing anything that ships: reads code, queries production through a read-only account, benchmarks on a local copy.</p><p class="ag-never">Never edits source, builds or writes to production.</p></article>
-      <article class="role-agent"><div><h3>Software Engineer</h3><span class="pill">Sonnet</span></div><p>Implements a plan on its assigned branch, builds, runs the tests that cover the change and commits.</p><p class="ag-never">Never runs the full suite, merges or publishes.</p></article>
-      <article class="role-agent"><div><h3>QA Analyst</h3><span class="pill">Sonnet</span></div><p>Reviews the finished diff blind, against the client’s words and the plan, and tries one edge case the tests miss.</p><p class="ag-never">Never reads the implementer’s reasoning or fixes what it finds.</p></article>
-      <article class="role-agent"><div><h3>Test Engineer</h3><span class="pill">Haiku</span></div><p>Builds, confirms the binary contains the change, runs the UI suite in the foreground and reports the numbers.</p><p class="ag-never">Never edits anything or judges a failure.</p></article>
-      <article class="role-agent"><div><h3>Database Administrator</h3><span class="pill">Sonnet</span></div><p>The only agent that changes production, through one tool that rehearses first and records everything.</p><p class="ag-never">Can’t drop the main database: its account has no DROP privilege.</p></article>
-      <article class="role-agent"><div><h3>VM Probe</h3><span class="pill">Haiku</span></div><p>Answers read-only questions about the Windows build VM: stuck tasks, disk space, build directories.</p><p class="ag-never">Never ends a task, kills a process or deletes anything.</p></article>
-      <article class="role-agent"><div><h3>VM Suite Watcher</h3><span class="pill">Haiku</span></div><p>Runs a long test suite and polls it cheaply until it finishes.</p><p class="ag-never">Never uses a streaming monitor, starts a second suite or builds.</p></article>
-    </div>
   </section>
 
   <section class="section">
