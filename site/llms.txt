@@ -19,3 +19,8 @@
 
 - https://www.linkedin.com/in/ncdesouza
 - https://github.com/zeroamplitude
+
+## Optional
+
+- [Full site as Markdown](https://nicholasdesouza.com/llms-full.txt): every page's text in one file
+- Each page also has a Markdown copy: replace .html with .md (the home page is /index.md)

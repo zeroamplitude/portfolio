@@ -54,6 +54,9 @@ def build():
             lines.append(f"  Sections: {'; '.join(h2)}")
     if me.get("sameAs"):
         lines += ["", "## Elsewhere", ""] + [f"- {u}" for u in me["sameAs"]]
+    lines += ["", "## Optional", "",
+              "- [Full site as Markdown](https://nicholasdesouza.com/llms-full.txt): every page's text in one file",
+              "- Each page also has a Markdown copy: replace .html with .md (the home page is /index.md)"]
     return "\n".join(lines) + "\n"
 
 
