@@ -2,8 +2,8 @@
 """Check pages as search engines see them: redirects, status, headers and on-page tags.
 
   live_check.py                         # every page in the sitemap, plus host/scheme redirects
-  live_check.py https://nicholasdesouza.com/case-studies/digistax/
-  live_check.py site/case-studies/digistax/index.html    # a local file (tags only, no HTTP)
+  live_check.py https://nicholasdesouza.com/case-studies/digistax
+  live_check.py site/case-studies/digistax.html    # a local file (tags only, no HTTP)
   live_check.py --json ...
 
 Each finding is (severity, message). "limited" means this environment could not
@@ -136,7 +136,7 @@ def main():
             path = Path(t)
             p = parse(path.read_text(encoding="utf-8"))
             try:
-                url = page_url(path.resolve().relative_to(SITE.resolve()).as_posix())
+                url = page_url(path.resolve().relative_to(SITE.resolve()).as_posix(), p.canonical)
             except ValueError:
                 url = BASE if path.name == "index.html" else BASE + path.name
             results.append({"url": str(path), "page": summary(p), "findings": tag_findings(p, url)})
