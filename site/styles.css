@@ -393,7 +393,7 @@ button { font-family: inherit; }
 .phones { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 160px), 1fr)); gap: 28px 16px; }
 .phones figcaption { font-size: 14px; margin-top: 10px; color: #c8c8cc; }
 .sec-head-tight { margin-bottom: 32px; }
-.cs-text { display: flex; flex-direction: column; gap: 16px; max-width: 68ch; margin-bottom: 48px; }
+.cs-text { display: flex; flex-direction: column; gap: 16px; margin-bottom: 48px; }
 .cs-text p { font-size: 17px; line-height: 1.65; color: #c8c8cc; }
 .phone-frame {
   display: block; aspect-ratio: 1170 / 2532; overflow: hidden; border-radius: 22px;
@@ -538,7 +538,7 @@ button { font-family: inherit; }
 .hl-uses::before { content: "Uses · "; color: var(--lime); }
 .hl-ok { color: var(--lime); }
 .hl-warn { color: oklch(0.8 0.14 70); }
-.hl-verdict { display: flex; flex-direction: column; gap: 20px; margin: 48px 0 0; max-width: 76ch; }
+.hl-verdict { display: flex; flex-direction: column; gap: 20px; margin: 48px 0 0; }
 .hl-verdict div { display: grid; grid-template-columns: 96px 1fr; gap: 6px 24px; padding-left: 20px; border-left: 1px solid var(--edge); }
 .hl-verdict dt { line-height: 27px; }
 .hl-verdict dd { margin: 0; font-size: 17px; line-height: 1.6; color: #c8c8cc; }
