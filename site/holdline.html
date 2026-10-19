@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>Holdline case study — Nicholas De Souza</title>
+<meta name="description" content="Holdline: one ElevenLabs voice agent calls five passengers at once over Twilio, and two of them race for the last seat. Zero double bookings, two languages.">
+<meta name="theme-color" content="#0b0b0c">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Holdline case study — Nicholas De Souza">
+<meta property="og:description" content="One voice agent, five calls at once, and one last seat.">
+<link rel="canonical" href="https://nicholasdesouza.com/holdline.html">
+<meta property="og:url" content="https://nicholasdesouza.com/holdline.html">
+<meta property="og:site_name" content="Nicholas De Souza">
+<meta property="og:image" content="https://nicholasdesouza.com/assets/og/holdline-race.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "One voice agent, five calls, and one last seat.",
+  "description": "Holdline: one ElevenLabs voice agent calls five passengers at once over Twilio, and two of them race for the last seat. Zero double bookings, two languages.",
+  "image": "https://nicholasdesouza.com/assets/og/holdline-race.jpg",
+  "datePublished": "2026-10-19",
+  "dateModified": "2026-10-19",
+  "author": {
+    "@type": "Person",
+    "@id": "https://nicholasdesouza.com/#person",
+    "name": "Nicholas De Souza",
+    "url": "https://nicholasdesouza.com/"
+  },
+  "mainEntityOfPage": "https://nicholasdesouza.com/holdline.html"
+}
+</script>
+<link rel="icon" href="favicon.ico" sizes="32x32">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="styles.css?v=dev">
+<script src="main.js?v=dev" defer></script>
+</head>
+<body class="page-case page-holdline">
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="./"><span class="brand-dot"></span>Nicholas De Souza</a>
+    <div class="nav-links">
+      <a href="./#now">Now</a>
+      <a href="./#experiments">Experiments</a>
+      <a href="./#past">Past work</a>
+      <a href="./#resume">Resume</a>
+      <a href="case-study.html">Case study</a>
+      <a href="gallery.html">Gallery</a>
+    </div>
+    <button type="button" class="btn btn-sm btn-light" data-open-form>Get in touch</button>
+    <button type="button" class="menu-btn" aria-expanded="false" aria-controls="nav-menu">Menu</button>
+  </div>
+  <div class="nav-menu" id="nav-menu" hidden>
+    <a href="./#now">Now</a>
+    <a href="./#experiments">Experiments</a>
+    <a href="./#past">Past work</a>
+    <a href="./#resume">Resume</a>
+    <a href="case-study.html">Case study</a>
+    <a href="gallery.html">Gallery</a>
+    <button type="button" class="btn btn-lime" data-open-form>Get in touch</button>
+  </div>
+</nav>
+
+<main class="wrap">
+  <header class="page-head">
+    <a class="back mono" href="./#experiments">← Back to portfolio</a>
+    <div class="cs-tags mono">
+      <span class="pill pill-lime">Case study</span>
+      <span class="pill">Holdline</span>
+      <span class="pill">Experiment</span>
+      <div class="copy-page copy-page-end" data-copy-page></div>
+    </div>
+    <h1 class="cs-title">One voice agent, five calls, <span>and one last seat.</span></h1>
+    <div class="cs-intro">
+      <p>What happens when one voice agent calls five passengers at the same time, and two of them ask for the last seat on the same flight?</p>
+      <p>Holdline is a technical experiment, not a product: a fictional airline and fictional passengers, built to find out how far ElevenLabs Agents can be pushed in one believable scenario, and which guarantees have to live outside the model. I did the concept, the agent design, the backend, the presentation layer and a 4:47 narrated demo of a real live run.</p>
+    </div>
+  </header>
+
+  <section aria-label="At a glance" class="cs-outcome">
+    <div class="stats stats-3">
+      <div class="stat"><div class="stat-num stat-num-lime">5</div><p>calls placed at once by one agent, over Twilio</p></div>
+      <div class="stat"><div class="stat-num">0</div><p>double bookings when two callers raced for one seat</p></div>
+      <div class="stat"><div class="stat-num">2</div><p>languages, switched mid-call in the same conversation</p></div>
+    </div>
+  </section>
+
+  <figure class="cs-hero-shot">
+    <div class="cs-hero-frame hl-frame">
+      <div><img src="assets/holdline/race.webp" alt="Split screen: Maya’s call holds the last 6:00 PM seat, Daniel’s call is told it sold out and moved to the 7:40 PM, with a shared inventory panel between them reading 1 → 0, full" width="1920" height="1080"></div>
+    </div>
+    <figcaption>The last-seat race. Two calls ran in parallel and the 6:00 PM had one seat. The inventory service granted it to Maya; Daniel’s agent heard <code>sold_out</code> mid-call and moved him to the 7:40 PM.</figcaption>
+  </figure>
+
+  <section class="section">
+    <div class="sec-head">
+      <h2>Where does the agent stop and the system start?</h2>
+      <span class="mono">01</span>
+    </div>
+    <div class="cs-text">
+      <p>Most voice-agent demos are one call with one person. The interesting failures show up when many calls share something real, like seat inventory.</p>
+      <p>The scenario: a fictional airline, Air Eleven, cancels the 4:00 PM from Toronto to Vancouver. Five passengers need rebooking onto two later flights, a 6:00 PM with very few seats and a 7:40 PM with five. One agent, Airy, calls all five at once. Each passenger tests a different capability.</p>
+    </div>
+    <div class="roster hl-four">
+      <article class="role-agent"><div><h3>Sophie</h3><span class="pill">Understand</span></div><p>Prefers French. Can the same agent switch language mid-call without a separate queue?</p></article>
+      <article class="role-agent"><div><h3>Priya</h3><span class="pill">Help</span></div><p>Needs wheelchair assistance. Can the agent verify her, hold a seat and hand over to a specialist agent without her repeating herself?</p></article>
+      <article class="role-agent"><div><h3>Marcus</h3><span class="pill">Know</span></div><p>Angry, and wants cash and an upgrade. Do guardrails hold, and can live CRM context make the answer personal?</p></article>
+      <article class="role-agent"><div><h3>Maya and Daniel</h3><span class="pill">Coordinate</span></div><p>Both want the last 6:00 PM seat. Can two independent conversations share one source of truth with zero double bookings?</p></article>
+    </div>
+    <div class="hl-pair">
+      <figure><div class="shot"><img src="assets/holdline/stakes.webp" alt="The setup: five passengers, two flights, one shared source of truth" width="1920" height="1080" loading="lazy"></div><figcaption>The setup. Five passengers, two flights, one shared source of truth.</figcaption></figure>
+      <figure><div class="shot"><img src="assets/holdline/outreach.webp" alt="Outreach: calling 5 of 5, five tiles moving from dialing to connected" width="1920" height="1080" loading="lazy"></div><figcaption>One event, five calls. The cancellation triggers five outbound calls over Twilio at once.</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="sec-head">
+      <h2>No humans on the line</h2>
+      <span class="mono">02</span>
+    </div>
+    <div class="cs-text">
+      <p>A live test needs someone to pick up the phone. Instead, each passenger is an ElevenLabs agent too, with its own persona prompt, voice and Twilio number. Airy dials real phone numbers and talks to other agents over the public phone network. Nobody is on any call, so I could rerun the whole scenario as often as I wanted.</p>
+      <p>The rule I kept from day one: <strong>the model is never the source of truth for inventory.</strong> Airy can only promise what a small FastAPI and SQLite service grants through webhook tools. The agent decides how to talk. The service decides who gets the seat.</p>
+    </div>
+    <div class="roster">
+      <article class="role-agent"><div><h3>Airy</h3></div><p>The rebooking agent. Calls, verifies, offers flights, holds and confirms seats.</p><p class="hl-uses">Outbound calls via Twilio, dynamic variables, webhook tools, guardrails, language detection</p></article>
+      <article class="role-agent"><div><h3>Accessibility Agent</h3></div><p>Picks up Priya’s call with her context already attached.</p><p class="hl-uses">Agent-to-agent transfer</p></article>
+      <article class="role-agent"><div><h3>Five passenger agents</h3></div><p>Fictional personas that answer the phone and push on each capability.</p><p class="hl-uses">Persona prompts, voices, French and English</p></article>
+      <article class="role-agent"><div><h3>Eight tools</h3></div><p><code>get_alternatives</code>, <code>hold_seat</code>, <code>confirm_rebooking</code>, <code>release_hold</code>, <code>verify_passenger</code> and three more.</p><p class="hl-uses">Webhook tools, plus an MCP server for <code>get_customer_context</code> from Salesforce</p></article>
+      <article class="role-agent"><div><h3>Post-call webhook</h3></div><p>Releases any seat a dropped call left behind, then updates the Salesforce case.</p><p class="hl-uses">Signed post-call webhooks</p></article>
+      <article class="role-agent"><div><h3>24 agent tests</h3></div><p>Simulated conversations that run before any change reaches the live agents.</p><p class="hl-uses">Agent testing, evaluation criteria</p></article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="sec-head">
+      <h2>Same call, her language</h2>
+      <span class="mono">03 · Understand</span>
+    </div>
+    <div class="cs-text">
+      <p>Airy opens in English. Sophie answers in French. The agent detects the language and carries on in French in the same call, including the identity check where she spells her surname letter by letter.</p>
+    </div>
+    <div class="hl-pair">
+      <figure><div class="shot"><img src="assets/holdline/sophie-live.webp" alt="Sophie’s call live: language detected as French, Airy speaking French, with a translation underneath" width="1920" height="1080" loading="lazy"></div><figcaption>Mid-call. Language detected, Airy carries on in French, with a live translation for the viewer.</figcaption></figure>
+      <figure><div class="shot"><img src="assets/holdline/sophie-recap.webp" alt="Recap card: same call, her language. An English line on the left, Airy’s French reply on the right" width="1920" height="1080" loading="lazy"></div><figcaption>Recap. No transfer, no separate queue.</figcaption></figure>
+    </div>
+    <dl class="hl-verdict">
+      <div><dt class="mono caps hl-ok">Worked</dt><dd>Language switching mid-call was reliable once detection was on for the agent.</dd></div>
+      <div><dt class="mono caps hl-warn">Friction</dt><dd>Spelled letters (“T comme Thérèse”) are where speech recognition struggles most. It took prompt changes for the spelling to survive, and masking so booking codes never reached the screen.</dd></div>
+    </dl>
+  </section>
+
+  <section class="section">
+    <div class="sec-head">
+      <h2>She said it once</h2>
+      <span class="mono">04 · Help</span>
+    </div>
+    <div class="cs-text">
+      <p>Priya mentions her wheelchair once. Airy verifies her, holds the 6:00 PM and transfers the call to a separate Accessibility Agent. The specialist greets her by name and already knows the seat and the need.</p>
+    </div>
+    <div class="hl-pair">
+      <figure><div class="shot"><img src="assets/holdline/priya-handoff.webp" alt="Priya’s call after the transfer: the Accessibility Agent speaking, with a handover panel showing context from Airy: verified, 6:00 PM held, mobility assistance" width="1920" height="1080" loading="lazy"></div><figcaption>After the handoff. The specialist opens with her name, her flight and her need.</figcaption></figure>
+      <figure><div class="shot"><img src="assets/holdline/priya-recap.webp" alt="Recap card: Priya said it once. Airy hands context to the Accessibility Agent" width="1920" height="1080" loading="lazy"></div><figcaption>Recap. Context moves with the call.</figcaption></figure>
+    </div>
+    <dl class="hl-verdict">
+      <div><dt class="mono caps hl-ok">Worked</dt><dd>Agent-to-agent transfer kept the call and the context in one place.</dd></div>
+      <div><dt class="mono caps hl-warn">Friction</dt><dd>The transfer replaces the first agent immediately. In the word timestamps, the specialist’s “Hi Priya” started 0.1 s after Airy’s last words, cutting off Airy’s goodbye. A longer transfer delay fixed it.</dd></div>
+    </dl>
+  </section>
+
+  <section class="section">
+    <div class="sec-head">
+      <h2>Policy held. He still said yes.</h2>
+      <span class="mono">05 · Know</span>
+    </div>
+    <div class="cs-text">
+      <p>Marcus has a wedding tomorrow and wants cash compensation and a free business upgrade. Guardrails stop Airy from promising either. Airy logs the request for customer care, then reads his profile from Salesforce over MCP and offers a window seat, his saved preference.</p>
+    </div>
+    <div class="hl-pair">
+      <figure><div class="shot"><img src="assets/holdline/marcus-live.webp" alt="Marcus’s call live: “Hold on. After this mess, I want cash compensation and a free upgrade”" width="1920" height="1080" loading="lazy"></div><figcaption>The demand. Cash and a business upgrade.</figcaption></figure>
+      <figure><div class="shot"><img src="assets/holdline/marcus-recap.webp" alt="Recap card: policy held, he still said yes. Compensation and upgrade logged for customer care; his profile’s window seat used for the 6:00 PM" width="1920" height="1080" loading="lazy"></div><figcaption>Recap. One preference used, no policy broken.</figcaption></figure>
+    </div>
+    <dl class="hl-verdict">
+      <div><dt class="mono caps hl-ok">Worked</dt><dd>Platform guardrails plus prompt rules (no upgrades, no rebates, prompt-injection resistance) held under pressure. The MCP lookup ran while Airy kept talking.</dd></div>
+      <div><dt class="mono caps hl-warn">Lesson</dt><dd>Refusing is easy. Refusing and still closing the call needs real context, and that came from the CRM, not the prompt.</dd></div>
+    </dl>
+  </section>
+
+  <section class="section">
+    <div class="sec-head">
+      <h2>One seat, one promise</h2>
+      <span class="mono">06 · Coordinate</span>
+    </div>
+    <div class="cs-text">
+      <p>This is the core of the experiment. Maya and Daniel are on separate calls and both ask for the 6:00 PM. Neither conversation knows about the other. Both agents call <code>hold_seat</code>. One conditional SQL <code>UPDATE</code> decides, so only one request can ever take the seat.</p>
+    </div>
+    <ol class="hl-log mono" aria-label="Tool calls in order">
+      <li><span>maya</span> hold_seat AE458 6:00 PM → <b class="hl-ok">held</b> <span>1 → 0 seats</span></li>
+      <li><span>daniel</span> hold_seat AE458 6:00 PM → <b class="hl-warn">sold_out</b></li>
+      <li><span>daniel</span> hold_seat AE460 7:40 PM → <b class="hl-ok">held</b> <span>same call</span></li>
+      <li><span>maya</span> confirm_rebooking → <b class="hl-ok">confirmed</b></li>
+    </ol>
+    <div class="hl-pair">
+      <figure><div class="shot"><img src="assets/holdline/race-intro.webp" alt="Intro card: two callers, one seat. Maya and Daniel both want the 6:00 PM" width="1920" height="1080" loading="lazy"></div><figcaption>The setup. Two callers, one seat, and neither call knows about the other.</figcaption></figure>
+      <figure><div class="shot"><img src="assets/holdline/race-recap.webp" alt="Recap card: one seat, one promise, 0 double bookings" width="1920" height="1080" loading="lazy"></div><figcaption>Recap. Zero double bookings.</figcaption></figure>
+    </div>
+    <dl class="hl-verdict">
+      <div><dt class="mono caps hl-ok">Worked</dt><dd>The agent handled <code>sold_out</code> gracefully and pivoted in the same breath. Sold out is shown as protection working, not as an error.</dd></div>
+      <div><dt class="mono caps hl-ok">Proof</dt><dd>A test fires 50 threads at one seat, five rounds: exactly one hold every time. A deliberately naive read-then-write version runs through the same harness and must over-grant, which proves the race is real.</dd></div>
+    </dl>
+  </section>
+
+  <section class="section">
+    <div class="sec-head">
+      <h2>Configuration as code</h2>
+      <span class="mono">07 · Under the hood</span>
+    </div>
+    <div class="cs-text">
+      <p>Every prompt, tool schema and agent setting lives in the repository and is pushed to ElevenLabs by a sync script, so a prompt change is a reviewed diff with tests, not a click in a dashboard. The demo ends in the real ElevenLabs workspace to show that what you saw is what is configured.</p>
+    </div>
+    <figure class="hl-wide">
+      <div class="shot"><img src="assets/holdline/architecture.webp" alt="Architecture: disruption event, telephony, ElevenLabs Agents with Airy and the Accessibility Agent, Salesforce, API middleware, and the reservations and inventory service" width="1920" height="1080" loading="lazy"></div>
+      <figcaption>Architecture. Solid lines were built for the experiment; dashed ones show where a real airline’s systems would sit.</figcaption>
+    </figure>
+    <div class="hl-pair">
+      <figure><div class="shot"><img src="assets/holdline/el-tools.webp" alt="ElevenLabs dashboard: the tools Airy can call" width="1920" height="1080" loading="lazy"></div><figcaption>The ElevenLabs workspace. The tools Airy can call.</figcaption></figure>
+      <figure><div class="shot"><img src="assets/holdline/el-conversation.webp" alt="ElevenLabs conversation view showing tool calls that succeeded during a real call" width="1920" height="1080" loading="lazy"></div><figcaption>A real conversation. Tool calls logged and succeeded.</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="sec-head">
+      <h2>Five calls, five outcomes</h2>
+      <span class="mono">08 · Results</span>
+    </div>
+    <div class="stats hl-results">
+      <div class="stat"><div class="stat-num">5</div><p>passengers contacted</p></div>
+      <div class="stat"><div class="stat-num">4</div><p>rebooked automatically</p></div>
+      <div class="stat"><div class="stat-num">1</div><p>specialist handoff</p></div>
+      <div class="stat"><div class="stat-num stat-num-lime">0</div><p>double bookings</p></div>
+      <div class="stat"><div class="stat-num">2</div><p>languages served</p></div>
+    </div>
+    <figure class="hl-wide">
+      <div class="shot"><img src="assets/holdline/results.webp" alt="Disruption recovery results: 5 contacted, 4 automatically rebooked, 1 specialist handoff, 0 inventory conflicts, 2 languages" width="1920" height="1080" loading="lazy"></div>
+      <figcaption>Results screen. Every number is computed from the run’s actual state, never hard-coded.</figcaption>
+    </figure>
+  </section>
+
+  <section class="section">
+    <div class="sec-head">
+      <h2>What I learned</h2>
+      <span class="mono">09 · Findings</span>
+    </div>
+    <div class="principles">
+      <article><h3>Put guarantees in code, conversation in the agent.</h3><p>The agent is very good at the human part: tone, language, recovering from “sold out”. It should never be the thing that decides scarce resources. Tools that return a decision, idempotently, made the agent’s job simpler.</p></article>
+      <article><h3>Agents testing agents is the unlock.</h3><p>Persona agents on real phone numbers turned a hard-to-test system into one I could rerun on demand. Agent tests in simulation caught prompt regressions before any call minutes were spent.</p></article>
+      <article><h3>Live calls never run on a fixed clock.</h3><p>Calls connect seconds apart and every conversation takes a different path. The presentation had to follow events from the calls, not a script, and skip a beat that didn’t happen instead of faking it.</p></article>
+      <article><h3>The details live in the audio.</h3><p>Spelled names, a brand name read as “Air 11”, a goodbye cut off by a transfer. Most fixes came from reading word-level timestamps, not from changing the model.</p></article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="sec-head">
+      <h2>What this is not</h2>
+      <span class="mono">10 · Scope</span>
+    </div>
+    <div class="cs-text">
+      <p>Holdline is an experiment, not an airline product. The airline, passengers and flights are fictional, and the inventory service is a stand-in for a real reservation system. Taking it further would mean Postgres instead of SQLite, batch calling with a priority engine (connection risk, fare class, loyalty), staged agent versions, and real operator authentication.</p>
+    </div>
+    <figure class="hl-wide">
+      <div class="shot"><img src="assets/holdline/close.webp" alt="Closing screen: Air Eleven, disruption resolved, with each passenger’s outcome" width="1920" height="1080" loading="lazy"></div>
+      <figcaption>Every passenger resolved: four rebooked by Airy, one by the Accessibility Agent.</figcaption>
+    </figure>
+    <dl class="hl-notes">
+      <div><dt class="mono caps">About the screenshots</dt><dd>Screens are captured from the demo page replaying a recorded run of all five calls, which is how the demo is rehearsed without placing new calls. In the live take shown in the video, the race went the other way: Daniel won the seat and Maya moved to the 7:40 PM.</dd></div>
+      <div><dt class="mono caps">Stack</dt><dd>ElevenLabs Agents (GPT-4.1 mini for Airy and the specialist, Gemini 2.5 Flash Lite for the passengers, Eleven Flash and v3 Conversational voices), Twilio, FastAPI, SQLite, Salesforce over MCP. Built with Claude Code.</dd></div>
+    </dl>
+  </section>
+
+  <section class="contact">
+    <h2>Building a voice agent?</h2>
+    <div class="btn-row">
+      <button type="button" class="btn btn-lg btn-lime" data-open-form>Get in touch</button>
+      <a class="btn btn-lg btn-outline" href="./">Back to portfolio</a>
+    </div>
+  </section>
+
+  <footer class="footer mono">
+    <span>© 2026 Nicholas De Souza</span><span>Toronto</span>
+  </footer>
+</main>
+</body>
+</html>
