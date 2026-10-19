@@ -4,16 +4,20 @@
 
 ## Pages
 
-- [Home](https://nicholasdesouza.com/): Career highlights, current projects (Vowbird.ai, Digistax), past work and a ten-year career summary.
+- [Home](https://nicholasdesouza.com/): Career highlights, current projects (Vowbird.ai, Digistax, Holdline), past work and a ten-year career summary.
+- [Case studies](https://nicholasdesouza.com/case-studies.html): Index of the case studies, with a summary of each: Digistax and Holdline.
 - [Digistax case study](https://nicholasdesouza.com/case-study.html): How Digistax, a prototype software agency, runs every task as a graph of AI agents: orchestrators, nine role agents and a person approving every gate.
   Sections: The whole pipeline; The nine role agents; One request, start to finish; The same desk, on a phone; Anatomy of a job; Two validators who never meet; The graph decides who pays; Design principles
-- [Product screenshot gallery](https://nicholasdesouza.com/gallery.html): Product screenshots from Vowbird.ai, the Digistax agent workspace, Review Loop and the TMLP Statistics Platform, on desktop and phone.
-  Sections: Vowbird.ai; Digistax; Review Loop; TMLP Statistics Platform
+- [Holdline case study](https://nicholasdesouza.com/holdline.html): Holdline: one ElevenLabs voice agent calls five passengers at once over Twilio, and two of them race for the last seat. Zero double bookings, two languages.
+  Sections: Where does the agent stop and the system start?; No humans on the line; Same call, her language; She said it once; Policy held. He still said yes; One seat, one promise; Configuration as code; Five calls, five outcomes; What I learned; What this is not
+- [Product screenshot gallery](https://nicholasdesouza.com/gallery.html): Product screenshots from Vowbird.ai, the Digistax agent workspace, the Holdline voice-agent demo, Review Loop and the TMLP Statistics Platform.
+  Sections: Vowbird.ai; Digistax; Holdline; Review Loop; TMLP Statistics Platform
 
 ## Projects
 
 - [Vowbird.ai](https://vowbird.ai): A wedding planner that does the tedious parts for you: one shared guest list, RSVPs that chase themselves, and invitations where an assistant answers guest questions. Free in early access.
 - Digistax: Founded in 2018 as a service automation firm; now a prototype software agency where every task runs as a graph of AI agents, with a person approving every price, merge, deploy and email. See the case study above.
+- Holdline: A voice-agent proof of concept (POC) with a fictional airline. One ElevenLabs agent rebooks five passengers over concurrent Twilio calls (French and English, a handoff to a specialist agent, CRM context from Salesforce over MCP), while a separate inventory service guarantees no seat is promised twice. See the Holdline case study above.
 
 ## Elsewhere
 
