@@ -201,11 +201,11 @@
       <span class="mono">06 · Concurrency</span>
     </div>
     <div class="cs-text">
-      <p>The concurrency test. Maya and Daniel are on separate calls and both ask for the last seat on the 6:00 PM. The conversations are independent; the inventory isn’t. Both calls reach <code>hold_seat</code>, and one atomic hold in the reservation service (a single conditional SQL <code>UPDATE</code>) decides, so only one request can ever take the seat. Maya’s hold lands first. Daniel hears the seat has sold out and recovers to the 7:40 PM in the same call.</p>
+      <p>The concurrency test. Maya and Daniel are on separate calls and both ask for the last seat on the 6:00 PM. The conversations are independent; the inventory isn’t. Both calls reach <code>hold_seat</code>, and one atomic hold in the reservation service (a single conditional SQL <code>UPDATE</code>) decides, so only one request can ever take the seat. Whichever hold lands first gets the seat; the other caller hears it has sold out and recovers to the 7:40 PM in the same call. In the run shown in these screenshots Maya won it. In the live take in the video, Daniel did.</p>
     </div>
     <figure class="hl-wide hl-lead">
       <div class="shot"><img src="assets/holdline/race.webp" alt="Split screen: Maya’s call holds the last 6:00 PM seat, Daniel’s call is told it sold out and moved to the 7:40 PM, with a shared inventory panel between them reading 1 → 0, full" width="1920" height="1080" loading="lazy"></div>
-      <figcaption>The last-seat race. The inventory service granted the seat to Maya; Daniel’s agent heard <code>sold_out</code> mid-call and moved him to the 7:40 PM.</figcaption>
+      <figcaption>The last-seat race, from the recorded run. The inventory service granted the seat to Maya; Daniel’s agent heard <code>sold_out</code> mid-call and moved him to the 7:40 PM.</figcaption>
     </figure>
     <ol class="hl-log mono" aria-label="Tool calls in order">
       <li><span>maya</span> hold_seat AE458 6:00 PM → <b class="hl-ok">held</b> <span>1 → 0 seats</span></li>
