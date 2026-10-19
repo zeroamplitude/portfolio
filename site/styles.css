@@ -74,6 +74,11 @@ button { font-family: inherit; }
 .nav-links { display: flex; flex-wrap: wrap; gap: clamp(14px, 2.4vw, 28px); font-size: 14px; }
 .nav-links a { color: var(--muted); }
 .nav-links a:hover, .nav-links a[aria-current="page"] { color: var(--fg); }
+/* Six links plus the button only just fit at tablet widths: tighten the spacing there. */
+@media (min-width: 760px) and (max-width: 959px) {
+  .nav-inner { gap: 16px; }
+  .nav-links { gap: 14px; font-size: 13px; }
+}
 .menu-btn {
   display: none; font-family: inherit; font-size: 14px; font-weight: 500;
   height: 44px; padding: 0 18px; border-radius: 999px;
