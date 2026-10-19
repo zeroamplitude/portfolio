@@ -552,6 +552,10 @@ button { font-family: inherit; }
 .hl-log li > span:first-child { display: inline-block; width: 8ch; color: var(--dim); }
 .hl-log li > span:last-child:not(:first-child) { margin-left: 2ch; color: var(--dim); }
 .hl-four { grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr)); }
+.hl-four .role-agent h3 { margin-right: auto; }
+.hl-avatar { flex: none; width: 48px; height: 48px; border-radius: 12px; border: 1px solid var(--edge); }
+.hl-avatars { display: flex; flex: none; }
+.hl-avatars .hl-avatar + .hl-avatar { margin-left: -12px; box-shadow: 0 0 0 3px var(--panel); }
 @media (max-width: 759px) {
   /* Long section labels go under the heading instead of squeezing it. */
   .page-holdline .sec-head { flex-direction: column; gap: 8px; }
