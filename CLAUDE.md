@@ -8,10 +8,10 @@ credential values, phone numbers or personal email addresses here or anywhere in
 Nicholas De Souza's personal portfolio, live at https://nicholasdesouza.com. Plain static
 HTML/CSS/JS in `site/` (no build step, no framework). Built from a Claude Design handoff.
 
-- `site/index.html` — home: hero, career highlights, Now building (Vowbird.ai, Digistax), Experiments (Holdline), Past work, Resume, contact
+- `site/index.html` — home: hero, career highlights, Now building (Vowbird.ai, Digistax, Holdline), Past work, Resume, contact
 - `site/case-studies.html` — case studies index (nav "Case studies"): a summary card per case study linking to it. **When adding a case study, add a card here.**
 - `site/case-study.html` — Digistax case study
-- `site/holdline.html` — Holdline case study (voice-agent experiment), linked from the home page's Experiments section
+- `site/holdline.html` — Holdline case study (voice-agent experiment, with an embedded Loom demo)
 - `site/gallery.html` — screenshot gallery
 - `site/styles.css`, `site/main.js` — all styles and behaviour (mobile menu, contact form modal, carousels, click-to-enlarge lightbox)
 - `site/assets/` — images (screenshots are WebP; logos PNG; `og/` link-preview JPEGs), resume PDF
