@@ -11,8 +11,8 @@ description: >
 
 # SEO skill for nicholasdesouza.com
 
-A personal portfolio: three indexable pages (`index.html`, `case-study.html`,
-`gallery.html`) plus `404.html`, static HTML in `site/`. The goal is to rank
+A personal portfolio: four indexable pages (`index.html`, `case-study.html`,
+`holdline.html`, `gallery.html`) plus `404.html`, static HTML in `site/`. The goal is to rank
 for Nicholas's name and what he does (AI agents, solution engineering,
 Digistax, Vowbird.ai), and to be described accurately by AI assistants.
 
