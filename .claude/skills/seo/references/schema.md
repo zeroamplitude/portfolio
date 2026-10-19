@@ -12,7 +12,8 @@ Markup must describe what is visible on the page. The hook checks syntax,
   founder, alumniOf, address locality, knowsAbout, sameAs). Keep it in step
   with the resume section and the home description.
 
-- `case-study.html`: `Article`, with the author linked to `#person`.
+- `case-study.html`, `holdline.html`: `Article`, with the author linked to `#person`.
+- `case-studies.html`: `CollectionPage` with an `ItemList` of the case studies; add each new one.
 
 ## Patterns for new pages
 

@@ -9,6 +9,7 @@ Nicholas De Souza's personal portfolio, live at https://nicholasdesouza.com. Pla
 HTML/CSS/JS in `site/` (no build step, no framework). Built from a Claude Design handoff.
 
 - `site/index.html` — home: hero, career highlights, Now building (Vowbird.ai, Digistax), Experiments (Holdline), Past work, Resume, contact
+- `site/case-studies.html` — case studies index (nav "Case studies"): a summary card per case study linking to it. **When adding a case study, add a card here.**
 - `site/case-study.html` — Digistax case study
 - `site/holdline.html` — Holdline case study (voice-agent experiment), linked from the home page's Experiments section
 - `site/gallery.html` — screenshot gallery
