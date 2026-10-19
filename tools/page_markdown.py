@@ -3,7 +3,7 @@
 
   python3 tools/page_markdown.py
 
-Writes site/<page>.md for every indexable page (index.html -> index.md) and
+Writes site/<page>.md for every indexable page, in subfolders too (index.html -> index.md), and
 site/llms-full.txt (llms.txt followed by every page's Markdown). The deploy
 workflow runs this before publishing; the outputs are gitignored. The "Copy
 page" menu (main.js) copies, opens and links to these files.
@@ -154,7 +154,7 @@ def head_meta(html, pattern):
 
 def page_markdown(path):
     html = path.read_text(encoding="utf-8")
-    url = head_meta(html, r'<link rel="canonical" href="([^"]+)"') or BASE + path.name
+    url = head_meta(html, r'<link rel="canonical" href="([^"]+)"') or BASE + path.relative_to(SITE).as_posix()
     conv = ToMarkdown(url)
     conv.feed(html)
     body = ""
@@ -177,7 +177,7 @@ def indexable(html):
 
 def main():
     written = []
-    for path in sorted(SITE.glob("*.html")):
+    for path in sorted(SITE.rglob("*.html")):
         html = path.read_text(encoding="utf-8")
         if not indexable(html):
             continue
@@ -186,10 +186,10 @@ def main():
         out.write_text(md, encoding=ENCODING)
         written.append((path, md))
     llms = (SITE / "llms.txt").read_text(encoding="utf-8") if (SITE / "llms.txt").exists() else ""
-    order = sorted(written, key=lambda w: (w[0].name != "index.html", w[0].name))
+    order = sorted(written, key=lambda w: (w[0] != SITE / "index.html", w[0].relative_to(SITE).as_posix()))
     full = llms.rstrip() + "\n\n" + "\n\n".join(md for _, md in order)
     (SITE / "llms-full.txt").write_text(full, encoding=ENCODING)
-    print(f"wrote {', '.join(p.with_suffix('.md').name for p, _ in written)} and llms-full.txt", file=sys.stderr)
+    print(f"wrote {', '.join(p.with_suffix('.md').relative_to(SITE).as_posix() for p, _ in written)} and llms-full.txt", file=sys.stderr)
 
 
 if __name__ == "__main__":

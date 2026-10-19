@@ -154,7 +154,10 @@ def schema_problems(data, top=True):
 
 
 def page_url(name):
-    return BASE if name == "index.html" else BASE + name
+    """URL of a page, from its path under site/ (a folder's index.html is its folder's URL)."""
+    if name == "index.html" or name.endswith("/index.html"):
+        return BASE + name[: -len("index.html")]
+    return BASE + name
 
 
 def resolve(site, page_name, ref):
@@ -167,7 +170,7 @@ def resolve(site, page_name, ref):
     ref = ref.split("?")[0]
     if not ref:
         return site / page_name, frag
-    target = site / ref.lstrip("/") if ref.startswith("/") else (site / ref)
+    target = site / ref.lstrip("/") if ref.startswith("/") else (site / page_name).parent / ref
     target = Path(str(target.resolve()))
     if target.is_dir():
         target = target / "index.html"
@@ -199,7 +202,8 @@ def main():
         if r.returncode:
             errors.append(f"tools/page_markdown.py failed: {r.stderr.strip().splitlines()[-1] if r.stderr.strip() else r.returncode}")
 
-    pages, parsed = sorted(p.name for p in site.glob("*.html")), {}
+    # Pages are named by their path under site/, e.g. "case-studies/holdline/index.html".
+    pages, parsed = sorted(p.relative_to(site).as_posix() for p in site.rglob("*.html")), {}
     for name in pages:
         p = Page()
         p.feed((site / name).read_text(encoding="utf-8"))
@@ -255,7 +259,8 @@ def main():
             target, frag = r
             if not target.exists():
                 errors.append(f"{where}: link to {ref} points to a missing file")
-            elif frag and target.suffix == ".html" and target.name in parsed and frag not in parsed[target.name].ids:
+            elif frag and target.suffix == ".html" and (rel := target.relative_to(site).as_posix()) in parsed \
+                    and frag not in parsed[rel].ids:
                 errors.append(f"{where}: link to {ref} points to a missing #{frag}")
 
         robots = p.meta.get("robots", "")
