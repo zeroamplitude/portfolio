@@ -46,10 +46,10 @@ def build():
     for fname in order:
         p = pages[fname]
         # Skip the 404 page and redirect stubs for old URLs (their canonical points elsewhere).
-        if fname in SKIP or (p.canonical and p.canonical != page_url(fname)):
+        if fname in SKIP or (p.canonical and p.canonical != page_url(fname, p.canonical)):
             continue
         title = p.title.split(" — ")[0] if fname != "index.html" else "Home"
-        lines.append(f"- [{title}]({page_url(fname)}): {p.meta.get('description', '')}")
+        lines.append(f"- [{title}]({page_url(fname, p.canonical)}): {p.meta.get('description', '')}")
         h2 = [h.rstrip(".") for k, h in p.headings if k == "h2" and not h.endswith("?")]
         if h2 and fname != "index.html":
             lines.append(f"  Sections: {'; '.join(h2)}")
@@ -57,7 +57,7 @@ def build():
         lines += ["", "## Elsewhere", ""] + [f"- {u}" for u in me["sameAs"]]
     lines += ["", "## Optional", "",
               "- [Full site as Markdown](https://nicholasdesouza.com/llms-full.txt): every page's text in one file",
-              "- Each page also has a Markdown copy: replace .html with .md, or add index.md to a URL ending in / (the home page is /index.md)"]
+              "- Each page also has a Markdown copy: replace .html with .md, or add .md to a URL without an extension (the home page is /index.md)"]
     return "\n".join(lines) + "\n"
 
 

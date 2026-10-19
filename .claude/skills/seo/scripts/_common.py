@@ -158,10 +158,16 @@ def local_pages():
     return {f.relative_to(SITE).as_posix(): parse(f.read_text(encoding="utf-8")) for f in sorted(SITE.rglob("*.html"))}
 
 
-def page_url(name):
-    """URL of a page, from its path under site/ (a folder's index.html is its folder's URL)."""
+def page_url(name, canonical=None):
+    """URL of a page, from its path under site/ (a folder's index.html is its folder's URL).
+
+    GitHub Pages also serves x.html at /x, so a page may use that extensionless URL as its
+    canonical (the case studies do); pass the page's canonical to accept either form.
+    """
     if name == "index.html" or name.endswith("/index.html"):
         return BASE + name[: -len("index.html")]
+    if canonical == BASE + name[: -len(".html")]:
+        return canonical
     return BASE + name
 
 

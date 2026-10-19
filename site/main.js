@@ -167,7 +167,9 @@
 
   $$('[data-copy-page]').forEach(root => {
     const canonical = ($('link[rel="canonical"]') || {}).href || location.href;
-    const mdPath = (new URL(canonical).pathname.replace(/\/$/, '/index.html')).replace(/\.html$/, '.md');
+    // /x.html -> /x.md, /dir/ -> /dir/index.md, extensionless /x -> /x.md
+    const path = new URL(canonical).pathname.replace(/\/$/, '/index.html');
+    const mdPath = /\.html$/.test(path) ? path.replace(/\.html$/, '.md') : path + '.md';
     const mdAbs = new URL(mdPath, canonical).href;
     const ask = 'Read ' + mdAbs + ' so I can ask you questions about it.';
     const items = [

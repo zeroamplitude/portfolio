@@ -153,10 +153,16 @@ def schema_problems(data, top=True):
     return out
 
 
-def page_url(name):
-    """URL of a page, from its path under site/ (a folder's index.html is its folder's URL)."""
+def page_url(name, canonical=None):
+    """URL of a page, from its path under site/ (a folder's index.html is its folder's URL).
+
+    GitHub Pages also serves x.html at /x, so a page may use that extensionless URL as its
+    canonical (the case studies do); pass the page's canonical to accept either form.
+    """
     if name == "index.html" or name.endswith("/index.html"):
         return BASE + name[: -len("index.html")]
+    if canonical == BASE + name[: -len(".html")]:
+        return canonical
     return BASE + name
 
 
@@ -172,7 +178,10 @@ def resolve(site, page_name, ref):
         return site / page_name, frag
     target = site / ref.lstrip("/") if ref.startswith("/") else (site / page_name).parent / ref
     target = Path(str(target.resolve()))
-    if target.is_dir():
+    # Like GitHub Pages: /x serves x.html when it exists (even if a folder x/ exists too).
+    if target.suffix == "" and target.with_name(target.name + ".html").exists():
+        target = target.with_name(target.name + ".html")
+    elif target.is_dir():
         target = target / "index.html"
     return target, frag
 
@@ -271,7 +280,7 @@ def main():
         if "noindex" in robots:
             errors.append(f"{where}: indexable page is marked noindex")
 
-        want = page_url(name)
+        want = page_url(name, p.canonical)
         if p.canonical != want:
             errors.append(f"{where}: canonical is {p.canonical!r}, expected {want!r}")
         for key in REQUIRED_META:
@@ -314,7 +323,7 @@ def main():
     sm_path = site / "sitemap.xml"
     sm = sm_path.read_text(encoding="utf-8")
     entries = dict(re.findall(r"<loc>([^<]+)</loc><lastmod>([^<]+)</lastmod>", sm))
-    want_urls = {page_url(n): n for n in pages if n not in unlisted}
+    want_urls = {page_url(n, parsed[n].canonical): n for n in pages if n not in unlisted}
     new_entries = {}
     for url, name in sorted(want_urls.items(), key=lambda kv: (kv[0] != BASE, kv[0])):
         lastmod = entries.get(url)
