@@ -377,7 +377,7 @@ button { font-family: inherit; }
 }
 .cs-intro p:first-child { font-size: clamp(20px, 2vw, 24px); line-height: 1.45; letter-spacing: -0.01em; max-width: 30ch; color: var(--soft); }
 .cs-intro p:last-child { font-size: 16px; line-height: 1.65; max-width: 54ch; color: var(--muted); }
-.cs-hero-shot { margin: 0 0 var(--section-gap); }
+.cs-hero-shot { margin: 0 0 var(--section-gap); scroll-margin-top: 96px; }
 .cs-hero-frame { background: var(--panel); border: 1px solid var(--line); border-radius: 28px; padding: clamp(8px, 1.2vw, 14px); }
 .cs-hero-frame div { aspect-ratio: 16 / 10; overflow: hidden; border-radius: 18px; background: var(--bg); }
 .cs-hero-frame img { width: 100%; height: 100%; object-fit: cover; object-position: top left; }
