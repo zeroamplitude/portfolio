@@ -554,6 +554,12 @@ button { font-family: inherit; }
 .hl-four { grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr)); }
 .hl-four .role-agent h3 { margin-right: auto; }
 .hl-avatar { flex: none; width: 48px; height: 48px; border-radius: 12px; border: 1px solid var(--edge); }
+/* Tile colours from the demo's call screens. */
+.hl-avatar-sophie { background: #322d44; border-color: #6f5aa8; }
+.hl-avatar-priya { background: #213734; border-color: #3d8a6a; }
+.hl-avatar-marcus { background: #3a2d34; border-color: #9a4f55; }
+.hl-avatar-maya { background: #223241; border-color: #4a6aa0; }
+.hl-avatar-daniel { background: #3d322c; border-color: #8a6a3a; }
 .hl-avatars { display: flex; flex: none; }
 .hl-avatars .hl-avatar + .hl-avatar { margin-left: -12px; box-shadow: 0 0 0 3px var(--panel); }
 @media (max-width: 759px) {
