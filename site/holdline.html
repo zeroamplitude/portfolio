@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; frame-src https://www.loom.com; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Holdline case study — Nicholas De Souza</title>
 <meta name="description" content="Holdline: one ElevenLabs voice agent calls five passengers at once over Twilio, and two of them race for the last seat. Zero double bookings, two languages.">
@@ -83,7 +83,7 @@
     <h1 class="cs-title">One voice agent, five calls, <span>and one last seat.</span></h1>
     <div class="cs-intro">
       <p>What happens when one voice agent calls five passengers at the same time, and two of them ask for the last seat on the same flight?</p>
-      <p>Holdline is a technical experiment, not a product: a fictional airline and fictional passengers, built to find out how far ElevenLabs Agents can be pushed in one believable scenario, and which guarantees have to live outside the model. I did the concept, the agent design, the backend, the presentation layer and a 4:47 narrated demo of a real live run.</p>
+      <p>Holdline is a technical experiment, not a product: a fictional airline and fictional passengers, built to find out how far ElevenLabs Agents can be pushed in one believable scenario, and which guarantees have to live outside the model. I did the concept, the agent design, the backend, the presentation layer and the 4:47 narrated demo of a real live run below.</p>
     </div>
   </header>
 
@@ -97,9 +97,9 @@
 
   <figure class="cs-hero-shot">
     <div class="cs-hero-frame hl-frame">
-      <div><img src="assets/holdline/race.webp" alt="Split screen: Maya’s call holds the last 6:00 PM seat, Daniel’s call is told it sold out and moved to the 7:40 PM, with a shared inventory panel between them reading 1 → 0, full" width="1920" height="1080"></div>
+      <div><iframe src="https://www.loom.com/embed/b652ece7f2434416b4665fcfdf4347d7" title="Holdline: narrated demo of a live run with five concurrent calls" loading="lazy" allow="fullscreen; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>
     </div>
-    <figcaption>The last-seat race. Two calls ran in parallel and the 6:00 PM had one seat. The inventory service granted it to Maya; Daniel’s agent heard <code>sold_out</code> mid-call and moved him to the 7:40 PM.</figcaption>
+    <figcaption>The narrated demo (4:47): a real live run of all five calls. <a href="https://www.loom.com/share/b652ece7f2434416b4665fcfdf4347d7" target="_blank" rel="noopener">Watch on Loom ↗</a></figcaption>
   </figure>
 
   <section class="section">
@@ -204,6 +204,10 @@
     <div class="cs-text">
       <p>This is the core of the experiment. Maya and Daniel are on separate calls and both ask for the 6:00 PM. Neither conversation knows about the other. Both agents call <code>hold_seat</code>. One conditional SQL <code>UPDATE</code> decides, so only one request can ever take the seat.</p>
     </div>
+    <figure class="hl-wide hl-lead">
+      <div class="shot"><img src="assets/holdline/race.webp" alt="Split screen: Maya’s call holds the last 6:00 PM seat, Daniel’s call is told it sold out and moved to the 7:40 PM, with a shared inventory panel between them reading 1 → 0, full" width="1920" height="1080" loading="lazy"></div>
+      <figcaption>The last-seat race. The inventory service granted the seat to Maya; Daniel’s agent heard <code>sold_out</code> mid-call and moved him to the 7:40 PM.</figcaption>
+    </figure>
     <ol class="hl-log mono" aria-label="Tool calls in order">
       <li><span>maya</span> hold_seat AE458 6:00 PM → <b class="hl-ok">held</b> <span>1 → 0 seats</span></li>
       <li><span>daniel</span> hold_seat AE458 6:00 PM → <b class="hl-warn">sold_out</b></li>
