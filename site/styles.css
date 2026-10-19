@@ -519,6 +519,12 @@ button { font-family: inherit; }
 .principles h3 { font-size: 22px; line-height: 1.25; letter-spacing: -0.025em; }
 .principles p { font-size: 16px; line-height: 1.65; margin-top: 10px; color: var(--muted); }
 
+/* ---------- Case studies index ---------- */
+.card .cs-card-title { font-size: clamp(30px, 3.4vw, 44px); line-height: 1.08; letter-spacing: -0.035em; max-width: 16ch; }
+.cs-card-title span { color: #a8a8ae; }
+.cs-card-facts { list-style: none; display: flex; flex-wrap: wrap; gap: 8px 24px; margin: 24px 0 0; padding: 0; color: var(--muted); }
+.cs-card-facts strong { font-family: 'Geist', system-ui, sans-serif; font-size: 20px; font-weight: 500; margin-right: 6px; color: var(--fg); }
+
 /* ---------- Holdline case study ---------- */
 .page-case code {
   font-family: 'Geist Mono', monospace; font-size: 0.86em;
