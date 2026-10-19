@@ -2,8 +2,8 @@
 """Check pages as search engines see them: redirects, status, headers and on-page tags.
 
   live_check.py                         # every page in the sitemap, plus host/scheme redirects
-  live_check.py https://nicholasdesouza.com/case-study.html
-  live_check.py site/case-study.html    # a local file (tags only, no HTTP)
+  live_check.py https://nicholasdesouza.com/case-studies/digistax/
+  live_check.py site/case-studies/digistax/index.html    # a local file (tags only, no HTTP)
   live_check.py --json ...
 
 Each finding is (severity, message). "limited" means this environment could not
@@ -16,7 +16,7 @@ import urllib.parse
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-from _common import BASE, SITE, emit, fetch_chain, parse  # noqa: E402
+from _common import BASE, SITE, emit, fetch_chain, page_url, parse  # noqa: E402
 
 HOST = urllib.parse.urlparse(BASE).netloc
 
@@ -135,7 +135,10 @@ def main():
         if not re.match(r"^https?://", t):
             path = Path(t)
             p = parse(path.read_text(encoding="utf-8"))
-            url = BASE if path.name == "index.html" else BASE + path.name
+            try:
+                url = page_url(path.resolve().relative_to(SITE.resolve()).as_posix())
+            except ValueError:
+                url = BASE if path.name == "index.html" else BASE + path.name
             results.append({"url": str(path), "page": summary(p), "findings": tag_findings(p, url)})
         else:
             results.append(check_url(t))

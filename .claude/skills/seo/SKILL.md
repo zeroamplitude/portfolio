@@ -11,8 +11,8 @@ description: >
 
 # SEO skill for nicholasdesouza.com
 
-A personal portfolio: five indexable pages (`index.html`, `case-studies.html`,
-`case-study.html`, `holdline.html`, `gallery.html`) plus `404.html`, static HTML in `site/`. The goal is to rank
+A personal portfolio: five indexable pages (`index.html`, `case-studies/index.html`,
+`case-studies/digistax/index.html`, `case-studies/holdline/index.html`, `gallery.html`) plus `404.html`, static HTML in `site/`. The goal is to rank
 for Nicholas's name and what he does (AI agents, solution engineering,
 Digistax, Vowbird.ai), and to be described accurately by AI assistants.
 
@@ -60,7 +60,7 @@ does not need a score out of 100.
 ### 1. Audit ("check SEO", "run an SEO audit")
 
 1. `python3 .claude/hooks/seo-check.py --run`
-2. `live_check.py site/*.html`, then `live_check.py` (live; may be `limited`)
+2. `live_check.py $(find site -name "*.html")`, then `live_check.py` (live; may be `limited`)
 3. `robots_ai.py`, `gsc.py sitemaps`, `gsc.py inspect`, `gsc.py performance --by query` and `--by page`
 4. `pagespeed.py` (mobile), `external_links.py`
 5. Read each page yourself and judge, using `references/rules.md`: does the
@@ -89,6 +89,9 @@ character counts. Update `og:title`/`og:description` (and the Person
 
 1. Copy the `<head>` of an existing page: CSP meta, title, description,
    canonical, the OG/Twitter set, favicon links, `?v=dev` assets.
+   A new case study goes in `site/case-studies/<name>/index.html` (URL
+   `/case-studies/<name>/`) with root-absolute paths, plus a card on
+   `site/case-studies/index.html` and an entry in its `ItemList`.
 2. Make a 1200×630 link-preview JPEG in `site/assets/og/`. The case study's
    was rendered from an SVG in Chromium; give it a new filename, not a reused one.
 3. Add structured data if a type fits (`references/schema.md`). If the page is

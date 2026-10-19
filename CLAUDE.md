@@ -9,9 +9,11 @@ Nicholas De Souza's personal portfolio, live at https://nicholasdesouza.com. Pla
 HTML/CSS/JS in `site/` (no build step, no framework). Built from a Claude Design handoff.
 
 - `site/index.html` — home: hero, career highlights, Now building (Vowbird.ai, Digistax, Holdline), Past work, Resume, contact
-- `site/case-studies.html` — case studies index (nav "Case studies"): a summary card per case study linking to it. **When adding a case study, add a card here.**
-- `site/case-study.html` — Digistax case study
-- `site/holdline.html` — Holdline case study (voice-agent proof of concept, with an embedded Loom demo)
+- `site/case-studies/index.html` — case studies index at `/case-studies/` (nav "Case studies"): a summary card per case study linking to it. **When adding a case study, add a card here.**
+- `site/case-studies/digistax/index.html` — Digistax case study, `/case-studies/digistax/`
+- `site/case-studies/holdline/index.html` — Holdline case study, `/case-studies/holdline/` (voice-agent proof of concept, with an embedded Loom demo)
+- Case studies live at `/case-studies/<name>/` as `site/case-studies/<name>/index.html`. Pages in subfolders use root-absolute paths (`/styles.css?v=dev`, `/assets/…`, `/#now`); top-level pages keep relative ones
+- `site/case-study.html`, `site/holdline.html`, `site/case-studies.html` — redirect stubs for the old case study URLs (like `home.html`); kept out of the sitemap
 - `site/gallery.html` — screenshot gallery
 - `site/styles.css`, `site/main.js` — all styles and behaviour (mobile menu, contact form modal, carousels, click-to-enlarge lightbox)
 - `site/assets/` — images (screenshots are WebP; logos PNG; `og/` link-preview JPEGs), resume PDF
@@ -25,14 +27,14 @@ Preview locally: `cd site && python3 -m http.server`.
 ## Deploying
 
 - Pushing to `main` deploys via `.github/workflows/pages.yml` (GitHub Pages, custom domain, DNS on Cloudflare).
-- The workflow runs `tools/page_markdown.py`, which writes a Markdown copy of each indexable page (`site/<page>.md`, home is `index.md`) and `site/llms-full.txt`. They're gitignored; the SEO hook also generates them locally so converter failures show up before deploy.
+- The workflow runs `tools/page_markdown.py`, which writes a Markdown copy of each indexable page (`site/<page>.md`; a folder's `index.html` gets `index.md`) and `site/llms-full.txt`. They're gitignored; the SEO hook also generates them locally so converter failures show up before deploy.
 - The workflow rewrites `?v=dev` on `styles.css`/`main.js` URLs to the commit SHA (cache busting). Keep `?v=dev` in the HTML.
 - After deploying, the workflow notifies IndexNow (Bing, Yandex, …) with every URL in `sitemap.xml`. **When adding a page, add it to `sitemap.xml`.**
 - Actions are pinned to commit SHAs; update by resolving the new tag's SHA.
 
 ## Conventions and constraints
 
-- **Content Security Policy** (meta tag in every page's `<head>`): only self, Google Fonts, and Formspree. No inline scripts, no inline `style=""` attributes — put styles in `styles.css`. JSON-LD (`application/ld+json`) is fine. Pages with the "Copy page" menu also allow `connect-src 'self'` (it fetches the page's `.md`). `holdline.html` also allows `frame-src https://www.loom.com` for its embedded demo video; keep frame sources per page, not site-wide.
+- **Content Security Policy** (meta tag in every page's `<head>`): only self, Google Fonts, and Formspree. No inline scripts, no inline `style=""` attributes — put styles in `styles.css`. JSON-LD (`application/ld+json`) is fine. Pages with the "Copy page" menu also allow `connect-src 'self'` (it fetches the page's `.md`). The Holdline case study also allows `frame-src https://www.loom.com` for its embedded demo video; keep frame sources per page, not site-wide.
 - **"Copy page" menu** (home and both case studies; built by `main.js` from `<div class="copy-page" data-copy-page>`, add `copy-page-end` to right-align its menu): copy the page as Markdown, view the `.md`, open `llms-full.txt`, or open the page in Claude or ChatGPT. Add it to new text-heavy pages, not the gallery.
 - Match the existing design: dark theme, Geist / Geist Mono, lime accent `oklch(0.87 0.17 128)`. Mobile breakpoint is 760px; mobile content is **left-aligned** (centring was tried and reverted).
 - Home page has Person structured data, canonical URLs and Open Graph tags on each page — keep them in sync if titles/pages change.
