@@ -11,8 +11,8 @@ description: >
 
 # SEO skill for nicholasdesouza.com
 
-A personal portfolio: five indexable pages (`index.html`, `case-studies/index.html`,
-`case-studies/digistax/index.html`, `case-studies/holdline/index.html`, `gallery.html`) plus `404.html`, static HTML in `site/`. The goal is to rank
+A personal portfolio: five indexable pages (`index.html`, `case-studies.html`,
+`case-studies/digistax.html`, `case-studies/holdline.html`, `gallery.html`) plus `404.html`, static HTML in `site/`. The goal is to rank
 for Nicholas's name and what he does (AI agents, solution engineering,
 Digistax, Vowbird.ai), and to be described accurately by AI assistants.
 
@@ -89,9 +89,10 @@ character counts. Update `og:title`/`og:description` (and the Person
 
 1. Copy the `<head>` of an existing page: CSP meta, title, description,
    canonical, the OG/Twitter set, favicon links, `?v=dev` assets.
-   A new case study goes in `site/case-studies/<name>/index.html` (URL
-   `/case-studies/<name>/`) with root-absolute paths, plus a card on
-   `site/case-studies/index.html` and an entry in its `ItemList`.
+   A new case study goes in `site/case-studies/<name>.html` with the
+   extensionless URL `/case-studies/<name>` as its canonical, root-absolute
+   paths, a card on `site/case-studies.html` and an entry in its `ItemList`.
+   Add Cloudflare 301s for its `/` and `.html` forms (see CLAUDE.md).
 2. Make a 1200×630 link-preview JPEG in `site/assets/og/`. The case study's
    was rendered from an SVG in Chromium; give it a new filename, not a reused one.
 3. Add structured data if a type fits (`references/schema.md`). If the page is

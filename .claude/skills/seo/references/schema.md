@@ -12,8 +12,8 @@ Markup must describe what is visible on the page. The hook checks syntax,
   founder, alumniOf, address locality, knowsAbout, sameAs). Keep it in step
   with the resume section and the home description.
 
-- `case-studies/digistax/`, `case-studies/holdline/`: `Article`, with the author linked to `#person`.
-- `case-studies/`: `CollectionPage` with an `ItemList` of the case studies; add each new one.
+- `case-studies/digistax`, `case-studies/holdline`: `Article`, with the author linked to `#person`.
+- `case-studies`: `CollectionPage` with an `ItemList` of the case studies; add each new one.
 
 ## Patterns for new pages
 
@@ -50,7 +50,7 @@ Give entities stable `@id`s so pages can refer to each other:
     "name": "Nicholas De Souza",
     "url": "https://nicholasdesouza.com/"
   },
-  "mainEntityOfPage": "https://nicholasdesouza.com/case-studies/<name>/"
+  "mainEntityOfPage": "https://nicholasdesouza.com/case-studies/<name>"
 }
 ```
 

@@ -9,11 +9,11 @@ Nicholas De Souza's personal portfolio, live at https://nicholasdesouza.com. Pla
 HTML/CSS/JS in `site/` (no build step, no framework). Built from a Claude Design handoff.
 
 - `site/index.html` — home: hero, career highlights, Now building (Vowbird.ai, Digistax, Holdline), Past work, Resume, contact
-- `site/case-studies/index.html` — case studies index at `/case-studies/` (nav "Case studies"): a summary card per case study linking to it. **When adding a case study, add a card here.**
-- `site/case-studies/digistax/index.html` — Digistax case study, `/case-studies/digistax/`
-- `site/case-studies/holdline/index.html` — Holdline case study, `/case-studies/holdline/` (voice-agent proof of concept, with an embedded Loom demo)
-- Case studies live at `/case-studies/<name>/` as `site/case-studies/<name>/index.html`. Pages in subfolders use root-absolute paths (`/styles.css?v=dev`, `/assets/…`, `/#now`); top-level pages keep relative ones
-- `site/case-study.html`, `site/holdline.html`, `site/case-studies.html` — redirect stubs for the old case study URLs (like `home.html`); kept out of the sitemap
+- `site/case-studies.html` — case studies index at `/case-studies` (nav "Case studies"): a summary card per case study linking to it. **When adding a case study, add a card here.**
+- `site/case-studies/digistax.html` — Digistax case study, `/case-studies/digistax`
+- `site/case-studies/holdline.html` — Holdline case study, `/case-studies/holdline` (voice-agent proof of concept, with an embedded Loom demo)
+- Case studies use **extensionless URLs without a trailing slash** (`/case-studies/<name>`, served from `site/case-studies/<name>.html`; GitHub Pages serves `x.html` at `/x`). Canonical, `og:url`, JSON-LD and links use the extensionless form; the hook accepts it. The case study pages and the index use root-absolute paths (`/styles.css?v=dev`, `/assets/…`, `/#now`); other pages keep relative ones. Cloudflare 301s `/case-studies/` and `/case-studies/<name>/` and `.html` forms to the clean URL
+- `site/case-study.html`, `site/holdline.html` — redirect stubs for the old case study URLs (like `home.html`); kept out of the sitemap
 - `site/gallery.html` — screenshot gallery
 - `site/styles.css`, `site/main.js` — all styles and behaviour (mobile menu, contact form modal, carousels, click-to-enlarge lightbox)
 - `site/assets/` — images (screenshots are WebP; logos PNG; `og/` link-preview JPEGs), resume PDF
@@ -22,7 +22,7 @@ HTML/CSS/JS in `site/` (no build step, no framework). Built from a Claude Design
 - `site/llms.txt` — Markdown summary for AI assistants; regenerate with the SEO skill's `llms_txt.py`, then hand-edit
 - `site/0f1689ce29c9b84210c0f147231fdff8.txt` — IndexNow key file (public by design; keep it)
 
-Preview locally: `cd site && python3 -m http.server`.
+Preview locally: `python3 tools/serve.py` (serves `site/` like GitHub Pages, so extensionless URLs such as `/case-studies/holdline` work).
 
 ## Deploying
 

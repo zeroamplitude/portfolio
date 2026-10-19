@@ -37,7 +37,7 @@ CRAWLERS = [
     ("CCBot", "Common Crawl", "open dataset used for training"),
     ("Bytespider", "ByteDance", "training"),
 ]
-DEFAULT_PATHS = ["/", "/case-studies/digistax/", "/assets/Nicholas-De-Souza-Resume.pdf"]
+DEFAULT_PATHS = ["/", "/case-studies/digistax", "/assets/Nicholas-De-Souza-Resume.pdf"]
 
 
 def main():
