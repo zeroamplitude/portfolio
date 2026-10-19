@@ -75,13 +75,13 @@
     <div class="cs-tags mono">
       <span class="pill pill-lime">Case study</span>
       <span class="pill">Holdline</span>
-      <span class="pill">Experiment</span>
+      <span class="pill">Proof of concept</span>
       <div class="copy-page copy-page-end" data-copy-page></div>
     </div>
     <h1 class="cs-title">One voice agent, five calls, <span>and one last seat.</span></h1>
     <div class="cs-intro">
       <p>What happens when one voice agent calls five passengers at the same time, and two of them ask for the last seat on the same flight?</p>
-      <p>Holdline is a technical experiment, not a product: a fictional airline and fictional passengers, built to find out how far ElevenLabs Agents can be pushed in one believable scenario, and which guarantees have to live outside the model. I did the concept, the agent design, the backend, the presentation layer and the 4:47 narrated demo of a real live run below.</p>
+      <p>Holdline is a proof of concept, not a product: a fictional airline and fictional passengers, built to find out how far ElevenLabs Agents can be pushed in one believable scenario, and which guarantees have to live outside the model. I did the concept, the agent design, the backend, the presentation layer and the 4:47 narrated demo of a real live run below.</p>
     </div>
   </header>
 
@@ -200,7 +200,7 @@
       <span class="mono">06 · Coordinate</span>
     </div>
     <div class="cs-text">
-      <p>This is the core of the experiment. Maya and Daniel are on separate calls and both ask for the 6:00 PM. Neither conversation knows about the other. Both agents call <code>hold_seat</code>. One conditional SQL <code>UPDATE</code> decides, so only one request can ever take the seat.</p>
+      <p>This is the core of the proof of concept. Maya and Daniel are on separate calls and both ask for the 6:00 PM. Neither conversation knows about the other. Both agents call <code>hold_seat</code>. One conditional SQL <code>UPDATE</code> decides, so only one request can ever take the seat.</p>
     </div>
     <figure class="hl-wide hl-lead">
       <div class="shot"><img src="assets/holdline/race.webp" alt="Split screen: Maya’s call holds the last 6:00 PM seat, Daniel’s call is told it sold out and moved to the 7:40 PM, with a shared inventory panel between them reading 1 → 0, full" width="1920" height="1080" loading="lazy"></div>
@@ -232,7 +232,7 @@
     </div>
     <figure class="hl-wide">
       <div class="shot"><img src="assets/holdline/architecture.webp" alt="Architecture: disruption event, telephony, ElevenLabs Agents with Airy and the Accessibility Agent, Salesforce, API middleware, and the reservations and inventory service" width="1920" height="1080" loading="lazy"></div>
-      <figcaption>Architecture. Solid lines were built for the experiment; dashed ones show where a real airline’s systems would sit.</figcaption>
+      <figcaption>Architecture. Solid lines were built for the proof of concept; dashed ones show where a real airline’s systems would sit.</figcaption>
     </figure>
     <div class="hl-pair">
       <figure><div class="shot"><img src="assets/holdline/el-tools.webp" alt="ElevenLabs dashboard: the tools Airy can call" width="1920" height="1080" loading="lazy"></div><figcaption>The ElevenLabs workspace. The tools Airy can call.</figcaption></figure>
@@ -277,7 +277,7 @@
       <span class="mono">10 · Scope</span>
     </div>
     <div class="cs-text">
-      <p>Holdline is an experiment, not an airline product. The airline, passengers and flights are fictional, and the inventory service is a stand-in for a real reservation system. Taking it further would mean Postgres instead of SQLite, batch calling with a priority engine (connection risk, fare class, loyalty), staged agent versions, and real operator authentication.</p>
+      <p>Holdline is a proof of concept, not an airline product. The airline, passengers and flights are fictional, and the inventory service is a stand-in for a real reservation system. Taking it further would mean Postgres instead of SQLite, batch calling with a priority engine (connection risk, fare class, loyalty), staged agent versions, and real operator authentication.</p>
     </div>
     <figure class="hl-wide">
       <div class="shot"><img src="assets/holdline/close.webp" alt="Closing screen: Air Eleven, disruption resolved, with each passenger’s outcome" width="1920" height="1080" loading="lazy"></div>

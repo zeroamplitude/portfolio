@@ -17,7 +17,7 @@
 
 - [Vowbird.ai](https://vowbird.ai): A wedding planner that does the tedious parts for you: one shared guest list, RSVPs that chase themselves, and invitations where an assistant answers guest questions. Free in early access.
 - Digistax: Founded in 2018 as a service automation firm; now a prototype software agency where every task runs as a graph of AI agents, with a person approving every price, merge, deploy and email. See the case study above.
-- Holdline: A voice-agent experiment with a fictional airline. One ElevenLabs agent rebooks five passengers over concurrent Twilio calls (French and English, a handoff to a specialist agent, CRM context from Salesforce over MCP), while a separate inventory service guarantees no seat is promised twice. See the Holdline case study above.
+- Holdline: A voice-agent proof of concept (POC) with a fictional airline. One ElevenLabs agent rebooks five passengers over concurrent Twilio calls (French and English, a handoff to a specialist agent, CRM context from Salesforce over MCP), while a separate inventory service guarantees no seat is promised twice. See the Holdline case study above.
 
 ## Elsewhere
 
