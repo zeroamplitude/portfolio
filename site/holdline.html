@@ -6,11 +6,11 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; frame-src https://www.loom.com; base-uri 'self'; object-src 'none'; upgrade-insecure-requests">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Holdline case study — Nicholas De Souza</title>
-<meta name="description" content="Holdline: one ElevenLabs voice agent calls five passengers at once over Twilio, and two of them race for the last seat. Zero double bookings, two languages.">
+<meta name="description" content="Holdline: an ElevenLabs voice agent rebooks every passenger on a cancelled flight at once, in two languages, in under three minutes, with no double bookings.">
 <meta name="theme-color" content="#0b0b0c">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Holdline case study — Nicholas De Souza">
-<meta property="og:description" content="One voice agent, five calls at once, and one last seat.">
+<meta property="og:description" content="One-to-one service at disruption scale: five passengers rebooked concurrently, with zero double bookings.">
 <link rel="canonical" href="https://nicholasdesouza.com/holdline.html">
 <meta property="og:url" content="https://nicholasdesouza.com/holdline.html">
 <meta property="og:site_name" content="Nicholas De Souza">
@@ -22,8 +22,8 @@
 {
   "@context": "https://schema.org",
   "@type": "Article",
-  "headline": "One voice agent, five calls, and one last seat.",
-  "description": "Holdline: one ElevenLabs voice agent calls five passengers at once over Twilio, and two of them race for the last seat. Zero double bookings, two languages.",
+  "headline": "One-to-one service, at disruption scale.",
+  "description": "Holdline: an ElevenLabs voice agent rebooks every passenger on a cancelled flight at once, in two languages, in under three minutes, with no double bookings.",
   "image": "https://nicholasdesouza.com/assets/og/holdline-race.jpg",
   "datePublished": "2026-10-19",
   "dateModified": "2026-10-19",
@@ -78,18 +78,18 @@
       <span class="pill">Proof of concept</span>
       <div class="copy-page copy-page-end" data-copy-page></div>
     </div>
-    <h1 class="cs-title">One voice agent, five calls, <span>and one last seat.</span></h1>
+    <h1 class="cs-title">One-to-one service, <span>at disruption scale.</span></h1>
     <div class="cs-intro">
-      <p>What happens when one voice agent calls five passengers at the same time, and two of them ask for the last seat on the same flight?</p>
-      <p>Holdline is a proof of concept, not a product: a fictional airline and fictional passengers, built to find out how far ElevenLabs Agents can be pushed in one believable scenario, and which guarantees have to live outside the model. I did the concept, the agent design, the backend, the presentation layer and the 4:47 narrated demo of a real live run below.</p>
+      <p>When a flight is cancelled, the hard problem isn’t one conversation. It’s resolving every passenger safely, concurrently and personally.</p>
+      <p>Holdline is a proof of concept for a fictional airline, Air Eleven. One voice agent built on ElevenLabs Agents calls every affected passenger at once, rebooks them in their own language, hands off to a specialist when needed, and never promises the same seat twice. I designed and built it end to end: the agents, the reservation service, the CRM integration and the 4:47 narrated demo of a real live run below.</p>
     </div>
   </header>
 
   <section aria-label="At a glance" class="cs-outcome">
     <div class="stats stats-3">
-      <div class="stat"><div class="stat-num stat-num-lime">5</div><p>calls placed at once by one agent, over Twilio</p></div>
-      <div class="stat"><div class="stat-num">0</div><p>double bookings when two callers raced for one seat</p></div>
-      <div class="stat"><div class="stat-num">2</div><p>languages, switched mid-call in the same conversation</p></div>
+      <div class="stat"><div class="stat-num stat-num-lime">5</div><p>concurrent calls from one disruption event</p></div>
+      <div class="stat"><div class="stat-num">&lt;3 min</div><p>to resolve every passenger</p></div>
+      <div class="stat"><div class="stat-num">0</div><p>double bookings, with two callers racing for one seat</p></div>
     </div>
   </section>
 
@@ -102,33 +102,34 @@
 
   <section class="section">
     <div class="sec-head">
-      <h2>Where does the agent stop and the system start?</h2>
+      <h2>The challenge</h2>
       <span class="mono">01</span>
     </div>
     <div class="cs-text">
-      <p>Most voice-agent demos are one call with one person. The interesting failures show up when many calls share something real, like seat inventory.</p>
-      <p>The scenario: a fictional airline, Air Eleven, cancels the 4:00 PM from Toronto to Vancouver. Five passengers need rebooking onto two later flights, a 6:00 PM with very few seats and a 7:40 PM with five. One agent, Airy, calls all five at once. Each passenger tests a different capability.</p>
+      <p>At 10 a.m., Air Eleven cancels the 4:00 PM from Toronto to Vancouver. Five passengers now compete for two later departures: a 6:00 PM with very few seats left and a 7:40 PM with five.</p>
+      <p>Most voice-agent demos are one call with one person. Disruption recovery isn’t: every call happens at the same time, every passenger needs something different, and they all draw on the same seats. Each passenger here stands for a requirement a real airline would have.</p>
     </div>
     <div class="roster hl-four">
-      <article class="role-agent"><div><img class="hl-avatar" src="assets/holdline/avatar-sophie.webp" alt="Illustrated portrait of Sophie" width="62" height="62"><h3>Sophie</h3><span class="pill">Understand</span></div><p>Prefers French. Can the same agent switch language mid-call without a separate queue?</p></article>
-      <article class="role-agent"><div><img class="hl-avatar" src="assets/holdline/avatar-priya.webp" alt="Illustrated portrait of Priya" width="62" height="62"><h3>Priya</h3><span class="pill">Help</span></div><p>Needs wheelchair assistance. Can the agent verify her, hold a seat and hand over to a specialist agent without her repeating herself?</p></article>
-      <article class="role-agent"><div><img class="hl-avatar" src="assets/holdline/avatar-marcus.webp" alt="Illustrated portrait of Marcus" width="62" height="62"><h3>Marcus</h3><span class="pill">Know</span></div><p>Angry, and wants cash and an upgrade. Do guardrails hold, and can live CRM context make the answer personal?</p></article>
-      <article class="role-agent"><div><span class="hl-avatars"><img class="hl-avatar" src="assets/holdline/avatar-maya.webp" alt="Illustrated portrait of Maya" width="62" height="62"><img class="hl-avatar" src="assets/holdline/avatar-daniel.webp" alt="Illustrated portrait of Daniel" width="62" height="62"></span><h3>Maya and Daniel</h3><span class="pill">Coordinate</span></div><p>Both want the last 6:00 PM seat. Can two independent conversations share one source of truth with zero double bookings?</p></article>
+      <article class="role-agent"><div><img class="hl-avatar" src="assets/holdline/avatar-sophie.webp" alt="Illustrated portrait of Sophie" width="62" height="62"><h3>Sophie</h3><span class="pill">Multilingual</span></div><p>Her first language is French. The same live conversation has to adapt to her, without a separate queue.</p></article>
+      <article class="role-agent"><div><img class="hl-avatar" src="assets/holdline/avatar-priya.webp" alt="Illustrated portrait of Priya" width="62" height="62"><h3>Priya</h3><span class="pill">Handoff</span></div><p>She needs wheelchair assistance. Rebooking alone isn’t enough, and a specialist handoff shouldn’t make her repeat her story.</p></article>
+      <article class="role-agent"><div><img class="hl-avatar" src="assets/holdline/avatar-marcus.webp" alt="Illustrated portrait of Marcus" width="62" height="62"><h3>Marcus</h3><span class="pill">CRM + policy</span></div><p>He wants cash compensation and a business upgrade. Personalisation has to stay inside policy.</p></article>
+      <article class="role-agent"><div><span class="hl-avatars"><img class="hl-avatar" src="assets/holdline/avatar-maya.webp" alt="Illustrated portrait of Maya" width="62" height="62"><img class="hl-avatar" src="assets/holdline/avatar-daniel.webp" alt="Illustrated portrait of Daniel" width="62" height="62"></span><h3>Maya and Daniel</h3><span class="pill">Concurrency</span></div><p>Both want the last seat on the 6:00 PM, on separate calls. Only one of them can get it.</p></article>
     </div>
     <div class="hl-pair">
       <figure><div class="shot"><img src="assets/holdline/stakes.webp" alt="The setup: five passengers, two flights, one shared source of truth" width="1920" height="1080" loading="lazy"></div><figcaption>The setup. Five passengers, two flights, one shared source of truth.</figcaption></figure>
-      <figure><div class="shot"><img src="assets/holdline/outreach.webp" alt="Outreach: calling 5 of 5, five tiles moving from dialing to connected" width="1920" height="1080" loading="lazy"></div><figcaption>One event, five calls. The cancellation triggers five outbound calls over Twilio at once.</figcaption></figure>
+      <figure><div class="shot"><img src="assets/holdline/outreach.webp" alt="Outreach: calling 5 of 5, five tiles moving from dialing to connected" width="1920" height="1080" loading="lazy"></div><figcaption>The trigger. One disruption event, five concurrent outbound calls over Twilio.</figcaption></figure>
     </div>
   </section>
 
   <section class="section">
     <div class="sec-head">
-      <h2>No humans on the line</h2>
+      <h2>The approach</h2>
       <span class="mono">02</span>
     </div>
     <div class="cs-text">
-      <p>A live test needs someone to pick up the phone. Instead, each passenger is an ElevenLabs agent too, with its own persona prompt, voice and Twilio number. Airy dials real phone numbers and talks to other agents over the public phone network. Nobody is on any call, so I could rerun the whole scenario as often as I wanted.</p>
-      <p>The rule I kept from day one: <strong>the model is never the source of truth for inventory.</strong> Airy can only promise what a small FastAPI and SQLite service grants through webhook tools. The agent decides how to talk. The service decides who gets the seat.</p>
+      <p>Airy, the rebooking agent, calls all five passengers at once. Each conversation is independent; the seat inventory is not. Every call works against one authoritative reservation service.</p>
+      <p>That split is the core design rule: <strong>the model is never the source of truth for inventory.</strong> Airy can only promise what the reservation service grants through server tools. The agent decides how to talk; the service decides who gets the seat.</p>
+      <p>To test it without people on the line, each passenger is an ElevenLabs agent too, with its own persona, voice and phone number. Airy dials real numbers and talks to them over the public phone network, so the whole scenario can be rerun on demand.</p>
     </div>
     <div class="roster">
       <article class="role-agent"><div><h3>Airy</h3></div><p>The rebooking agent. Calls, verifies, offers flights, holds and confirms seats.</p><p class="hl-uses">Outbound calls via Twilio, dynamic variables, webhook tools, guardrails, language detection</p></article>
@@ -143,10 +144,10 @@
   <section class="section">
     <div class="sec-head">
       <h2>Same call, her language</h2>
-      <span class="mono">03 · Understand</span>
+      <span class="mono">03 · Multilingual</span>
     </div>
     <div class="cs-text">
-      <p>Airy opens in English. Sophie answers in French. The agent detects the language and carries on in French in the same call, including the identity check where she spells her surname letter by letter.</p>
+      <p>Airy opens in English. When Sophie answers in French, the same live conversation adapts. ElevenLabs Scribe transcribes her French, and Airy carries on with the same voice, tools and session context, including the identity check where she spells her surname letter by letter. One workflow, now in Sophie’s language.</p>
     </div>
     <div class="hl-pair">
       <figure><div class="shot"><img src="assets/holdline/sophie-live.webp" alt="Sophie’s call live: language detected as French, Airy speaking French, with a translation underneath" width="1920" height="1080" loading="lazy"></div><figcaption>Mid-call. Language detected, Airy carries on in French, with a live translation for the viewer.</figcaption></figure>
@@ -161,10 +162,10 @@
   <section class="section">
     <div class="sec-head">
       <h2>She said it once</h2>
-      <span class="mono">04 · Help</span>
+      <span class="mono">04 · Specialist handoff</span>
     </div>
     <div class="cs-text">
-      <p>Priya mentions her wheelchair once. Airy verifies her, holds the 6:00 PM and transfers the call to a separate Accessibility Agent. The specialist greets her by name and already knows the seat and the need.</p>
+      <p>Priya mentions her wheelchair once. Airy verifies her and holds a seat on the 6:00 PM <em>before</em> transferring the live call, so the seat can’t be lost during the handoff. ElevenLabs carries the conversation context into a separate Accessibility Agent, which greets her by name and already knows her flight and her need. Priya said it once.</p>
     </div>
     <div class="hl-pair">
       <figure><div class="shot"><img src="assets/holdline/priya-handoff.webp" alt="Priya’s call after the transfer: the Accessibility Agent speaking, with a handover panel showing context from Airy: verified, 6:00 PM held, mobility assistance" width="1920" height="1080" loading="lazy"></div><figcaption>After the handoff. The specialist opens with her name, her flight and her need.</figcaption></figure>
@@ -179,10 +180,10 @@
   <section class="section">
     <div class="sec-head">
       <h2>Policy held. He still said yes.</h2>
-      <span class="mono">05 · Know</span>
+      <span class="mono">05 · CRM + policy</span>
     </div>
     <div class="cs-text">
-      <p>Marcus has a wedding tomorrow and wants cash compensation and a free business upgrade. Guardrails stop Airy from promising either. Airy logs the request for customer care, then reads his profile from Salesforce over MCP and offers a window seat, his saved preference.</p>
+      <p>Marcus has a wedding tomorrow and wants cash compensation and a free business upgrade. Airy never promises the exception. It logs the request for customer care, pulls his profile from Salesforce and offers a window seat on the 6:00 PM, his saved preference. He still says yes.</p>
     </div>
     <div class="hl-pair">
       <figure><div class="shot"><img src="assets/holdline/marcus-live.webp" alt="Marcus’s call live: “Hold on. After this mess, I want cash compensation and a free upgrade”" width="1920" height="1080" loading="lazy"></div><figcaption>The demand. Cash and a business upgrade.</figcaption></figure>
@@ -197,10 +198,10 @@
   <section class="section">
     <div class="sec-head">
       <h2>One seat, one promise</h2>
-      <span class="mono">06 · Coordinate</span>
+      <span class="mono">06 · Concurrency</span>
     </div>
     <div class="cs-text">
-      <p>This is the core of the proof of concept. Maya and Daniel are on separate calls and both ask for the 6:00 PM. Neither conversation knows about the other. Both agents call <code>hold_seat</code>. One conditional SQL <code>UPDATE</code> decides, so only one request can ever take the seat.</p>
+      <p>The concurrency test. Maya and Daniel are on separate calls and both ask for the last seat on the 6:00 PM. The conversations are independent; the inventory isn’t. Both calls reach <code>hold_seat</code>, and one atomic hold in the reservation service (a single conditional SQL <code>UPDATE</code>) decides, so only one request can ever take the seat. Maya’s hold lands first. Daniel hears the seat has sold out and recovers to the 7:40 PM in the same call.</p>
     </div>
     <figure class="hl-wide hl-lead">
       <div class="shot"><img src="assets/holdline/race.webp" alt="Split screen: Maya’s call holds the last 6:00 PM seat, Daniel’s call is told it sold out and moved to the 7:40 PM, with a shared inventory panel between them reading 1 → 0, full" width="1920" height="1080" loading="lazy"></div>
@@ -224,29 +225,31 @@
 
   <section class="section">
     <div class="sec-head">
-      <h2>Configuration as code</h2>
+      <h2>Architecture</h2>
       <span class="mono">07 · Under the hood</span>
     </div>
     <div class="cs-text">
-      <p>Every prompt, tool schema and agent setting lives in the repository and is pushed to ElevenLabs by a sync script, so a prompt change is a reviewed diff with tests, not a click in a dashboard. The demo ends in the real ElevenLabs workspace to show that what you saw is what is configured.</p>
+      <p>Each layer owns one job. Twilio handles telephony. ElevenLabs Agents runs the conversation layer. Salesforce provides customer context. The reservation service owns inventory and atomic holds.</p>
+      <p>Inside ElevenLabs, Airy uses verification, CRM, booking and transfer tools. Trusted context is bound to each call through dynamic variables. Only after the passenger is verified do server tools like <code>hold_seat</code> transact against the inventory service, and each conversation record shows those tool calls succeeding.</p>
+      <p>Every prompt, tool schema and agent setting lives in the repository and is pushed to ElevenLabs by a sync script, so a prompt change is a reviewed diff with tests, not a click in a dashboard.</p>
     </div>
     <figure class="hl-wide">
       <div class="shot"><img src="assets/holdline/architecture.webp" alt="Architecture: disruption event, telephony, ElevenLabs Agents with Airy and the Accessibility Agent, Salesforce, API middleware, and the reservations and inventory service" width="1920" height="1080" loading="lazy"></div>
       <figcaption>Architecture. Solid lines were built for the proof of concept; dashed ones show where a real airline’s systems would sit.</figcaption>
     </figure>
     <div class="hl-pair">
-      <figure><div class="shot"><img src="assets/holdline/el-tools.webp" alt="ElevenLabs dashboard: the tools Airy can call" width="1920" height="1080" loading="lazy"></div><figcaption>The ElevenLabs workspace. The tools Airy can call.</figcaption></figure>
-      <figure><div class="shot"><img src="assets/holdline/el-conversation.webp" alt="ElevenLabs conversation view showing tool calls that succeeded during a real call" width="1920" height="1080" loading="lazy"></div><figcaption>A real conversation. Tool calls logged and succeeded.</figcaption></figure>
+      <figure><div class="shot"><img src="assets/holdline/el-tools.webp" alt="ElevenLabs dashboard: the tools Airy can call" width="1920" height="1080" loading="lazy"></div><figcaption>The ElevenLabs workspace: verification, CRM, booking and transfer tools.</figcaption></figure>
+      <figure><div class="shot"><img src="assets/holdline/el-conversation.webp" alt="ElevenLabs conversation view showing tool calls that succeeded during a real call" width="1920" height="1080" loading="lazy"></div><figcaption>A conversation record confirming the tool calls ran.</figcaption></figure>
     </div>
   </section>
 
   <section class="section">
     <div class="sec-head">
-      <h2>Five calls, five outcomes</h2>
+      <h2>Five passengers resolved in under three minutes</h2>
       <span class="mono">08 · Results</span>
     </div>
     <div class="stats hl-results">
-      <div class="stat"><div class="stat-num">5</div><p>passengers contacted</p></div>
+      <div class="stat"><div class="stat-num">5</div><p>passengers resolved</p></div>
       <div class="stat"><div class="stat-num">4</div><p>rebooked automatically</p></div>
       <div class="stat"><div class="stat-num">1</div><p>specialist handoff</p></div>
       <div class="stat"><div class="stat-num stat-num-lime">0</div><p>double bookings</p></div>
@@ -273,11 +276,12 @@
 
   <section class="section">
     <div class="sec-head">
-      <h2>What this is not</h2>
-      <span class="mono">10 · Scope</span>
+      <h2>Outcome</h2>
+      <span class="mono">10 · Outcome and scope</span>
     </div>
     <div class="cs-text">
-      <p>Holdline is a proof of concept, not an airline product. The airline, passengers and flights are fictional, and the inventory service is a stand-in for a real reservation system. Taking it further would mean Postgres instead of SQLite, batch calling with a priority engine (connection risk, fare class, loyalty), staged agent versions, and real operator authentication.</p>
+      <p>The result is one-to-one service at disruption scale: personalised conversations, deterministic controls, and no tradeoff between customer experience and operational integrity.</p>
+      <p>Holdline is a proof of concept, not an airline product. The airline, passengers and flights are fictional, and the inventory service stands in for a real reservation system. Taking it to production would mean Postgres instead of SQLite, batch calling with a priority engine (connection risk, fare class, loyalty), staged agent versions and real operator authentication.</p>
     </div>
     <figure class="hl-wide">
       <div class="shot"><img src="assets/holdline/close.webp" alt="Closing screen: Air Eleven, disruption resolved, with each passenger’s outcome" width="1920" height="1080" loading="lazy"></div>
