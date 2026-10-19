@@ -15,6 +15,15 @@
   $$('a', menu).forEach(a => a.addEventListener('click', () => setMenu(false)));
   matchMedia('(min-width: 760px)').addEventListener('change', e => { if (e.matches) setMenu(false); });
 
+  /* ---------- Name link: on the home page, scroll to the top instead of reloading ---------- */
+  const brand = $('.brand');
+  brand.addEventListener('click', e => {
+    if (new URL(brand.href).pathname !== location.pathname) return;
+    e.preventDefault();
+    history.replaceState(null, '', location.pathname + location.search);  // drop any #section
+    scrollTo({ top: 0 });  // smooth unless reduced motion (html { scroll-behavior })
+  });
+
   /* ---------- Contact form modal ---------- */
   // Every page gets the same modal; the case study overrides the heading via data attributes.
   const title = document.body.dataset.formTitle || 'Let’s talk';
