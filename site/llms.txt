@@ -5,10 +5,10 @@
 ## Pages
 
 - [Home](https://nicholasdesouza.com/): Career highlights, current projects (Vowbird.ai, Digistax, Holdline), past work and a ten-year career summary.
-- [Case studies](https://nicholasdesouza.com/case-studies/): Index of the case studies, with a summary of each: Digistax and Holdline.
-- [Digistax case study](https://nicholasdesouza.com/case-studies/digistax/): How Digistax, a prototype software agency, runs every task as a graph of AI agents: orchestrators, nine role agents and a person approving every gate.
+- [Case studies](https://nicholasdesouza.com/case-studies): Index of the case studies, with a summary of each: Digistax and Holdline.
+- [Digistax case study](https://nicholasdesouza.com/case-studies/digistax): How Digistax, a prototype software agency, runs every task as a graph of AI agents: orchestrators, nine role agents and a person approving every gate.
   Sections: The whole pipeline; The nine role agents; One request, start to finish; The same desk, on a phone; Anatomy of a job; Two validators who never meet; The graph decides who pays; Design principles
-- [Holdline case study](https://nicholasdesouza.com/case-studies/holdline/): Holdline: an ElevenLabs voice agent rebooks every passenger on a cancelled flight at once, in two languages, in under three minutes, with no double bookings.
+- [Holdline case study](https://nicholasdesouza.com/case-studies/holdline): Holdline: an ElevenLabs voice agent rebooks every passenger on a cancelled flight at once, in two languages, in under three minutes, with no double bookings.
   Sections: The challenge; The approach; Same call, her language; She said it once; Policy held. He still said yes; One seat, one promise; Architecture; Five passengers resolved in under three minutes; What I learned; Outcome
 - [Product screenshot gallery](https://nicholasdesouza.com/gallery.html): Product screenshots from Vowbird.ai, the Digistax agent workspace, the Holdline voice-agent demo, Review Loop and the TMLP Statistics Platform.
   Sections: Vowbird.ai; Digistax; Holdline; Review Loop; TMLP Statistics Platform
@@ -27,4 +27,4 @@
 ## Optional
 
 - [Full site as Markdown](https://nicholasdesouza.com/llms-full.txt): every page's text in one file
-- Each page also has a Markdown copy: replace .html with .md, or add index.md to a URL ending in / (the home page is /index.md)
+- Each page also has a Markdown copy: replace .html with .md, or add .md to a URL without an extension (the home page is /index.md)
