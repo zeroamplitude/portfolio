@@ -3,7 +3,7 @@
 
   robots_ai.py                  # site/robots.txt in this repo
   robots_ai.py --live           # https://nicholasdesouza.com/robots.txt
-  robots_ai.py --path /gallery.html --json
+  robots_ai.py --path /gallery --json
 
 Remember how groups work: a crawler obeys only the most specific User-agent
 group that names it. Adding "User-agent: GPTBot / Allow: /" would drop the

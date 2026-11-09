@@ -14,7 +14,7 @@ HTML/CSS/JS in `site/` (no build step, no framework). Built from a Claude Design
 - `site/case-studies/holdline.html` — Holdline case study, `/case-studies/holdline` (voice-agent proof of concept, with an embedded Loom demo)
 - Case studies use **extensionless URLs without a trailing slash** (`/case-studies/<name>`, served from `site/case-studies/<name>.html`; GitHub Pages serves `x.html` at `/x`). Canonical, `og:url`, JSON-LD and links use the extensionless form; the hook accepts it. The case study pages and the index use root-absolute paths (`/styles.css?v=dev`, `/assets/…`, `/#now`); other pages keep relative ones. Cloudflare 301s `/case-studies/` and `/case-studies/<name>/` and `.html` forms to the clean URL
 - `site/case-study.html`, `site/holdline.html` — redirect stubs for the old case study URLs (like `home.html`); kept out of the sitemap
-- `site/gallery.html` — screenshot gallery
+- `site/gallery.html` — screenshot gallery at `/gallery` (extensionless, like the case studies; Cloudflare 301s `/gallery.html` and `/gallery/` to it)
 - `site/styles.css`, `site/main.js` — all styles and behaviour (mobile menu, contact form modal, carousels, click-to-enlarge lightbox)
 - `site/assets/` — images (screenshots are WebP; logos PNG; `og/` link-preview JPEGs), resume PDF
 - `site/robots.txt` (blocks only the resume PDF; all search and AI crawlers are allowed by choice), `site/sitemap.xml`, `site/404.html`

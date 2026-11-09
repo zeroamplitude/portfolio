@@ -12,7 +12,7 @@ description: >
 # SEO skill for nicholasdesouza.com
 
 A personal portfolio: five indexable pages (`index.html`, `case-studies.html`,
-`case-studies/digistax.html`, `case-studies/holdline.html`, `gallery.html`) plus `404.html`, static HTML in `site/`. The goal is to rank
+`case-studies/digistax.html`, `case-studies/holdline.html`, `gallery.html` at `/gallery`) plus `404.html`, static HTML in `site/`. The goal is to rank
 for Nicholas's name and what he does (AI agents, solution engineering,
 Digistax, Vowbird.ai), and to be described accurately by AI assistants.
 
